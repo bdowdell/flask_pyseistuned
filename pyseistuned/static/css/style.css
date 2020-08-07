@@ -1,6 +1,7 @@
 h1 {
     border: 2px #eee solid;
-    color: brown;
+    color: #656565;
     text-align: center;
     padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
 }
