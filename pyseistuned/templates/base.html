@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+Copyright 2020, Benjamin L. Dowdell
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -11,7 +26,7 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" href="{{ url_for('index')}}">
             <img src="../static/img/wedge.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
             PySeisTuned<sup>2.0</sup>
@@ -28,7 +43,19 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footer" aria-controls="footer" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="footer">
+            <div class="navbar-nav">
+                <a class="nav-link" href="https://github.com/bdowdell/flask_pyseistuned/blob/master/LICENSE">
+                    Copyright 2020, Benjamin L. Dowdell</a>
+                <a class="nav-link" href="#">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="padding-top:60px; padding-bottom:50px">
         {% block content %} {% endblock %}
     </div>
 

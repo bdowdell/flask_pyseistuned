@@ -1,14 +1,29 @@
+<!--
+Copyright 2020, Benjamin L. Dowdell
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 {% extends 'base.html' %}
 
 {% block content %}
     <h1>{% block title %} About {% endblock %}</h1>
     <p>
-        PySeisTuned<sup>2.0</sup> is a simple tool for calculating seismic tuning wedges. Input the velocity and density
+        <strong>PySeisTuned<sup>2.0</sup></strong> is a simple tool for calculating seismic tuning wedges. Input the velocity and density
         properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and tuning
         curve are generated.
     </p>
     <p>
-        The initial release, PySeisTuned<sup>1.0</sup>, was inspired by Agile Scientific's "X Lines of Code"
+        The initial release, <strong>PySeisTuned<sup>1.0</sup></strong>, was inspired by Agile Scientific's "X Lines of Code"
         <a href="https://github.com/agile-geoscience/xlines/blob/master/notebooks/00_Synthetic_wedge_model.ipynb" target="_blank">
             Jupyter Notebook</a>
         series and was written as a standalone GUI using Python 3 and PyQT5. In this iteration, a user needed
@@ -28,13 +43,23 @@
         </div>
     </div><br />
     <p>
-        Enter PySeisTuned<sup>2.0</sup>, which is now a web app (and also my first)! The PyQT5 GUI is gone and now
-        PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, & Bootstrap. As always, PySeisTuned<sup>2.0</sup>
+        Enter <strong>PySeisTuned<sup>2.0</sup></strong>, which is now a web app (and also my first)! The PyQT5 GUI is gone and now
+        PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, & Bootstrap. As always, <strong>PySeisTuned<sup>2.0</sup></strong>
         is open source and licensed under the Apache-2.0 license.  The source code is available at my GitHub repository
         <a href="https://github.com/bdowdell/flask_pyseistuned" target="_blank">here</a>.
     </p>
     <p>
         Contributions, suggestions, and bug reports are all welcome! I hope you enjoy using the tool and please
-        let me know if there ways I can make it even better.
+        let me know if there ways I can make it even better:
     </p>
+    <ul>
+        <li>
+            Feedback for <a href="https://github.com/bdowdell/flask_pyseistuned/issues" target="_blank">
+            PySeisTuned<sup>2.0</sup></a>
+        </li>
+        <li>
+            Feedback for <a href="https://github.com/bdowdell/PySeisTuned/issues" target="_blank">
+            PySeisTuned<sup>1.0</sup></a>
+        </li>
+    </ul>
 {% endblock %}
