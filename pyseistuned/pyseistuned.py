@@ -41,5 +41,10 @@ def contact():
     form = ContactForm()
     if form.validate_on_submit():
         flash('Email sent!')
-        return redirect(url_for('index'))
+        return redirect(url_for('success'))
     return render_template('contact.html', form=form)
+
+
+@app.route('/success')
+def success():
+    return render_template('success.html')

@@ -6,10 +6,10 @@ name = "pypi"
 [packages]
 numpy = "*"
 matplotlib = "*"
-flask = "*"
-flask-wtf = "*"
+Flask = "*"
+Flask-WTF = "*"
 email-validator = "*"
-flask-bootstrap = "*"
+Flask-Bootstrap = "*"
 
 [dev-packages]
 

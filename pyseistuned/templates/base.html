@@ -58,7 +58,7 @@ limitations under the License.
     <div class="container" style="padding-top:60px; padding-bottom:50px">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
+        <ul style="list-style-type:none;">
             {% for message in messages %}
             <li>{{ message }}</li>
             {% endfor %}
