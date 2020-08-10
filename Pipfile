@@ -7,6 +7,9 @@ name = "pypi"
 numpy = "*"
 matplotlib = "*"
 flask = "*"
+flask-wtf = "*"
+email-validator = "*"
+flask-bootstrap = "*"
 
 [dev-packages]
 

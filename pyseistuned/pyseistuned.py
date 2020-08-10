@@ -16,12 +16,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect, url_for
+from config import Config
+from pyseistuned.forms import ContactForm
+
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html')
 
@@ -29,3 +34,12 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        flash('Email sent!')
+        return redirect(url_for('index'))
+    return render_template('contact.html', form=form)

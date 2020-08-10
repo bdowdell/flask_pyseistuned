@@ -49,13 +49,22 @@ limitations under the License.
         </button>
         <div class="collapse navbar-collapse" id="footer">
             <div class="navbar-nav">
-                <a class="nav-link" href="https://github.com/bdowdell/flask_pyseistuned/blob/master/LICENSE">
+                <a class="nav-link" href="https://github.com/bdowdell/flask_pyseistuned/blob/master/LICENSE" target="_blank">
                     Copyright 2020, Benjamin L. Dowdell</a>
-                <a class="nav-link" href="mailto:ben.dowdell87@gmail.com">Contact</a>
+                <a class="nav-link" href="{{ url_for('contact')}}">Contact</a>
             </div>
         </div>
     </nav>
     <div class="container" style="padding-top:60px; padding-bottom:50px">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         {% block content %} {% endblock %}
     </div>
 
