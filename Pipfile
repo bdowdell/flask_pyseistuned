@@ -9,6 +9,7 @@ matplotlib = "*"
 Flask = "*"
 Flask-WTF = "*"
 email-validator = "*"
+flask-mail = "*"
 
 [dev-packages]
 
