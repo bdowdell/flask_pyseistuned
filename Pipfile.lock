@@ -60,13 +60,6 @@
             "index": "pypi",
             "version": "==1.1.2"
         },
-        "flask-bootstrap": {
-            "hashes": [
-                "sha256:cb08ed940183f6343a64e465e83b3a3f13c53e1baabb8d72b5da4545ef123ac8"
-            ],
-            "index": "pypi",
-            "version": "==3.3.7.1"
-        },
         "flask-wtf": {
             "hashes": [
                 "sha256:57b3faf6fe5d6168bda0c36b0df1d05770f8e205e18332d0376ddb954d17aef2",
