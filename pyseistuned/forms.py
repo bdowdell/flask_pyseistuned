@@ -17,7 +17,7 @@ limitations under the License.
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField
 from wtforms.validators import DataRequired, Email, Length
 
 
@@ -33,3 +33,14 @@ class ContactForm(FlaskForm):
         Length(min=4, message=('Please enter a longer message.'))
     ])
     submit = SubmitField('Submit')
+
+
+class TuningWedgeForm(FlaskForm):
+    """Inputs for calculating tuning wedge"""
+    layer_1_vp = IntegerField('Layer 1')
+    layer_1_dens = DecimalField('Layer 1')
+    layer_2_vp = IntegerField('Layer 2')
+    layer_2_dens = DecimalField('Layer 2')
+    layer_3_vp = IntegerField('Layer 3')
+    layer_3_dens = DecimalField('Layer 3')
+    units = RadioField(label='Units', choices=['Meters', 'Feet'])

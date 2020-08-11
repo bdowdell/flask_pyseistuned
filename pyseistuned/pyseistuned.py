@@ -18,7 +18,7 @@ limitations under the License.
 
 from flask import Flask, render_template, flash, redirect, url_for
 from config import Config
-from pyseistuned.forms import ContactForm
+from pyseistuned.forms import ContactForm, TuningWedgeForm
 
 
 app = Flask(__name__)
@@ -26,9 +26,10 @@ app.config.from_object(Config)
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    form = TuningWedgeForm()
+    return render_template('index.html', form=form)
 
 
 @app.route('/about')
