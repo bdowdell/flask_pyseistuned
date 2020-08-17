@@ -29,7 +29,6 @@ limitations under the License.
                 <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
-                    <div class="col-sm"></div>
                     <div class="col-sm"><strong>Density</strong></div>
                 </div>
                 <div class="row"><p></p></div>
@@ -39,9 +38,6 @@ limitations under the License.
                     </div>
                     <div class="col-sm">
                         {{ form.layer_1_vp(class_='form-control') }}
-                    </div>
-                    <div class="col-sm">
-                        {{ form.layer_1_dens.label }}
                     </div>
                     <div class="col-sm">
                         {{ form.layer_1_dens(class_='form-control') }}
@@ -55,9 +51,6 @@ limitations under the License.
                         {{ form.layer_2_vp(class_='form-control') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_2_dens.label }}
-                    </div>
-                    <div class="col-sm">
                         {{ form.layer_2_dens(class_='form-control') }}
                     </div>
                 </div>
@@ -69,31 +62,19 @@ limitations under the License.
                         {{ form.layer_3_vp(class_='form-control') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_3_dens.label }}
-                    </div>
-                    <div class="col-sm">
                         {{ form.layer_3_dens(class_='form-control') }}
                     </div>
                 </div>
-            </div>
-            <div class="col-sm"></div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-sm">
                 <div class="row">
-                    <div class="col-sm">{{ form.units.label }}:</div>
                     <div class="col-sm">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            {% for field in form.units %}
-                                {% if field.label == "Meters" %}
-                                    {{ field(class_='btn btn-secondary active btn-sm', type=radio) }}
-                                {% else %}
-                                    {{ field(class_='btn btn-secondary btn-sm', type=radio) }}
-                                    {% endif %}
-                            {% endfor %}
-                        </div>
+                        {{ form.units.label }}
                     </div>
+                    <div class="col-sm">
+                        {% for field in form.units %}
+                        {{ field }} {{ field.label }}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm"></div>
                 </div>
             </div>
             <div class="col-sm"></div>

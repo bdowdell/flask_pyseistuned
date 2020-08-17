@@ -43,4 +43,4 @@ class TuningWedgeForm(FlaskForm):
     layer_2_dens = DecimalField('Layer 2')
     layer_3_vp = IntegerField('Layer 3')
     layer_3_dens = DecimalField('Layer 3')
-    units = RadioField(label='Units', choices=['Meters', 'Feet'])
+    units = RadioField(label='Units', choices=[('m', 'm'), ('ft.', 'ft.')])
