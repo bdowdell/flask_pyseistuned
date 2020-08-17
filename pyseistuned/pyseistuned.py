@@ -28,7 +28,7 @@ app.config.from_object(Config)
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    form = TuningWedgeForm()
+    form = TuningWedgeForm(units=0, wv_length=0.100, wv_dt=0.001)
     return render_template('index.html', form=form)
 
 

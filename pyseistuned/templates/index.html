@@ -21,15 +21,16 @@ limitations under the License.
         Calculate seismic tuning on the web!
     </p>
     <!-- Tuning Wedge Inputs -->
-    <h4>Rock Property Inputs</h4>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
+        <!-- Rock Properties -->
         <div class="row">
             <div class="col-sm">
+                <h4>Rock Property Inputs</h4>
                 <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
-                    <div class="col-sm"><strong>Density</strong></div>
+                    <div class="col-sm"><strong>Density (g/cm<sup>3</sup>)</strong></div>
                 </div>
                 <div class="row"><p></p></div>
                 <div class="row">
@@ -75,6 +76,37 @@ limitations under the License.
                         {% endfor %}
                     </div>
                     <div class="col-sm"></div>
+                </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        <!-- Wavelet parameters -->
+        <div class="row">
+            <div class="col-sm">
+                <h4>Wavelet Parameters</h4>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.frequency.label }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.frequency(class_='form-control') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.wv_length.label }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wv_length(class_='form-control') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.wv_dt.label }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wv_dt(class_='form-control') }}
+                    </div>
                 </div>
             </div>
             <div class="col-sm"></div>
