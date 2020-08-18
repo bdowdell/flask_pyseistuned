@@ -25,12 +25,12 @@ class ContactForm(FlaskForm):
     """Contact form."""
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[
-        Email(message=('Not a valid email address.')),
+        Email(message='Not a valid email address.'),
         DataRequired()
     ])
     body = TextAreaField('Message', validators=[
         DataRequired(),
-        Length(min=4, message=('Please enter a longer message.'))
+        Length(min=4, message='Please enter a longer message.')
     ])
     submit = SubmitField('Submit')
 
@@ -43,7 +43,7 @@ class TuningWedgeForm(FlaskForm):
     layer_2_dens = DecimalField('Layer 2')
     layer_3_vp = IntegerField('Layer 3')
     layer_3_dens = DecimalField('Layer 3')
-    units = RadioField(label='Units', choices=[(0, 'm/s'), (1, 'ft/s')])
+    vp_units = RadioField(label='Units', choices=[(0, 'm/s'), (1, 'ft/s')])
     frequency = IntegerField('Frequency (Hz)')
     wv_length = DecimalField('Length (s)', places=3)
     wv_dt = DecimalField('dt (s)', places=3)
