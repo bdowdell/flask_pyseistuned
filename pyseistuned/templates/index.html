@@ -26,7 +26,7 @@ limitations under the License.
         <!-- Rock Properties -->
         <div class="row">
             <div class="col-sm">
-                <h4>Rock Property Inputs</h4>
+                <h4>Rock Property Parameters</h4>
                 <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
@@ -86,6 +86,14 @@ limitations under the License.
                 <h4>Wavelet Parameters</h4>
                 <div class="row">
                     <div class="col-sm">
+                        {{ form.wv_type.label }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wv_type }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
                         {{ form.frequency.label }}
                     </div>
                     <div class="col-sm">
@@ -106,6 +114,13 @@ limitations under the License.
                     </div>
                     <div class="col-sm">
                         {{ form.wv_dt(class_='form-control') }}
+                    </div>
+                </div>
+                <!-- calculate button -->
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm offset-md-6">
+                        {{ form.submit(class_='btn btn-primary') }}
                     </div>
                 </div>
             </div>

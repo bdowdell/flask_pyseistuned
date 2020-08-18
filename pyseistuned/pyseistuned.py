@@ -29,7 +29,15 @@ app.config.from_object(Config)
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = TuningWedgeForm(vp_units=0, wv_length=0.100, wv_dt=0.001)
+    if form.validate_on_submit():
+        print(form.layer_1_vp.data, form.layer_1_dens.data, form.vp_units, form.wv_type)
+        return redirect(url_for('results'))
     return render_template('index.html', form=form)
+
+
+@app.route('/results')
+def results():
+    return render_template('results.html')
 
 
 @app.route('/about')

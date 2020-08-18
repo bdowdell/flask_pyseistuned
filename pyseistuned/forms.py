@@ -17,7 +17,7 @@ limitations under the License.
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField
+from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField, SelectField
 from wtforms.validators import DataRequired, Email, Length
 
 
@@ -43,7 +43,9 @@ class TuningWedgeForm(FlaskForm):
     layer_2_dens = DecimalField('Layer 2')
     layer_3_vp = IntegerField('Layer 3')
     layer_3_dens = DecimalField('Layer 3')
-    vp_units = RadioField(label='Units', choices=[(0, 'm/s'), (1, 'ft/s')])
+    vp_units = RadioField(label='Vp Units', choices=[(0, 'm/s'), (1, 'ft/s')])
+    wv_type = SelectField(label='Wavelet', choices=[(0, 'Ricker'), (1, 'Ormsby')])
     frequency = IntegerField('Frequency (Hz)')
     wv_length = DecimalField('Length (s)', places=3)
     wv_dt = DecimalField('dt (s)', places=3)
+    submit = SubmitField('Calculate')
