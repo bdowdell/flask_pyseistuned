@@ -16,5 +16,29 @@ limitations under the License.
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Results {% endblock %}</h1>
+    <h1>{% block title %} Results {% endblock %}</h1>
+    <p>
+        {{ vp_1 }} {{ rho_1 }}
+    </p>
+    <p>
+        {{ vp_2 }} {{ rho_2 }}
+    </p>
+    <p>
+        {{ vp_3 }} {{ rho_3 }}
+    </p>
+    <p>
+        {{ vp_units }}
+    </p>
+    <p>
+        {{ wv_type }}
+    </p>
+    <p>
+        {{ freq }}
+    </p>
+    <p>
+        {{ wv_len }}
+    </p>
+    <p>
+        {{ wv_dt }}
+    </p>
 {% endblock %}
