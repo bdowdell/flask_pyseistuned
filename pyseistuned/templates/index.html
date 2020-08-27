@@ -21,7 +21,7 @@ limitations under the License.
         Calculate seismic tuning on the web!
     </p>
     <!-- Tuning Wedge Inputs -->
-    <form action="" method="post" novalidate>
+    <form action="{{ url_for('results') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
         <!-- Rock Properties -->
         <div class="row">
@@ -35,7 +35,7 @@ limitations under the License.
                 <div class="row"><p></p></div>
                 <div class="row">
                     <div class="col-sm">
-                        {{ form.layer_1_vp.label }}
+                        Layer 1
                     </div>
                     <div class="col-sm">
                         {{ form.layer_1_vp(class_='form-control') }}
@@ -46,7 +46,7 @@ limitations under the License.
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        {{ form.layer_2_vp.label }}
+                        Layer 2
                     </div>
                     <div class="col-sm">
                         {{ form.layer_2_vp(class_='form-control') }}
@@ -57,7 +57,7 @@ limitations under the License.
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        {{ form.layer_3_vp.label }}
+                        Layer 3
                     </div>
                     <div class="col-sm">
                         {{ form.layer_3_vp(class_='form-control') }}
