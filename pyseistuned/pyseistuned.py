@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, request
 from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
 
@@ -30,14 +30,30 @@ app.config.from_object(Config)
 def index():
     form = TuningWedgeForm(vp_units=0, wv_length=0.100, wv_dt=0.001)
     if form.validate_on_submit():
-        print(form.layer_1_vp.data, form.layer_1_dens.data, form.vp_units, form.wv_type)
-        return redirect(url_for('results'))
+        return redirect(url_for('results', form=request.form))
     return render_template('index.html', form=form)
 
 
-@app.route('/results')
+@app.route('/results', methods=['GET', 'POST'])
 def results():
-    return render_template('results.html')
+    layer_1_vp = request.form.get('layer_1_vp')
+    layer_1_dens = request.form.get('layer_1_dens')
+    layer_2_vp = request.form.get('layer_2_vp')
+    layer_2_dens = request.form.get('layer_2_dens')
+    layer_3_vp = request.form.get('layer_3_vp')
+    layer_3_dens = request.form.get('layer_3_dens')
+    vp_units = request.form.get('vp_units')
+    wv_type = request.form.get('wv_type')
+    freq = request.form.get('frequency')
+    wv_len = request.form.get('wv_length')
+    wv_dt = request.form.get('wv_dt')
+    return render_template('results.html',
+                           vp_1=layer_1_vp, rho_1=layer_1_dens,
+                           vp_2=layer_2_vp, rho_2=layer_2_dens,
+                           vp_3=layer_3_vp, rho_3=layer_3_dens,
+                           vp_units=vp_units, wv_type=wv_type,
+                           freq=freq, wv_len=wv_len, wv_dt=wv_dt
+                           )
 
 
 @app.route('/about')
