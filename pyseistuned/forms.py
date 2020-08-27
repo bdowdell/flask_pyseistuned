@@ -37,12 +37,12 @@ class ContactForm(FlaskForm):
 
 class TuningWedgeForm(FlaskForm):
     """Inputs for calculating tuning wedge"""
-    layer_1_vp = IntegerField('Layer 1')
-    layer_1_dens = DecimalField('Layer 1')
-    layer_2_vp = IntegerField('Layer 2')
-    layer_2_dens = DecimalField('Layer 2')
-    layer_3_vp = IntegerField('Layer 3')
-    layer_3_dens = DecimalField('Layer 3')
+    layer_1_vp = IntegerField('vp_1')
+    layer_1_dens = DecimalField('rho_1')
+    layer_2_vp = IntegerField('vp_2')
+    layer_2_dens = DecimalField('rho_2')
+    layer_3_vp = IntegerField('vp_3')
+    layer_3_dens = DecimalField('rho_3')
     vp_units = RadioField(label='Vp Units', choices=[(0, 'm/s'), (1, 'ft/s')])
     wv_type = SelectField(label='Wavelet', choices=[(0, 'Ricker'), (1, 'Ormsby')])
     frequency = IntegerField('Frequency (Hz)')
