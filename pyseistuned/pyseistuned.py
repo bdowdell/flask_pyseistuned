@@ -19,10 +19,12 @@ limitations under the License.
 from flask import Flask, render_template, flash, redirect, url_for, request
 from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
+from flask_mail import Mail, Message
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+mail = Mail(app)
 
 
 @app.route('/')
@@ -65,6 +67,17 @@ def about():
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        body = request.form.get('body')
+        msg = Message(subject=subject,
+                      sender=email,
+                      recipients=[app.config['ADMINS'][0]],
+                      extra_headers={'name': name}
+                      )
+        msg.body = body
+        mail.send(msg)
         flash('Email sent!')
         return redirect(url_for('success'))
     return render_template('contact.html', form=form)
