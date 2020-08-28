@@ -28,6 +28,7 @@ class ContactForm(FlaskForm):
         Email(message='Not a valid email address.'),
         DataRequired()
     ])
+    subject = StringField('Subject', validators=[DataRequired()])
     body = TextAreaField('Message', validators=[
         DataRequired(),
         Length(min=4, message='Please enter a longer message.')
