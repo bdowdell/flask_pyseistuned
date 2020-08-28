@@ -34,6 +34,13 @@ limitations under the License.
             {% endfor %}
         </p>
         <p>
+            {{ form.subject.label }}<br />
+            {{ form.subject(class_='form-control') }}
+            {% for error in form.subject.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.body.label }}<br />
             {{ form.body(class_='form-control', rows=5) }}
             {% for error in form.body.errors %}
