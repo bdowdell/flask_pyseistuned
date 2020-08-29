@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request
 from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
@@ -78,7 +78,6 @@ def contact():
                       )
         msg.body = body
         mail.send(msg)
-        flash('Email sent!')
         return redirect(url_for('success'))
     return render_template('contact.html', form=form)
 
