@@ -30,7 +30,9 @@ And when you are done, you can exit the environment by:
 `$ exit`
 
 ### 4) Set flask-specific environment variables
-Before you can run the flask_pyseistuned web app, you need to set several flask-specific environment variables from inside the repository directory.
+Before you can run the flask_pyseistuned web app, you need to set several flask-specific environment variables from inside the repository directory. 
+
+*Note: If you are working from within an IDE such as VS Code or PyCharm, I suggest you set these environment variables using the IDE's integrated terminal.*
 
 First, set the FLASK_APP environment variable:
 
