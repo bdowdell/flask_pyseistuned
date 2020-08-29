@@ -1,8 +1,10 @@
-# flask_pyseistuned
-A Flask / Python-based web app version of PySeisTuned
+# PySeisTuned<sup>2.0</sup>
+A Flask / Python-based web app version of PySeisTuned<sup>1.0</sup>.
+
+The original version, PySeisTuned<sup>1.0</sup>, is a Python / PyQT5 GUI application that runs locally in a desktop environment. The new version, PySeisTuned<sup>2.0</sup>, is a web app that makes it even easier for users to explore seismic tuning from the comfort of the world-wide-web!
 
 ## Getting started
-If you want to run flask_pyseistuned locally, there are a few things you need to do first. I'll walk you through the steps now!
+If you want to run PySeisTuned<sup>2.0</sup> locally, there are a few things you need to do first. I'll walk you through the steps now!
 
 ### 1) Install pipenv
 For this project, I chose to use pipenv to create a virtual environment. If you don't already have pipenv installed, here's what you do:
