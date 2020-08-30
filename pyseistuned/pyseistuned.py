@@ -20,6 +20,7 @@ from flask import Flask, render_template, redirect, url_for, request
 from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
+import pyseistuned.wedgebuilder as wb
 
 
 app = Flask(__name__)
@@ -38,17 +39,26 @@ def index():
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
-    layer_1_vp = request.form.get('layer_1_vp')
-    layer_1_dens = request.form.get('layer_1_dens')
-    layer_2_vp = request.form.get('layer_2_vp')
-    layer_2_dens = request.form.get('layer_2_dens')
-    layer_3_vp = request.form.get('layer_3_vp')
-    layer_3_dens = request.form.get('layer_3_dens')
+    # assign values from TuningWedgeForm
+    layer_1_vp = float(request.form.get('layer_1_vp'))
+    layer_1_dens = float(request.form.get('layer_1_dens'))
+    layer_2_vp = float(request.form.get('layer_2_vp'))
+    layer_2_dens = float(request.form.get('layer_2_dens'))
+    layer_3_vp = float(request.form.get('layer_3_vp'))
+    layer_3_dens = float(request.form.get('layer_3_dens'))
     vp_units = request.form.get('vp_units')
     wv_type = request.form.get('wv_type')
-    freq = request.form.get('frequency')
-    wv_len = request.form.get('wv_length')
-    wv_dt = request.form.get('wv_dt')
+    freq = int(request.form.get('frequency'))
+    wv_len = float(request.form.get('wv_length'))
+    wv_dt = float(request.form.get('wv_dt'))
+
+    # create the tuning wedge model and tuning curve
+    rock_props = [layer_1_vp, layer_1_dens, layer_2_vp, layer_2_dens, layer_3_vp, layer_3_dens]
+    rc, imp = wb.earth_model(rock_props)
+    wavelet = wb.wavelet(wv_len, wv_dt, freq)
+    synth = wb.tuning_wedge(rc, wavelet)
+    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props)
+
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
