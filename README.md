@@ -66,7 +66,7 @@ At this point you are now ready to run the application!
 ### 6) Launch the flask web app
 To launch the web app, simply type the command:
 
-`flask run`
+`$ flask run`
 
 You should see a message that states:
 
