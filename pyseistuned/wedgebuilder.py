@@ -36,9 +36,9 @@ def earth_model(rock_props):
 
     """
     # define the earth model
-    duration, depth = 101, 240
-    model = 1 + np.tri(depth, duration, -depth // 3, dtype=int)
-    model[: depth // 3, :] = 0
+    wedge_length, wedge_depth = 101, 240
+    model = 1 + np.tri(wedge_depth, wedge_length, -wedge_depth // 3, dtype=int)
+    model[: wedge_depth // 3, :] = 0
 
     # reshape the input rock properties list for populating earth model
     rocks = np.array(rock_props).reshape(3, 2)
@@ -51,7 +51,8 @@ def earth_model(rock_props):
     imp = np.apply_along_axis(np.product, -1, earth)
 
     # calculate the reflection coefficients for the interfaces between each layer
-    rc = (imp[1:, :] - imp[:-1, :]) / (imp[1:, :] + imp[:-1, :])
+    rc = np.zeros(imp.shape, dtype=float)
+    rc[1:, :] = (imp[1:, :] - imp[:-1, :]) / (imp[1:, :] + imp[:-1, :])
 
     return rc, imp
 
@@ -127,8 +128,8 @@ def tuning_curve(rc, synth, rock_props):
         array of reflection coefficients
     synth : ndarray
         array of synthetic seismic values
-    rock_props : ndarray
-        array of rock properties (Vp, Density)
+    rock_props : list
+        list of rock properties (Vp, Density)
 
     Returns
     -------
@@ -144,7 +145,7 @@ def tuning_curve(rc, synth, rock_props):
         wedge thickness at onset of tuning
 
     """
-    depth = 240
+    wedge_depth = 240
 
     rocks = np.array(rock_props).reshape(3, 2)
     AI = np.apply_along_axis(np.product, -1, rocks)
@@ -179,7 +180,7 @@ def tuning_curve(rc, synth, rock_props):
     z_apparent[0] = z_apparent[1]  # project the minimum apparent thickness to the first index
 
     # extract the amplitude along the top of the wedge model
-    amp_top = abs(synth[depth // 3, :])
+    amp_top = abs(synth[wedge_depth // 3, :])
     amp = amp_top
 
     # calculate the tuning onset thickness
