@@ -70,7 +70,7 @@ def results():
                            vp_3=layer_3_vp, rho_3=layer_3_dens,
                            vp_units=vp_units, wv_type=wv_type,
                            freq=freq, wv_len=wv_len, wv_dt=wv_dt,
-                           wv_script=wv_script, wv_div=wv_div, wv_plot=wavelet_plot
+                           wv_div=wv_div, wv_script=wv_script
                            )
 
 

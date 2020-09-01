@@ -41,9 +41,9 @@ limitations under the License.
     <p>
         {{ wv_dt }}
     </p>
-    <p>
-        {{ wv_plot }}
-    </p>
+    {{ wv_div|safe }}
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
+    {{ wv_script|safe }}
     <form action="" method="post" novalidate>
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
     </form>
