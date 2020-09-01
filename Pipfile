@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 numpy = "*"
-matplotlib = "*"
 Flask = "*"
 Flask-WTF = "*"
 email-validator = "*"
-flask-mail = "*"
+Flask-Mail = "*"
+bokeh = "*"
 
 [dev-packages]
 
