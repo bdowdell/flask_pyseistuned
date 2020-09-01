@@ -21,6 +21,8 @@ from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
 import pyseistuned.wedgebuilder as wb
+import pyseistuned.bokeh_wavelet as bokeh_wavelet
+from bokeh.embed import components
 
 
 app = Flask(__name__)
@@ -59,12 +61,16 @@ def results():
     synth = wb.tuning_wedge(rc, wavelet)
     z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props)
 
+    wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet)
+    wv_script, wv_div = components(wavelet_plot)
+
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
                            vp_3=layer_3_vp, rho_3=layer_3_dens,
                            vp_units=vp_units, wv_type=wv_type,
-                           freq=freq, wv_len=wv_len, wv_dt=wv_dt
+                           freq=freq, wv_len=wv_len, wv_dt=wv_dt,
+                           wv_script=wv_script, wv_div=wv_div, wv_plot=wavelet_plot
                            )
 
 
