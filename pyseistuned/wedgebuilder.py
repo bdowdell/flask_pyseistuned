@@ -94,7 +94,9 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=25):
         wavelet amplitude
 
     """
-    if w_type == 0:
+    if w_type:
+        pass
+    else:
         t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
         w = (1.0 - 2.0 * (np.pi ** 2) * (f ** 2) * (t ** 2)) * np.exp(
             -(np.pi ** 2) * (f ** 2) * (t ** 2)
