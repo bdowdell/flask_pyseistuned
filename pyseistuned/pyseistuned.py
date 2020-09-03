@@ -22,6 +22,7 @@ from pyseistuned.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
 import pyseistuned.wedgebuilder as wb
 import pyseistuned.bokeh_wavelet as bokeh_wavelet
+import pyseistuned.bokeh_amplitude_spectrum as bas
 from bokeh.embed import components
 
 
@@ -64,13 +65,17 @@ def results():
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet)
     wv_script, wv_div = components(wavelet_plot)
 
+    amplitude_spectrum = bas.plot_amplitude_spectrum(wavelet, wv_dt)
+    ampspec_script, ampspec_div = components(amplitude_spectrum)
+
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
                            vp_3=layer_3_vp, rho_3=layer_3_dens,
                            vp_units=vp_units, wv_type=wv_type,
                            freq=freq, wv_len=wv_len, wv_dt=wv_dt,
-                           wv_div=wv_div, wv_script=wv_script
+                           wv_div=wv_div, wv_script=wv_script,
+                           ampspec_div=ampspec_div, ampspec_script=ampspec_script
                            )
 
 
