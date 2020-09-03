@@ -14,6 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 {% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
+{% endblock %}
 
 {% block content %}
     <h1>{% block title %} Results {% endblock %}</h1>
@@ -42,7 +47,6 @@ limitations under the License.
         {{ wv_dt }}
     </p>
     {{ wv_div|safe }}
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
     {{ wv_script|safe }}
     <form action="" method="post" novalidate>
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
