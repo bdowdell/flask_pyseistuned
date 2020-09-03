@@ -46,8 +46,29 @@ limitations under the License.
     <p>
         {{ wv_dt }}
     </p>
-    {{ wv_div|safe }}
-    {{ wv_script|safe }}
+    <!--
+    <p>
+        {{ wv_div|safe }}
+        {{ wv_script|safe }}
+    </p>
+    <p>
+        {{ ampspec_div|safe }}
+        {{ ampspec_script|safe }}
+    </p>
+    -->
+    <div class="row">
+        <div class="col-sm">
+            {{ wv_div|safe }}
+            {{ wv_script|safe }}
+        </div>
+        <div class="col-sm">
+            {{ ampspec_div|safe }}
+            {{ ampspec_script|safe }}
+        </div>
+        <div class="col-sm">
+            
+        </div>
+    </div>
     <form action="" method="post" novalidate>
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
     </form>
