@@ -49,8 +49,8 @@ def results():
     layer_2_dens = float(request.form.get('layer_2_dens'))
     layer_3_vp = float(request.form.get('layer_3_vp'))
     layer_3_dens = float(request.form.get('layer_3_dens'))
-    vp_units = request.form.get('vp_units')
-    wv_type = request.form.get('wv_type')
+    vp_units = int(request.form.get('vp_units'))
+    wv_type = int(request.form.get('wv_type'))
     freq = int(request.form.get('frequency'))
     wv_len = float(request.form.get('wv_length'))
     wv_dt = float(request.form.get('wv_dt'))
@@ -58,7 +58,7 @@ def results():
     # create the tuning wedge model and tuning curve
     rock_props = [layer_1_vp, layer_1_dens, layer_2_vp, layer_2_dens, layer_3_vp, layer_3_dens]
     rc, imp = wb.earth_model(rock_props)
-    wavelet = wb.wavelet(wv_len, wv_dt, freq)
+    wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
     synth = wb.tuning_wedge(rc, wavelet)
     z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props)
 

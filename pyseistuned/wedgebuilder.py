@@ -74,7 +74,7 @@ def rc_mask(rc):
     return np.ma.masked_equal(rc, 0)
 
 
-def wavelet(duration=0.100, dt=0.001, f=25):
+def wavelet(duration=0.100, dt=0.001, w_type=0, f=25):
     """This function defines a wavelet to convolve with the earth model reflection coefficients
 
     Parameters
@@ -83,6 +83,8 @@ def wavelet(duration=0.100, dt=0.001, f=25):
         length in seconds of wavelet
     dt : float
         sample increment of wavelet
+    w_type : int
+        Wavelet type. 0 is Ricker, 1 is Ormsby
     f : int
         dominant frequency of wavelet
 
@@ -92,10 +94,11 @@ def wavelet(duration=0.100, dt=0.001, f=25):
         wavelet amplitude
 
     """
-    t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
-    w = (1.0 - 2.0 * (np.pi ** 2) * (f ** 2) * (t ** 2)) * np.exp(
-        -(np.pi ** 2) * (f ** 2) * (t ** 2)
-    )
+    if w_type == 0:
+        t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
+        w = (1.0 - 2.0 * (np.pi ** 2) * (f ** 2) * (t ** 2)) * np.exp(
+            -(np.pi ** 2) * (f ** 2) * (t ** 2)
+        )
     return w
 
 
