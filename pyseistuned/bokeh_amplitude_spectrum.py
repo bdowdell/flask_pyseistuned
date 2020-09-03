@@ -34,13 +34,10 @@ def plot_amplitude_spectrum(w, dt):
 
     Returns
     -------
-    spectrum_plot : bokeh.plotting.figure
-        bokeh plot of amplitude spectrum magnitude
-    phase_plot : bokeh.plotting.figure
-        bokeh plot of amplitude spectrum phase
 
     """
     # get the amplitude spectrum of the wavelet using discrete Fourier transform
+    # note: power_spectrum = amplitude_spectrum**2 and dB scale if np.log10(power_spectrum)
     amplitude_spectrum = abs(np.fft.rfft(w))
     phase = np.angle(amplitude_spectrum, deg=True)
     nyquist = 1 / (2 * dt)
