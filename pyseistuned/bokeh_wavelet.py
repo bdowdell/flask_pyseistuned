@@ -48,7 +48,7 @@ def plot_wavelet(w):
     ]
     plot = figure(plot_height=250, plot_width=250, tooltips=TOOLTIPS, title="Wavelet",
                   tools="crosshair,pan,reset,save,wheel_zoom",
-                  x_range=[np.min(x), np.max(x)], y_range=[np.min(w), np.max(w)])
+                  x_range=[np.min(x), np.max(x)], y_range=[np.min(w) - 0.1, np.max(w) + 0.1])
     plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
     plot.xaxis.axis_label = "Time (ms)"
 
