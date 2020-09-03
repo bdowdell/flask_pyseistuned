@@ -53,7 +53,12 @@ def plot_amplitude_spectrum(w, dt):
     phase_source = ColumnDataSource(data=dict(x=x, y=phase))
 
     # set up spectrum plot
-    spectrum_plot = figure(plot_height=250, plot_width=250, title="Amplitude Spectrum",
+    spec_TOOLTIPS = [
+        ("Frequency", "$x"),
+        ("Amplitude", "$y")
+    ]
+
+    spectrum_plot = figure(plot_height=250, plot_width=250, tooltips=spec_TOOLTIPS, title="Amplitude Spectrum",
                   tools="crosshair, pan, box_zoom, reset, save",
                   x_range=[0, nyquist], y_range=[0, np.max(amplitude_spectrum)])
     spectrum_plot.line('x', 'y', source=spectrum_source, line_width=3, line_alpha=0.6)
@@ -61,7 +66,12 @@ def plot_amplitude_spectrum(w, dt):
     spectrum_plot.yaxis.axis_label = "Amplitude"
 
     # set up phase plot
-    phase_plot = figure(plot_height=250, plot_width=250, title="Phase",
+    phase_TOOLTIPS = [
+        ("Frequency", "$x"),
+        ("Phase", "$y")
+    ]
+
+    phase_plot = figure(plot_height=250, plot_width=250, tooltips=phase_TOOLTIPS, title="Phase",
                         tools="crosshair, pan, reset, save, wheel_zoom",
                         x_range=[0, nyquist], y_range=[-180, 180])
     phase_plot.line('x', 'y', source=phase_source, line_width=3, line_alpha=0.6)
