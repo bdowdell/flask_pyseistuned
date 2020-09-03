@@ -42,7 +42,7 @@ def plot_wavelet(w):
     source = ColumnDataSource(data=dict(x=x, y=w))
 
     # set up plot
-    plot = figure(plot_height=300, plot_width=300, title="Wavelet",
+    plot = figure(plot_height=250, plot_width=250, title="Wavelet",
                   tools="crosshair,pan,reset,save,wheel_zoom",
                   x_range=[np.min(x), np.max(x)], y_range=[np.min(w), np.max(w)])
     plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)

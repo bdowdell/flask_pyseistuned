@@ -34,24 +34,38 @@ def plot_amplitude_spectrum(w, dt):
 
     Returns
     -------
+    spectrum_plot : bokeh.plotting.figure
+        bokeh plot of amplitude spectrum magnitude
+    phase_plot : bokeh.plotting.figure
+        bokeh plot of amplitude spectrum phase
 
     """
     # get the amplitude spectrum of the wavelet using discrete Fourier transform
     amplitude_spectrum = abs(np.fft.rfft(w))
+    phase = np.angle(amplitude_spectrum, deg=True)
     nyquist = 1 / (2 * dt)
 
     # define x-axis
     x = np.linspace(start=0, stop=nyquist, num=len(amplitude_spectrum))
     
     # set up column data source
-    source = ColumnDataSource(data=dict(x=x, y=amplitude_spectrum))
+    spectrum_source = ColumnDataSource(data=dict(x=x, y=amplitude_spectrum))
+    phase_source = ColumnDataSource(data=dict(x=x, y=phase))
 
-    # set up plot
-    plot = figure(plot_height=300, plot_width=300, title="Amplitude Spectrum",
-                  tools="crosshair,pan,reset,save,wheel_zoom",
+    # set up spectrum plot
+    spectrum_plot = figure(plot_height=250, plot_width=250, title="Amplitude Spectrum",
+                  tools="crosshair, pan, box_zoom, reset, save",
                   x_range=[0, nyquist], y_range=[0, np.max(amplitude_spectrum)])
-    plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
-    plot.xaxis.axis_label = "Frequency (Hz)"
-    plot.yaxis.axis_label = "Amplitude"
+    spectrum_plot.line('x', 'y', source=spectrum_source, line_width=3, line_alpha=0.6)
+    spectrum_plot.xaxis.axis_label = "Frequency (Hz)"
+    spectrum_plot.yaxis.axis_label = "Amplitude"
 
-    return plot
+    # set up phase plot
+    phase_plot = figure(plot_height=250, plot_width=250, title="Phase",
+                        tools="crosshair, pan, reset, save, wheel_zoom",
+                        x_range=[0, nyquist], y_range=[-180, 180])
+    phase_plot.line('x', 'y', source=phase_source, line_width=3, line_alpha=0.6)
+    phase_plot.xaxis.axis_label = "Frequency (Hz)"
+    phase_plot.yaxis.axis_label = "Phase (degrees)"
+
+    return spectrum_plot, phase_plot
