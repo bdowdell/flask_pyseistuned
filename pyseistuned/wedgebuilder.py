@@ -74,7 +74,7 @@ def rc_mask(rc):
     return np.ma.masked_equal(rc, 0)
 
 
-def wavelet(duration=0.100, dt=0.001, w_type=0, f=[25]):
+def wavelet(duration=0.100, dt=0.001, w_type=0, f=None):
     """This function defines a wavelet to convolve with the earth model reflection coefficients
 
     Parameters
@@ -94,6 +94,8 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=[25]):
         wavelet amplitude
 
     """
+    if f is None:
+        f = [25]
     t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
     if w_type:
         # Ormsby wavelet

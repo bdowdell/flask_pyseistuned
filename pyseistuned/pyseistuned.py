@@ -66,7 +66,7 @@ def results():
     synth = wb.tuning_wedge(rc, wavelet)
     z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props)
 
-    wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet)
+    wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
 
     amplitude_spectrum, phase_plot = bas.plot_amplitude_spectrum(wavelet, wv_dt)

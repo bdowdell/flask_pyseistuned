@@ -37,8 +37,9 @@ def plot_amplitude_spectrum(w, dt):
 
     """
     # get the amplitude spectrum of the wavelet using discrete Fourier transform
-    # note: power_spectrum = amplitude_spectrum**2 and dB scale if np.log10(power_spectrum)
+    # note: power_spectrum = amplitude_spectrum**2 and dB scale if 20*np.log10(amplitude_spectrum)
     amplitude_spectrum = abs(np.fft.rfft(w))
+    amp_dB = 20 * np.log10(amplitude_spectrum/np.max(amplitude_spectrum))
     phase = np.angle(amplitude_spectrum, deg=True)
     nyquist = 1 / (2 * dt)
 
@@ -46,7 +47,7 @@ def plot_amplitude_spectrum(w, dt):
     x = np.fft.rfftfreq(w.size, d=dt)
 
     # set up column data source
-    spectrum_source = ColumnDataSource(data=dict(x=x, y=amplitude_spectrum))
+    spectrum_source = ColumnDataSource(data=dict(x=x, y=amp_dB))
     phase_source = ColumnDataSource(data=dict(x=x, y=phase))
 
     # set up spectrum plot
@@ -57,10 +58,10 @@ def plot_amplitude_spectrum(w, dt):
 
     spectrum_plot = figure(plot_height=250, plot_width=250, tooltips=spec_TOOLTIPS, title="Amplitude Spectrum",
                            tools="crosshair, pan, box_zoom, reset, save",
-                           x_range=[0, np.max(x)], y_range=[0, np.max(amplitude_spectrum) + 0.5])
+                           x_range=[0, np.max(x)])
     spectrum_plot.line('x', 'y', source=spectrum_source, line_width=3, line_alpha=0.6)
     spectrum_plot.xaxis.axis_label = "Frequency (Hz)"
-    spectrum_plot.yaxis.axis_label = "Amplitude"
+    spectrum_plot.yaxis.axis_label = "Amplitude (dB)"
 
     # set up phase plot
     phase_TOOLTIPS = [

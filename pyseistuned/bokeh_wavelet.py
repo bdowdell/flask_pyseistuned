@@ -22,21 +22,23 @@ from bokeh.models import ColumnDataSource
 from bokeh.plotting import figure
 
 
-def plot_wavelet(w):
+def plot_wavelet(w, duration):
     """
 
     Parameters
     ----------
     w : ndarray
         numpy ndarray containing wavelet amplitude values
+    duration : float
+        length of wavelet
 
     Returns
     -------
 
     """
     # set up data
-    start = int(len(w) / 2 * - 1 - 1)
-    stop = int(len(w) / 2)
+    start = int(duration * 1000 / 2 * - 1 - 1)
+    stop = int(duration * 1000 / 2)
     num = len(w)
     x = np.linspace(start, stop, num)
     source = ColumnDataSource(data=dict(x=x, y=w))
