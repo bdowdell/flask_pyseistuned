@@ -51,7 +51,11 @@ def results():
     layer_3_dens = float(request.form.get('layer_3_dens'))
     vp_units = int(request.form.get('vp_units'))
     wv_type = int(request.form.get('wv_type'))
-    freq = int(request.form.get('frequency'))
+    freq_str = request.form.get('frequency')
+    # depending on whether a Ricker or Ormsby wavelet is requested, we may have more than one value
+    # split the input string by comma and then typecast to int
+    freq = freq_str.split(',')
+    freq = [int(x) for x in freq]
     wv_len = float(request.form.get('wv_length'))
     wv_dt = float(request.form.get('wv_dt'))
 

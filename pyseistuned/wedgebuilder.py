@@ -74,7 +74,7 @@ def rc_mask(rc):
     return np.ma.masked_equal(rc, 0)
 
 
-def wavelet(duration=0.100, dt=0.001, w_type=0, f=25):
+def wavelet(duration=0.100, dt=0.001, w_type=0, f=[25]):
     """This function defines a wavelet to convolve with the earth model reflection coefficients
 
     Parameters
@@ -85,7 +85,7 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=25):
         sample increment of wavelet
     w_type : int
         Wavelet type. 0 is Ricker, 1 is Ormsby
-    f : int
+    f : list
         dominant frequency of wavelet
 
     Returns
@@ -94,14 +94,23 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=25):
         wavelet amplitude
 
     """
+    t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
     if w_type:
-        pass
+        # Ormsby wavelet
+        f1, f2, f3, f4 = [x for x in f]
+        a = ((np.pi * f4)**2)/((np.pi * f4) - (np.pi * f3))
+        b = ((np.pi * f3)**2)/((np.pi * f4) - (np.pi * f3))
+        c = ((np.pi * f2)**2)/((np.pi * f2) - (np.pi * f1))
+        d = ((np.pi * f1)**2)/((np.pi * f2) - (np.pi * f1))
+        w = (((a * (np.sinc(f4 * t))**2) - (b * (np.sinc(f3 * t))**2)) -
+             ((c * (np.sinc(f2 * t))**2) - (d * (np.sinc(f1 * t))**2)))
     else:
-        t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
+        # Ricker wavelet
+        f = f[0]
         w = (1.0 - 2.0 * (np.pi ** 2) * (f ** 2) * (t ** 2)) * np.exp(
             -(np.pi ** 2) * (f ** 2) * (t ** 2)
         )
-    return w
+    return np.squeeze(w) / np.amax(w)
 
 
 def tuning_wedge(rc, w):

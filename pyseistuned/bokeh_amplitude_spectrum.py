@@ -43,7 +43,7 @@ def plot_amplitude_spectrum(w, dt):
     nyquist = 1 / (2 * dt)
 
     # define x-axis
-    x = np.linspace(start=0, stop=nyquist, num=len(amplitude_spectrum))
+    x = np.fft.rfftfreq(w.size, d=dt)
 
     # set up column data source
     spectrum_source = ColumnDataSource(data=dict(x=x, y=amplitude_spectrum))
@@ -57,7 +57,7 @@ def plot_amplitude_spectrum(w, dt):
 
     spectrum_plot = figure(plot_height=250, plot_width=250, tooltips=spec_TOOLTIPS, title="Amplitude Spectrum",
                            tools="crosshair, pan, box_zoom, reset, save",
-                           x_range=[0, nyquist], y_range=[0, np.max(amplitude_spectrum) + 0.5])
+                           x_range=[0, np.max(x)], y_range=[0, np.max(amplitude_spectrum) + 0.5])
     spectrum_plot.line('x', 'y', source=spectrum_source, line_width=3, line_alpha=0.6)
     spectrum_plot.xaxis.axis_label = "Frequency (Hz)"
     spectrum_plot.yaxis.axis_label = "Amplitude"
