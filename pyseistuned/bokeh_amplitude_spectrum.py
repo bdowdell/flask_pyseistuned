@@ -62,6 +62,7 @@ def plot_amplitude_spectrum(w, dt):
     spectrum_plot.line('x', 'y', source=spectrum_source, line_width=3, line_alpha=0.6)
     spectrum_plot.xaxis.axis_label = "Frequency (Hz)"
     spectrum_plot.yaxis.axis_label = "Amplitude (dB)"
+    spectrum_plot.toolbar.logo = None
 
     # set up phase plot
     phase_TOOLTIPS = [
@@ -75,5 +76,6 @@ def plot_amplitude_spectrum(w, dt):
     phase_plot.line('x', 'y', source=phase_source, line_width=3, line_alpha=0.6)
     phase_plot.xaxis.axis_label = "Frequency (Hz)"
     phase_plot.yaxis.axis_label = "Phase (degrees)"
+    phase_plot.toolbar.logo = None
 
     return spectrum_plot, phase_plot
