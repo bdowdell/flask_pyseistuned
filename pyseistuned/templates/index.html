@@ -20,6 +20,11 @@ limitations under the License.
     <p>
         Calculate seismic tuning on the web!
     </p>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     <!-- Tuning Wedge Inputs -->
     <form action="{{ url_for('results') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -97,7 +102,7 @@ limitations under the License.
                         {{ form.frequency.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.frequency(class_='form-control') }}
+                        {{ form.frequency(class_='form-control', data_toggle="tooltip", title="Ricker: enter central frequency\nOrmsby: enter comma separated frequencies F1, F2, F3, F4") }}
                     </div>
                 </div>
                 <div class="row">
