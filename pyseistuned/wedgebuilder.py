@@ -36,9 +36,9 @@ def earth_model(rock_props):
 
     """
     # define the earth model
-    wedge_length, wedge_depth = 101, 240
-    model = 1 + np.tri(wedge_depth, wedge_length, -wedge_depth // 3, dtype=int)
-    model[: wedge_depth // 3, :] = 0
+    width, height = 101, 240
+    model = 1 + np.tri(height, width, -height // 3, dtype=int)
+    model[: height // 3, :] = 0
 
     # reshape the input rock properties list for populating earth model
     rocks = np.array(rock_props).reshape(3, 2)

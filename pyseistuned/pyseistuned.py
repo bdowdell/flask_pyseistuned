@@ -23,6 +23,7 @@ from flask_mail import Mail, Message
 import pyseistuned.wedgebuilder as wb
 import pyseistuned.bokeh_wavelet as bokeh_wavelet
 import pyseistuned.bokeh_amplitude_spectrum as bas
+import pyseistuned.bokeh_plot_wedge as bokeh_wedge
 from bokeh.embed import components
 
 
@@ -73,6 +74,12 @@ def results():
     ampspec_script, ampspec_div = components(amplitude_spectrum)
     phase_script, phase_div = components(phase_plot)
 
+    earth_mod = bokeh_wedge.plot_earth_model(imp, wv_dt)
+    em_script, em_div = components(earth_mod)
+
+    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt)
+    syn_script, syn_div = components(synth_mod)
+
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
@@ -81,7 +88,9 @@ def results():
                            freq=freq, wv_len=wv_len, wv_dt=wv_dt,
                            wv_div=wv_div, wv_script=wv_script,
                            ampspec_div=ampspec_div, ampspec_script=ampspec_script,
-                           phase_script=phase_script, phase_div=phase_div
+                           phase_script=phase_script, phase_div=phase_div,
+                           em_script=em_script, em_div=em_div,
+                           syn_script=syn_script, syn_div=syn_div
                            )
 
 
