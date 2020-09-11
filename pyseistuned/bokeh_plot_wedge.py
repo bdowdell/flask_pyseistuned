@@ -86,8 +86,6 @@ def plot_synth(synth, dt):
         x_range=[0, np.max(wt)], x_axis_label="Wedge Thickness (TWT)",
         y_range=[np.max(t), 0], y_axis_label="TWT (sec)"
     )
-    plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
-               palette=RdBu11[::-1], level="image")
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace
     dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2
@@ -95,6 +93,9 @@ def plot_synth(synth, dt):
         tr = trace*7*dx
         x = 0 + i*dx
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
+    # plot synthetic as image
+    plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
+               palette=RdBu11[::-1], level="image")
     plot.grid.grid_line_width = 0
     plot.toolbar.logo = None
 
