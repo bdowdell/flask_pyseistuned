@@ -47,7 +47,7 @@ def plot_earth_model(imp, dt):
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, title="Earth Model",
         tools=tools,
-        x_range=[0, np.max(wt)], x_axis_label="Wedge Thickness (TWT)",
+        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (sec)",
         y_range=[np.max(t), 0], y_axis_label="TWT (sec)"
     )
     plot.image(image=[imp], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t), palette=Viridis10[::-1],
@@ -83,13 +83,13 @@ def plot_synth(synth, dt):
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, tools=tools, title="Synthetic Wedge Model",
-        x_range=[0, np.max(wt)], x_axis_label="Wedge Thickness (TWT)",
+        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (sec)",
         y_range=[np.max(t), 0], y_axis_label="TWT (sec)"
     )
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace
     dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2
-    for i, trace in enumerate(synth.transpose()[::2,:]):
+    for i, trace in enumerate(synth.transpose()[::2, :]):
         tr = trace*7*dx
         x = 0 + i*dx
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
