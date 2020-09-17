@@ -85,7 +85,7 @@ def results():
     tab2 = Panel(child=earth_mod, title="Earth Model")
     wedge_script, wedge_div = components(Tabs(tabs=[tab1, tab2]))
 
-    tuning_curve = btc.plot_tuning_curve(z, amp)
+    tuning_curve = btc.plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset)
     tc_script, tc_div = components(tuning_curve)
 
     return render_template('results.html',

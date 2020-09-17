@@ -173,21 +173,21 @@ def tuning_curve(rc, synth, rock_props, dt):
     # negative values (trough) SEG normal polarity
     if AI[1] < AI[0]:
         top = np.apply_along_axis(np.nanargmin, 0, rc) + 1
-        base = np.apply_along_axis(np.nanargmax, 0, rc) + 1
     else:
         top = np.apply_along_axis(np.nanargmax, 0, rc) + 1
-        base = np.apply_along_axis(np.nanargmin, 0, rc) + 1
 
     # calculate the wedge thickness
-    #z = base - top
     z = np.zeros(synth.shape[1])
     z[1:] += dt
     z = np.cumsum(z) * 1000
-    #z = np.linspace(0, dt*synth.shape[1], synth.shape[1]) * 1000  # thickness is dependent on sample increment
 
     # determine the thickness at which synth has max amplitude
     # This is the measured tuning thickness in TWT
-    z_tuning = np.nanargmax(abs(synth[np.nanmax(top), :]))
+    z_tuning_idx = np.nanargmax(abs(synth[np.nanmax(top), :]))
+    z_tuning_arr = np.zeros(z_tuning_idx)
+    z_tuning_arr[1:] += dt
+    z_tuning_arr = np.cumsum(z_tuning_arr) * 1000
+    z_tuning = z_tuning_arr[-1]
 
     # determine the apparent thickness at which synth has max amplitude
     # this represents what is seismically resolvable, in TWT
@@ -208,6 +208,10 @@ def tuning_curve(rc, synth, rock_props, dt):
     # calculate the tuning onset thickness
     amp_ref = abs(amp_top[-1])  # grabs amplitude "reference" when z >> z_tuning
     amp_pc = [((abs(x) - amp_ref) / amp_ref) for x in amp_top]
-    z_onset = (len(amp_top) - np.argwhere(np.flip(amp_pc) > 0.1)[0][0]) - 1
+    z_onset_idx = (len(amp_top) - np.argwhere(np.flip(amp_pc) > 0.1)[0][0]) - 1
+    z_onset_arr = np.zeros(z_onset_idx)
+    z_onset_arr[1:] += dt
+    z_onset_arr = np.cumsum(z_onset_arr) * 1000
+    z_onset = z_onset_arr[-1]
 
     return z, z_tuning, amp, z_apparent, z_onset
