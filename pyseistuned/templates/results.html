@@ -46,6 +46,7 @@ limitations under the License.
     <p>
         {{ wv_dt }}
     </p>
+    <!-- plot the wavelet, the amplitude spectrum, and phase -->
     <div class="row">
         <div class="col-sm">
             {{ wv_div|safe }}
@@ -60,17 +61,18 @@ limitations under the License.
             {{ phase_script|safe }}
         </div>
     </div>
-    <div class="row">
+    <!-- plot the synthetic & earth models, and the tuning curve -->
+    <div class="row" style="padding-top:20px;">
         <div class="col-sm">
-            {{ em_div|safe }}
-            {{ em_script|safe }}
+            {{ wedge_div|safe }}
+            {{ wedge_script|safe }}
         </div>
-        <div class="col-sm">
-            {{ syn_div|safe }}
-            {{ syn_script|safe }}
+        <div class="col-sm" style="padding-top:35px;">
+            {{ tc_div|safe }}
+            {{ tc_script|safe }}
         </div>
     </div>
-    <form action="" method="post" novalidate style="padding-top:10px;">
+    <form action="" method="post" novalidate style="padding-top:15px;">
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
     </form>
 {% endblock %}

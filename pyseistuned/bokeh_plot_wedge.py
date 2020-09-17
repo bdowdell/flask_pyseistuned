@@ -35,20 +35,31 @@ def plot_earth_model(imp, dt):
     -------
 
     """
+    # bokeh's image plots upside down, so need to flip the impedance ndarray
     imp = np.flipud(imp)
-    t = np.linspace(0, dt*imp.shape[0], imp.shape[0])  # time axis in TWT (s)
-    wt = np.linspace(0, dt*imp.shape[1], imp.shape[1])  # wedge thickness in TWT (s)
+
+    # time axis in TWT (millisec)
+    t = np.zeros(imp.shape[0])
+    t[1:] += dt
+    t = np.cumsum(t) * 1000
+
+    # wedge thickness in TWT (millisec)
+    wt = np.zeros(imp.shape[1])
+    wt[1:] += dt
+    wt = np.cumsum(wt) * 1000
+
+    # set plot configuration
     TOOLTIPS = [
         ("Impedance", "@image{int}"),
-        ("Wedge Thickness, TWT (s)", "$x{1.111}")
+        ("Wedge Thickness, TWT (s)", "$x{1.1}")
     ]
     tools = "crosshair, pan, reset, save, wheel_zoom"
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, title="Earth Model",
         tools=tools,
-        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (sec)",
-        y_range=[np.max(t), 0], y_axis_label="TWT (sec)"
+        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (ms)",
+        y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
     plot.image(image=[imp], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t), palette=Viridis10[::-1],
                level="image")
@@ -72,19 +83,30 @@ def plot_synth(synth, dt):
     -------
 
     """
+    # bokeh's image plots upside down, so need to flip the impedance ndarray
     synth = np.flipud(synth)
-    t = np.linspace(0, dt*synth.shape[0], synth.shape[0])  # time axis in TWT (s)
-    wt = np.linspace(0, dt*synth.shape[1], synth.shape[1])  # wedge thickness in TWT (s)
+
+    # time axis in TWT (millisec)
+    t = np.zeros(synth.shape[0])
+    t[1:] += dt
+    t = np.cumsum(t) * 1000
+
+    # wedge thickness in TWT (millisec)
+    wt = np.zeros(synth.shape[1])
+    wt[1:] += dt
+    wt = np.cumsum(wt) * 1000
+
+    # set plot configuration
     TOOLTIPS = [
         ("Amplitude", "@image"),
-        ("Wedge Thickness, TWT (s)", "$x{1.111}")
+        ("Wedge Thickness, TWT (s)", "$x{1.1}")
     ]
     tools = "crosshair, pan, reset, save, wheel_zoom, box_zoom"
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, tools=tools, title="Synthetic Wedge Model",
-        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (sec)",
-        y_range=[np.max(t), 0], y_axis_label="TWT (sec)"
+        x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (ms)",
+        y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace

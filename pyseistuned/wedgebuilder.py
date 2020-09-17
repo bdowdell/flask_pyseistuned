@@ -135,7 +135,7 @@ def tuning_wedge(rc, w):
     return synth
 
 
-def tuning_curve(rc, synth, rock_props):
+def tuning_curve(rc, synth, rock_props, dt):
     """Calculates the tuning curve
 
     Parameters
@@ -146,6 +146,8 @@ def tuning_curve(rc, synth, rock_props):
         array of synthetic seismic values
     rock_props : list
         list of rock properties (Vp, Density)
+    dt : float
+        wavelet sample increment
 
     Returns
     -------
@@ -177,7 +179,11 @@ def tuning_curve(rc, synth, rock_props):
         base = np.apply_along_axis(np.nanargmin, 0, rc) + 1
 
     # calculate the wedge thickness
-    z = base - top
+    #z = base - top
+    z = np.zeros(synth.shape[1])
+    z[1:] += dt
+    z = np.cumsum(z) * 1000
+    #z = np.linspace(0, dt*synth.shape[1], synth.shape[1]) * 1000  # thickness is dependent on sample increment
 
     # determine the thickness at which synth has max amplitude
     # This is the measured tuning thickness in TWT

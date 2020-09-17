@@ -24,7 +24,9 @@ import pyseistuned.wedgebuilder as wb
 import pyseistuned.bokeh_wavelet as bokeh_wavelet
 import pyseistuned.bokeh_amplitude_spectrum as bas
 import pyseistuned.bokeh_plot_wedge as bokeh_wedge
+import pyseistuned.bokeh_tuning_curve as btc
 from bokeh.embed import components
+from bokeh.models import Panel, Tabs
 
 
 app = Flask(__name__)
@@ -65,7 +67,7 @@ def results():
     rc, imp = wb.earth_model(rock_props)
     wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
     synth = wb.tuning_wedge(rc, wavelet)
-    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props)
+    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props, wv_dt)
 
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
@@ -74,11 +76,17 @@ def results():
     ampspec_script, ampspec_div = components(amplitude_spectrum)
     phase_script, phase_div = components(phase_plot)
 
+    # Get the synthetic wedge and earth model plots
     earth_mod = bokeh_wedge.plot_earth_model(imp, wv_dt)
-    em_script, em_div = components(earth_mod)
-
     synth_mod = bokeh_wedge.plot_synth(synth, wv_dt)
-    syn_script, syn_div = components(synth_mod)
+
+    # put the synthetic wedge and earth model plots together in a tabbed panel
+    tab1 = Panel(child=synth_mod, title="Synthetic Wedge")
+    tab2 = Panel(child=earth_mod, title="Earth Model")
+    wedge_script, wedge_div = components(Tabs(tabs=[tab1, tab2]))
+
+    tuning_curve = btc.plot_tuning_curve(z, amp)
+    tc_script, tc_div = components(tuning_curve)
 
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
@@ -89,8 +97,8 @@ def results():
                            wv_div=wv_div, wv_script=wv_script,
                            ampspec_div=ampspec_div, ampspec_script=ampspec_script,
                            phase_script=phase_script, phase_div=phase_div,
-                           em_script=em_script, em_div=em_div,
-                           syn_script=syn_script, syn_div=syn_div
+                           wedge_script=wedge_script, wedge_div=wedge_div,
+                           tc_script=tc_script, tc_div=tc_div,
                            )
 
 
