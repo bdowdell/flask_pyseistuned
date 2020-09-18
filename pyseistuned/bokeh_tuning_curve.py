@@ -58,7 +58,7 @@ def plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset):
     plot.line('x', 'y', source=source, line_width=3)
     # add wedge true & measured thickness to plot
     plot.extra_y_ranges = {"thickness": Range1d(start=0, end=np.max(z))}
-    plot.add_layout(LinearAxis(y_range_name="thickness"), "left")
+    plot.add_layout(LinearAxis(y_range_name="thickness", axis_label="TWT thickness (ms)"), "left")
     plot.line('x', 'x', source=source, line_width=2, line_alpha=0.6, line_color="green", y_range_name="thickness")
     plot.line('x', 'z', source=source, line_width=2, line_alpha=0.6, line_color="red", y_range_name="thickness")
     z_tuning_vline = Span(location=z_tuning, dimension="height", line_color="black", line_width=2)
