@@ -194,11 +194,14 @@ def tuning_curve(synth, rock_props, dt):
 
     z_apparent = base_apparent - top_apparent
     z_apparent[0] = z_apparent[1]  # project the minimum apparent thickness to the first index
+    z_apparent = z_apparent * dt * 1000
+    z_apparent = z_apparent.astype(np.int64)
 
     # extract the amplitude along the top of the wedge model
     amp = abs(synth[model_height // 3 + 1, :])
 
     # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
-    z_onset = np.argwhere(z - z_apparent > 0)[-1][0]  # the last value is where thinning causes tuning onset
+    z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
+    z_onset = z_apparent[z_onset_idx]
 
     return z, z_tuning, amp, z_apparent, z_onset
