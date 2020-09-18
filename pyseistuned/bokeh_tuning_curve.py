@@ -46,7 +46,7 @@ def plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset):
     source = ColumnDataSource(data=dict(x=z, y=amp, z=z_apparent))
     TOOLTIPS = [
         ("Amplitude", "$y{1.111}"),
-        ("TWT thickness (ms)", "$x{1.1}")
+        ("TWT thickness", "$x{1.1} ms")
     ]
     tools = "crosshair, pan, reset, save, wheel_zoom, box_zoom"
     plot = figure(

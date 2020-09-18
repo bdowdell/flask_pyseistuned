@@ -67,7 +67,7 @@ def results():
     rc, imp = wb.earth_model(rock_props)
     wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
     synth = wb.tuning_wedge(rc, wavelet)
-    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(rc, synth, rock_props, wv_dt)
+    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(synth, rock_props, wv_dt)
 
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)

@@ -135,13 +135,11 @@ def tuning_wedge(rc, w):
     return synth
 
 
-def tuning_curve(rc, synth, rock_props, dt):
+def tuning_curve(synth, rock_props, dt):
     """Calculates the tuning curve
 
     Parameters
     ----------
-    rc : ndarray
-        array of reflection coefficients
     synth : ndarray
         array of synthetic seismic values
     rock_props : list
@@ -163,28 +161,24 @@ def tuning_curve(rc, synth, rock_props, dt):
         wedge thickness at onset of tuning
 
     """
-    wedge_depth = 240
+    model_height = 240
 
     rocks = np.array(rock_props).reshape(3, 2)
     AI = np.apply_along_axis(np.product, -1, rocks)
 
-    # Determine the wedge thickness at each trace
-    # Initially assume that the top RC is a decrease in impedance,
-    # negative values (trough) SEG normal polarity
-    if AI[1] < AI[0]:
-        top = np.apply_along_axis(np.nanargmin, 0, rc) + 1
-    else:
-        top = np.apply_along_axis(np.nanargmax, 0, rc) + 1
+    # create an ndarray containing index value of top of wedge
+    top = np.ones(synth.shape[1], dtype=int) * int(model_height // 3)
 
     # calculate the wedge thickness
     z = np.zeros(synth.shape[1])
     z[1:] += dt
     z = np.cumsum(z) * 1000
+    z = z.astype(np.int64)  # force wedge thicknesses to be integers
 
     # determine the thickness at which synth has max amplitude
     # This is the measured tuning thickness in TWT
     z_tuning_idx = np.nanargmax(abs(synth[np.nanmax(top), :]))
-    z_tuning_arr = np.zeros(z_tuning_idx)
+    z_tuning_arr = np.zeros(z_tuning_idx + 1)
     z_tuning_arr[1:] += dt
     z_tuning_arr = np.cumsum(z_tuning_arr) * 1000
     z_tuning = z_tuning_arr[-1]
@@ -192,26 +186,21 @@ def tuning_curve(rc, synth, rock_props, dt):
     # determine the apparent thickness at which synth has max amplitude
     # this represents what is seismically resolvable, in TWT
     if AI[1] < AI[0]:
-        top_apparent = np.apply_along_axis(np.nanargmin, 0, synth) + 1
-        base_apparent = np.apply_along_axis(np.nanargmax, 0, synth) + 1
+        top_apparent = np.apply_along_axis(np.nanargmin, 0, synth)
+        base_apparent = np.apply_along_axis(np.nanargmax, 0, synth)
     else:
         top_apparent = np.apply_along_axis(np.nanargmax, 0, synth) + 1
         base_apparent = np.apply_along_axis(np.nanargmin, 0, synth) + 1
+
+    print(top_apparent, base_apparent)
 
     z_apparent = base_apparent - top_apparent
     z_apparent[0] = z_apparent[1]  # project the minimum apparent thickness to the first index
 
     # extract the amplitude along the top of the wedge model
-    amp_top = abs(synth[wedge_depth // 3, :])
-    amp = amp_top
+    amp = abs(synth[model_height // 3, :])
 
-    # calculate the tuning onset thickness
-    amp_ref = abs(amp_top[-1])  # grabs amplitude "reference" when z >> z_tuning
-    amp_pc = [((abs(x) - amp_ref) / amp_ref) for x in amp_top]
-    z_onset_idx = (len(amp_top) - np.argwhere(np.flip(amp_pc) > 0.1)[0][0]) - 1
-    z_onset_arr = np.zeros(z_onset_idx)
-    z_onset_arr[1:] += dt
-    z_onset_arr = np.cumsum(z_onset_arr) * 1000
-    z_onset = z_onset_arr[-1]
+    # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
+    z_onset = np.argwhere(z - z_apparent > 0)[-1][0]  # the last value is where thinning causes tuning onset
 
     return z, z_tuning, amp, z_apparent, z_onset

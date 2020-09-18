@@ -51,7 +51,8 @@ def plot_earth_model(imp, dt):
     # set plot configuration
     TOOLTIPS = [
         ("Impedance", "@image{int}"),
-        ("Wedge Thickness, TWT (s)", "$x{1.1}")
+        ("TWT", "$y{1.1} ms"),
+        ("Wedge Thickness", "$x{1.1} ms")
     ]
     tools = "crosshair, pan, reset, save, wheel_zoom"
     plot = figure(
@@ -99,7 +100,8 @@ def plot_synth(synth, dt):
     # set plot configuration
     TOOLTIPS = [
         ("Amplitude", "@image"),
-        ("Wedge Thickness, TWT (s)", "$x{1.1}")
+        ("TWT", "$y{1.1} ms"),
+        ("Wedge Thickness", "$x{1.1} ms")
     ]
     tools = "crosshair, pan, reset, save, wheel_zoom, box_zoom"
     plot = figure(

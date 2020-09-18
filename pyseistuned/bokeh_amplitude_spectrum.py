@@ -52,8 +52,8 @@ def plot_amplitude_spectrum(w, dt):
 
     # set up spectrum plot
     spec_TOOLTIPS = [
-        ("Frequency", "$x"),
-        ("Amplitude", "$y")
+        ("Frequency", "$x Hz"),
+        ("Amplitude", "$y dB")
     ]
 
     spectrum_plot = figure(plot_height=250, plot_width=250, tooltips=spec_TOOLTIPS, title="Amplitude Spectrum",
@@ -66,8 +66,8 @@ def plot_amplitude_spectrum(w, dt):
 
     # set up phase plot
     phase_TOOLTIPS = [
-        ("Frequency", "$x"),
-        ("Phase", "$y")
+        ("Frequency", "$x Hz"),
+        ("Phase", "$y{}".format(u'\N{DEGREE SIGN}'))
     ]
 
     phase_plot = figure(plot_height=250, plot_width=250, tooltips=phase_TOOLTIPS, title="Phase",

@@ -45,7 +45,7 @@ def plot_wavelet(w, duration):
 
     # set up plot
     TOOLTIPS = [
-        ("Time", "$x"),
+        ("Time", "$x ms"),
         ("Amp", "$y")
     ]
     plot = figure(plot_height=250, plot_width=250, tooltips=TOOLTIPS, title="Wavelet",
