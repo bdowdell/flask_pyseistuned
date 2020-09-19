@@ -125,13 +125,13 @@ def plot_synth(synth, dt, z_tuning, z_onset):
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
     # plot synthetic trace at measured tuning TWT thickness
     plot.line(
-        x=(tuning_idx + synth.transpose()[tuning_idx, :] * 7 * dx), y=np.flipud(t),
+        x=(tuning_idx * dt * 1000 + synth.transpose()[tuning_idx, :] * 7 * dx), y=np.flipud(t),
         line_color="black", line_width=3
     )
     # plot synthetic trace at measured onset tuning TWT thickness
     plot.line(
-        x=(onset_idx + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
-        line_color="black", line_width=1, line_alpha=0.8
+        x=(onset_idx * dt * 1000 + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
+        line_color="black", line_width=2, line_alpha=0.7, line_dash="dashed"
     )
     # plot synthetic as image
     plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
