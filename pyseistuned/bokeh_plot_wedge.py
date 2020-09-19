@@ -70,7 +70,7 @@ def plot_earth_model(imp, dt):
     return plot
 
 
-def plot_synth(synth, dt):
+def plot_synth(synth, dt, z_tuning, z_onset):
     """
 
     Parameters
@@ -79,6 +79,10 @@ def plot_synth(synth, dt):
         synthetic trace
     dt : float
         wavelet sample increment
+    z_tuning : float
+        tuning thickness in TWT milliseconds
+    z_onset : int
+        onset of tuning in TWT milliseconds
 
     Returns
     -------
@@ -96,6 +100,8 @@ def plot_synth(synth, dt):
     wt = np.zeros(synth.shape[1])
     wt[1:] += dt
     wt = np.cumsum(wt) * 1000
+    tuning_idx = np.argwhere(wt == z_tuning)[0][0]  # get TWT tuning thickness index
+    onset_idx = np.argwhere(wt.astype(np.int64) == z_onset)[0][0]  # get TWT onset tuning thickness index
 
     # set plot configuration
     TOOLTIPS = [
@@ -117,6 +123,16 @@ def plot_synth(synth, dt):
         tr = trace*7*dx
         x = 0 + i*dx
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
+    # plot synthetic trace at measured tuning TWT thickness
+    plot.line(
+        x=(tuning_idx + synth.transpose()[tuning_idx, :] * 7 * dx), y=np.flipud(t),
+        line_color="black", line_width=3
+    )
+    # plot synthetic trace at measured onset tuning TWT thickness
+    plot.line(
+        x=(onset_idx + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
+        line_color="black", line_width=1, line_alpha=0.8
+    )
     # plot synthetic as image
     plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
                palette=RdBu11[::-1], level="image")

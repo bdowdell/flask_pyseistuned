@@ -78,7 +78,7 @@ def results():
 
     # Get the synthetic wedge and earth model plots
     earth_mod = bokeh_wedge.plot_earth_model(imp, wv_dt)
-    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt)
+    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt, z_tuning, z_onset)
 
     # put the synthetic wedge and earth model plots together in a tabbed panel
     tab1 = Panel(child=synth_mod, title="Synthetic Wedge")
