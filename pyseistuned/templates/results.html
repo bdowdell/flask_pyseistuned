@@ -17,11 +17,11 @@ limitations under the License.
 {% block head %}
     {{ super() }}
     <script>
-        $(document).ready(function () {
-            // Hide the div
-            $("#div_delay").hide();
-            // Show the div after 5s
-            $("#div_delay").delay(2000).fadeIn(100);
+        $(function () {
+            setTimeout(function() {
+                // Show the div after 2s
+                $("#divDelay").show();
+            }, 1000);
         });
     </script>
     <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +61,7 @@ limitations under the License.
     </form>
     <!-- Read back the input values -->
     <p></p>
-    <div id="div_delay" style="display:none">
+    <div id="divDelay" style="display:none">
         <h4>Inputs</h4>
         <div class="row">
             <div class="col-sm">
@@ -130,8 +130,8 @@ limitations under the License.
                     {{ freq[0] }} Hz
                 {% else %}
                     {% for f in freq %}
-                        {{ f }} Hz,
-                    {% endfor %}
+                        {{ f }} -
+                    {% endfor %} Hz
                 {% endif %}
             </div>
             <div class="col-sm">
