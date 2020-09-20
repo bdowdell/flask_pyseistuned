@@ -60,7 +60,7 @@ def plot_earth_model(imp, dt):
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, title="Earth Model",
         tools=tools,
-        x_range=Range1d(0, 100, bounds="auto"), x_axis_label="TWT Wedge Thickness (ms)",
+        x_range=Range1d(0, 100), x_axis_label="TWT Wedge Thickness (ms)",
         y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
     plot.image(image=[imp], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t), palette=Viridis10[::-1],
@@ -113,7 +113,7 @@ def plot_synth(synth, dt, z_tuning, z_onset):
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, tools=tools, title="Synthetic Wedge Model",
-        x_range=Range1d(0, 100, bounds="auto"), x_axis_label="TWT Wedge Thickness (ms)",
+        x_range=Range1d(0, 100), x_axis_label="TWT Wedge Thickness (ms)",
         y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
 
