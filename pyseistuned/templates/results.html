@@ -16,36 +16,20 @@ limitations under the License.
 {% extends 'base.html' %}
 {% block head %}
     {{ super() }}
+    <script>
+        $(document).ready(function () {
+            // Hide the div
+            $("#div_delay").hide();
+            // Show the div after 5s
+            $("#div_delay").delay(2000).fadeIn(100);
+        });
+    </script>
     <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block content %}
     <h1>{% block title %} Results {% endblock %}</h1>
-    <p>
-        {{ vp_1 }} {{ rho_1 }}
-    </p>
-    <p>
-        {{ vp_2 }} {{ rho_2 }}
-    </p>
-    <p>
-        {{ vp_3 }} {{ rho_3 }}
-    </p>
-    <p>
-        {{ vp_units }}
-    </p>
-    <p>
-        {{ wv_type }}
-    </p>
-    <p>
-        {{ freq }}
-    </p>
-    <p>
-        {{ wv_len }}
-    </p>
-    <p>
-        {{ wv_dt }}
-    </p>
     <!-- plot the wavelet, the amplitude spectrum, and phase -->
     <div class="row">
         <div class="col-sm">
@@ -75,4 +59,87 @@ limitations under the License.
     <form action="" method="post" novalidate style="padding-top:15px;">
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
     </form>
+    <!-- Read back the input values -->
+    <p></p>
+    <div id="div_delay" style="display:none">
+        <h4>Inputs</h4>
+        <div class="row">
+            <div class="col-sm">
+                <h5>Rock Properties</h5>
+            </div>
+            <div class="col-sm">
+                <h5>Vp</h5>
+            </div>
+            <div class="col-sm">
+                <h5>Rho</h5>
+            </div>
+            <div class="col-sm">
+                <h5>AI</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h6>Top & Base Layer</h6>
+            </div>
+            <div class="col-sm">
+                {{ vp_1 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
+            </div>
+            <div class="col-sm">
+                {{ rho_1 }} g/cm<sup>3</sup>
+            </div>
+            <div class="col-sm">
+                {{ (vp_1 * rho_1)|round }} {% if vp_units == 0 %} m/s.g/cm<sup>3</sup> {% else %} ft/s * g/cm<sup>3</sup> {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h6>Wedge Layer</h6>
+            </div>
+            <div class="col-sm">
+                {{ vp_2 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
+            </div>
+            <div class="col-sm">
+                {{ rho_2 }} g/cm<sup>3</sup>
+            </div>
+            <div class="col-sm">
+                {{ (vp_2 * rho_2)|round }} {% if vp_units == 0 %} m/s.g/cm<sup>3</sup> {% else %} ft/s * g/cm<sup>3</sup> {% endif %}
+            </div>
+        </div>
+        <p></p>
+        <h5>Wavelet Parameters</h5>
+        <div class="row">
+            <div class="col-sm">
+                <h6>Wavelet Type</h6>
+            </div>
+            <div class="col-sm">
+                <h6>Frequency</h6>
+            </div>
+            <div class="col-sm">
+                <h6>Wavelet Length</h6>
+            </div>
+            <div class="col-sm">
+                <h6>Sample Increment</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {% if wv_type == 0 %} Ricker {% else %} Ormsby {% endif %}
+            </div>
+            <div class="col-sm">
+                {% if wv_type == 0 %}
+                    {{ freq[0] }} Hz
+                {% else %}
+                    {% for f in freq %}
+                        {{ f }} Hz,
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-sm">
+                {{ wv_len }} sec
+            </div>
+            <div class="col-sm">
+                {{ wv_dt }} sec
+            </div>
+        </div>
+    </div>
 {% endblock %}
