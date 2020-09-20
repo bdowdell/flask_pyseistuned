@@ -23,23 +23,30 @@ limitations under the License.
     <!-- enable bootstrap tooltip via Popper.js (already loaded in base.html) -->
     <script>
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip({html: true})
         })
     </script>
+    <!-- Style for bootstrap tooltip to align text left and set font size -->
+    <style>
+        .tooltip-inner {
+            text-align: left;
+            font-size: 12px;
+        }
+    </style>
     <!-- Tuning Wedge Inputs -->
     <form action="{{ url_for('results') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
         <!-- Rock Properties -->
-        <div class="row">
+        <div class="form-row">
             <div class="col-sm">
                 <h4>Rock Property Parameters</h4>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
                     <div class="col-sm"><strong>Density (g/cm<sup>3</sup>)</strong></div>
                 </div>
                 <div class="row"><p></p></div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         Top & Base Layer
                     </div>
@@ -50,7 +57,7 @@ limitations under the License.
                         {{ form.layer_1_dens(class_='form-control') }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         Wedge
                     </div>
@@ -61,7 +68,7 @@ limitations under the License.
                         {{ form.layer_2_dens(class_='form-control') }}
                     </div>
                 </div>
-                <div class="row" style="padding-top:10px;">
+                <div class="form-row" style="padding-top:10px;">
                     <div class="col-sm">
                         {{ form.vp_units.label }}
                     </div>
@@ -76,10 +83,10 @@ limitations under the License.
             <div class="col-sm"></div>
         </div>
         <!-- Wavelet parameters -->
-        <div class="row">
+        <div class="form-row">
             <div class="col-sm">
                 <h4>Wavelet Parameters</h4>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         {{ form.wv_type.label }}
                     </div>
@@ -87,15 +94,15 @@ limitations under the License.
                         {{ form.wv_type }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         {{ form.frequency.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.frequency(class_='form-control', data_toggle="tooltip", title="Ricker: enter central frequency\nOrmsby: enter comma separated frequencies F1, F2, F3, F4") }}
+                        {{ form.frequency(class_='form-control', data_toggle="tooltip", data_placement="right", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         {{ form.wv_length.label }}
                     </div>
@@ -103,7 +110,7 @@ limitations under the License.
                         {{ form.wv_length(class_='form-control') }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm">
                         {{ form.wv_dt.label }}
                     </div>
@@ -112,7 +119,7 @@ limitations under the License.
                     </div>
                 </div>
                 <!-- calculate button -->
-                <div class="row">
+                <div class="form-row">
                     <div class="col-sm"></div>
                     <div class="col-sm offset-md-6" style="padding-top:10px;">
                         {{ form.submit(class_='btn btn-primary') }}
