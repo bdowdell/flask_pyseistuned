@@ -101,7 +101,6 @@ def plot_synth(synth, dt, z_tuning, z_onset):
     wt[1:] += dt
     wt = np.cumsum(wt) * 1000
     tuning_idx = np.argwhere(wt == z_tuning)[0][0]  # get TWT tuning thickness index
-    onset_idx = np.argwhere(wt.astype(np.int64) == z_onset)[0][0]  # get TWT onset tuning thickness index
 
     # set plot configuration
     TOOLTIPS = [
@@ -116,6 +115,7 @@ def plot_synth(synth, dt, z_tuning, z_onset):
         x_range=[0, np.max(wt)], x_axis_label="TWT Wedge Thickness (ms)",
         y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
+
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace
     dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2
@@ -128,14 +128,24 @@ def plot_synth(synth, dt, z_tuning, z_onset):
         x=(tuning_idx * dt * 1000 + synth.transpose()[tuning_idx, :] * 7 * dx), y=np.flipud(t),
         line_color="black", line_width=3
     )
-    # plot synthetic trace at measured onset tuning TWT thickness
-    plot.line(
-        x=(onset_idx * dt * 1000 + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
-        line_color="black", line_width=2, line_alpha=0.7, line_dash="dashed"
-    )
+
+    # If wavelet frequency is low (<10 Hz) and sample increment is small (==0.001), the wedge is not thick enough
+    # to establish the tuning onset thickness, so we will omit it from the plot in that case.
+    try:
+        # get TWT onset tuning thickness index
+        onset_idx = np.argwhere(wt.astype(np.int64) == z_onset)[0][0]
+        # plot synthetic trace at measured onset tuning TWT thickness
+        plot.line(
+            x=(onset_idx * dt * 1000 + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
+            line_color="black", line_width=2, line_alpha=0.7, line_dash="dashed"
+        )
+    except IndexError:
+        pass
+
     # plot synthetic as image
     plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
                palette=RdBu11[::-1], level="image")
+
     plot.grid.grid_line_width = 0
     plot.toolbar.logo = None
 

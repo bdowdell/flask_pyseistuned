@@ -52,7 +52,7 @@ def plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset):
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, title="Tuning Curve", tools=tools,
-        x_axis_label="TWT thickness (ms)", y_axis_label="Amplitude",
+        x_axis_label="TWT thickness (ms)", y_axis_label="Abs(Amplitude)",
         y_range=(min_amp, max_amp + 0.01)
     )
     plot.line('x', 'y', source=source, line_width=3)

@@ -135,7 +135,7 @@ def tuning_wedge(rc, w):
     return synth
 
 
-def tuning_curve(synth, rock_props, dt):
+def tuning_curve(synth, rock_props, dt, w_type, f=None):
     """Calculates the tuning curve
 
     Parameters
@@ -146,6 +146,10 @@ def tuning_curve(synth, rock_props, dt):
         list of rock properties (Vp, Density)
     dt : float
         wavelet sample increment
+    w_type : int
+        Wavelet type. 0 for Ricker, 1 for Ormsby
+    f : list
+        wavelet frequency(ies)
 
     Returns
     -------
@@ -157,17 +161,31 @@ def tuning_curve(synth, rock_props, dt):
         extracted amplitude along the top of the wedge model
     z_apparent : ndarray
         apparent wedge thickness
-    z_onset : float
+    z_onset : int
         wedge thickness at onset of tuning
 
     """
-    model_height = 240
+
+    # Get central frequency depending on wavelet type, first set default value if not passed in
+    if f is None:
+        f = [25]
+    if w_type:
+        # take average of low pass and high pass in Ormsby filter
+        f_central = (f[1] + f[2]) / 2
+    else:
+        # Ricker central frequency
+        f_central = f[0]
 
     rocks = np.array(rock_props).reshape(3, 2)
     AI = np.apply_along_axis(np.product, -1, rocks)
 
     # create an ndarray containing index value of top of wedge
-    top = np.ones(synth.shape[1], dtype=int) * int(model_height // 3 + 1)
+    if AI[1] < AI[0]:
+        top_idx = np.nanargmin(synth[:, -1])  # use the last column in model to get top at min amplitude
+    else:
+        top_idx = np.nanargmax(synth[:, -1])  # use the last column in model to get top at max amplitude
+
+    top = np.ones(synth.shape[1], dtype=int) * top_idx
 
     # calculate the wedge thickness
     z = np.zeros(synth.shape[1])
@@ -198,10 +216,16 @@ def tuning_curve(synth, rock_props, dt):
     z_apparent = z_apparent.astype(np.int64)
 
     # extract the amplitude along the top of the wedge model
-    amp = abs(synth[model_height // 3 + 1, :])
+    amp = abs(synth[top, :])
 
     # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
     z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
-    z_onset = z_apparent[z_onset_idx]
+
+    # sometimes if frequency is very low and the sample increment is small, the wedge will not be wide enough to get
+    # the tuning onset and will result in an IndexError.  When that happens, return theoretical onset instead.
+    try:
+        z_onset = z_apparent[z_onset_idx]
+    except IndexError:
+        z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
 
     return z, z_tuning, amp, z_apparent, z_onset
