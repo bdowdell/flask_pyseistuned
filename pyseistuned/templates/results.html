@@ -56,14 +56,17 @@ limitations under the License.
             {{ tc_script|safe }}
         </div>
     </div>
+    <!-- Return Home button -->
     <form action="" method="post" novalidate style="padding-top:15px;">
         <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
     </form>
-    <!-- Read back the input values -->
+    <!-- Read outs -->
     <p></p>
     <div id="divDelay" style="display:none">
+        <!-- Inputs -->
         <h4>Inputs</h4>
         <div class="row">
+            <!-- Rock Properties -->
             <div class="col-sm">
                 <h5>Rock Properties</h5>
             </div>
@@ -105,6 +108,7 @@ limitations under the License.
                 {{ (vp_2 * rho_2)|round }} {% if vp_units == 0 %} m/s.g/cm<sup>3</sup> {% else %} ft/s * g/cm<sup>3</sup> {% endif %}
             </div>
         </div>
+        <!-- Wavelet Parameter Inputs -->
         <p></p>
         <h5>Wavelet Parameters</h5>
         <div class="row">
@@ -141,5 +145,8 @@ limitations under the License.
                 {{ wv_dt }} sec
             </div>
         </div>
+        <!-- Outputs -->
+        <p></p>
+        <h4>Outputs</h4>
     </div>
 {% endblock %}
