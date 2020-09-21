@@ -176,8 +176,8 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
     if f is None:
         f = [25]
     if w_type:
-        # take average of low pass and high pass in Ormsby filter
-        f_central = (f[1] + f[2]) / 2
+        # take average of low cut and high cut in Ormsby filter
+        f_central = (f[0] + f[3]) / 2
         tuning_onset = 1 / f_central * 1000
         tuning = tuning_onset / 2
         resolution_limit = 1 / f_central / 4 * 1000
@@ -238,6 +238,9 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
         z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
         z_onset = z_apparent[z_onset_idx]
     except IndexError:
-        z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
+        if w_type:
+            z_onset = int((1 / f_central) * 1000)
+        else:
+            z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
 
     return z, z_tuning, amp, z_apparent, z_onset, tuning_onset, tuning, resolution_limit
