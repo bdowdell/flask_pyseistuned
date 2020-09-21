@@ -231,12 +231,11 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
     # extract the amplitude along the top of the wedge model
     amp = abs(synth[top, :])
 
-    # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
-    z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
-
     # sometimes if frequency is very low and the sample increment is small, the wedge will not be wide enough to get
     # the tuning onset and will result in an IndexError.  When that happens, return theoretical onset instead.
     try:
+        # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
+        z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
         z_onset = z_apparent[z_onset_idx]
     except IndexError:
         z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
