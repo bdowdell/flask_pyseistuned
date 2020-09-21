@@ -14,12 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 {% extends 'base.html' %}
-
-{% block content %}
-    <h1>{% block title %} Welcome to PySeisTuned<sup>2.0</sup> {% endblock %}</h1>
-    <p>
-        Calculate seismic tuning on the web!
-    </p>
+{% block head %}
+    {{ super() }}
     <!-- enable bootstrap tooltip via Popper.js (already loaded in base.html) -->
     <script>
         $(function () {
@@ -33,6 +29,38 @@ limitations under the License.
             font-size: 12px;
         }
     </style>
+    <script type="text/javascript">
+        function toggleShowFApp(wT) {
+            var state = document.getElementById('wvType');
+            if( state.value == 0){
+                document.getElementById('freqC').value = '';
+                $('#freqApp').show();
+                document.getElementById('freqApp').value = '';
+            }
+            else{
+                document.getElementById('freqC').value = '';
+                $('#freqApp').hide();
+                document.getElementById('freqApp').value = '';
+            }
+        }
+
+        function updateApparentFrequency(fc) {
+            var fa = document.getElementById('freqApp');
+            if( fc.value != ''){
+                fa.value = String(Math.round(((fc.value * (Math.PI / Math.sqrt(6))) + 0.00001) * 100) / 100) + " Hz";
+            }
+            else{
+                fa.value = '';
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1>{% block title %} Welcome to PySeisTuned<sup>2.0</sup> {% endblock %}</h1>
+    <p>
+        Calculate seismic tuning on the web!
+    </p>
     <!-- Tuning Wedge Inputs -->
     <form action="{{ url_for('results') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -91,15 +119,18 @@ limitations under the License.
                         {{ form.wv_type.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.wv_type }}
+                        {{ form.wv_type(id='wvType', onchange='toggleShowFApp(this)') }}
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-sm">
                         {{ form.frequency.label }}
                     </div>
-                    <div class="col-sm">
-                        {{ form.frequency(class_='form-control', data_toggle="tooltip", data_placement="right", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
+                    <div class="col-sm-3">
+                        {{ form.frequency(class_='form-control', id='freqC', onchange='updateApparentFrequency(this)', data_toggle="tooltip", data_placement="right", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control-plaintext" id="freqApp" type="text" placeholder="Fapparent" readonly>
                     </div>
                 </div>
                 <div class="form-row">
