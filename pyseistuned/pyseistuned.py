@@ -27,7 +27,7 @@ import pyseistuned.bokeh_plot_wedge as bokeh_wedge
 import pyseistuned.bokeh_tuning_curve as btc
 from bokeh.embed import components
 from bokeh.models import Panel, Tabs
-
+from flask_weasyprint import render_pdf
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -67,7 +67,10 @@ def results():
     rc, imp = wb.earth_model(rock_props)
     wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
     synth = wb.tuning_wedge(rc, wavelet)
-    z, tuning_meas, amp, z_apparent, onset_meas, tuning_onset, tuning, resolution_limit = wb.tuning_curve(synth, rock_props, wv_dt, wv_type, freq)
+    z, tuning_meas, amp, z_apparent, onset_meas, tuning_onset, tuning, resolution_limit = wb.tuning_curve(synth,
+                                                                                                          rock_props,
+                                                                                                          wv_dt,
+                                                                                                          wv_type, freq)
 
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
@@ -87,7 +90,6 @@ def results():
 
     tuning_curve = btc.plot_tuning_curve(z, amp, z_apparent, tuning_meas, onset_meas)
     tc_script, tc_div = components(tuning_curve)
-
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
