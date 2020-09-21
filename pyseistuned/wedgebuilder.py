@@ -163,6 +163,12 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
         apparent wedge thickness
     z_onset : int
         wedge thickness at onset of tuning
+    tuning_onset : float
+        tuning onset thickness in milliseconds
+    tuning : float
+        tuning thickness in milliseconds
+    resolution_limit : float
+        limit of resolution in milliseconds
 
     """
 
@@ -172,9 +178,16 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
     if w_type:
         # take average of low pass and high pass in Ormsby filter
         f_central = (f[1] + f[2]) / 2
+        tuning_onset = 1 / f_central * 1000
+        tuning = tuning_onset / 2
+        resolution_limit = 1 / f_central / 4 * 1000
     else:
         # Ricker central frequency
         f_central = f[0]
+        f_apparent = f_central * np.pi / np.sqrt(6)
+        tuning_onset = 1 / f_apparent * 1000
+        tuning = tuning_onset / 2
+        resolution_limit = 1 / f_apparent / 4 * 1000
 
     rocks = np.array(rock_props).reshape(3, 2)
     AI = np.apply_along_axis(np.product, -1, rocks)
@@ -228,4 +241,4 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
     except IndexError:
         z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
 
-    return z, z_tuning, amp, z_apparent, z_onset
+    return z, z_tuning, amp, z_apparent, z_onset, tuning_onset, tuning, resolution_limit

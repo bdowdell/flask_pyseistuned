@@ -67,7 +67,7 @@ def results():
     rc, imp = wb.earth_model(rock_props)
     wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
     synth = wb.tuning_wedge(rc, wavelet)
-    z, z_tuning, amp, z_apparent, z_onset = wb.tuning_curve(synth, rock_props, wv_dt, wv_type, freq)
+    z, tuning_meas, amp, z_apparent, onset_meas, tuning_onset, tuning, resolution_limit = wb.tuning_curve(synth, rock_props, wv_dt, wv_type, freq)
 
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
@@ -78,14 +78,14 @@ def results():
 
     # Get the synthetic wedge and earth model plots
     earth_mod = bokeh_wedge.plot_earth_model(imp, wv_dt)
-    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt, z_tuning, z_onset)
+    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt, tuning_meas, onset_meas)
 
     # put the synthetic wedge and earth model plots together in a tabbed panel
     tab1 = Panel(child=synth_mod, title="Synthetic Wedge")
     tab2 = Panel(child=earth_mod, title="Earth Model")
     wedge_script, wedge_div = components(Tabs(tabs=[tab1, tab2]))
 
-    tuning_curve = btc.plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset)
+    tuning_curve = btc.plot_tuning_curve(z, amp, z_apparent, tuning_meas, onset_meas)
     tc_script, tc_div = components(tuning_curve)
 
     return render_template('results.html',
@@ -99,6 +99,9 @@ def results():
                            phase_script=phase_script, phase_div=phase_div,
                            wedge_script=wedge_script, wedge_div=wedge_div,
                            tc_script=tc_script, tc_div=tc_div,
+                           tuning_twt=tuning, tuning_twt_onset=tuning_onset,
+                           tuning_twt_meas=tuning_meas, tuning_twt_onset_meas=onset_meas,
+                           res_lim=resolution_limit
                            )
 
 
