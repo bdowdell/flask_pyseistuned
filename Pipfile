@@ -10,6 +10,7 @@ Flask-WTF = "*"
 email-validator = "*"
 Flask-Mail = "*"
 bokeh = "*"
+flask-weasyprint = "*"
 
 [dev-packages]
 
