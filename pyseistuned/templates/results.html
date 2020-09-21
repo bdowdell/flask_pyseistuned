@@ -182,10 +182,10 @@ limitations under the License.
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm">
-                        {{ tuning_twt|round }}
+                        {{ tuning_twt|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ tuning_twt_meas|round }}
+                        {{ tuning_twt_meas|round(2) }}
                     </div>
                 </div>
             </div>
@@ -193,16 +193,16 @@ limitations under the License.
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm">
-                        {{ tuning_twt_onset|round }}
+                        {{ tuning_twt_onset|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ tuning_twt_onset_meas|round }}
+                        {{ tuning_twt_onset_meas|round(2) }}
                     </div>
                 </div>
             </div>
             <!-- Limit of Resolution -->
             <div class="col-sm">
-                {{ res_lim|round }}
+                {{ res_lim|round(2) }}
             </div>
         </div>
         <!-- Tuning parameters in depth units -->
@@ -214,10 +214,10 @@ limitations under the License.
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm">
-                        {{ (tuning_twt / 1000 * vp_2)|round }}
+                        {{ (tuning_twt / 1000 * vp_2)|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ (tuning_twt_meas / 1000 * vp_2)|round }}
+                        {{ (tuning_twt_meas / 1000 * vp_2)|round(2) }}
                     </div>
                 </div>
             </div>
@@ -225,16 +225,16 @@ limitations under the License.
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm">
-                        {{ (tuning_twt_onset / 1000 * vp_2)|round }}
+                        {{ (tuning_twt_onset / 1000 * vp_2)|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ (tuning_twt_onset_meas / 1000 * vp_2)|round }}
+                        {{ (tuning_twt_onset_meas / 1000 * vp_2)|round(2) }}
                     </div>
                 </div>
             </div>
             <!-- Limit of Resolution -->
             <div class="col-sm">
-                {{ (res_lim / 1000 * vp_2)|round }}
+                {{ (res_lim / 1000 * vp_2)|round(2) }}
             </div>
         </div>
     </div>
