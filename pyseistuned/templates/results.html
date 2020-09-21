@@ -56,10 +56,6 @@ limitations under the License.
             {{ tc_script|safe }}
         </div>
     </div>
-    <!-- Return Home button -->
-    <form action="" method="post" novalidate style="padding-top:15px;">
-        <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
-    </form>
     <!-- Read outs -->
     <p></p>
     <div id="divDelay" style="display:none">
@@ -237,5 +233,9 @@ limitations under the License.
                 {{ (res_lim / 1000 * vp_2)|round(2) }}
             </div>
         </div>
+        <!-- Return Home button -->
+        <form action="" method="post" novalidate style="padding-top:15px;">
+            <a class="btn btn-primary" href="{{ url_for('index')}}" role="button">Return Home</a>
+        </form>
     </div>
 {% endblock %}
