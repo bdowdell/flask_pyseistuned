@@ -119,15 +119,18 @@ def plot_synth(synth, dt, z_tuning, z_onset):
 
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace
-    dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2
+    dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2  # x-axis increment
+    synth_min = synth.min()  # min value of synthetic for normalization
+    synth_max = synth.max()  # max value of synthetic for normalization
+    synth_diff = synth_max - synth_min
     for i, trace in enumerate(synth.transpose()[::2, :]):
-        tr = trace*7*dx
+        tr = (((trace - synth_min)/synth_diff) - 0.5)*4*dx
         x = 0 + i*dx
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
     # plot synthetic trace at measured tuning TWT thickness
     plot.line(
-        x=(tuning_idx * dt * 1000 + synth.transpose()[tuning_idx, :] * 7 * dx), y=np.flipud(t),
-        line_color="black", line_width=3
+        x=(tuning_idx * dt * 1000 + (((synth.transpose()[tuning_idx, :] - synth_min)/synth_diff) - 0.5) * 4 * dx),
+        y=np.flipud(t), line_color="black", line_width=3
     )
 
     # If wavelet frequency is low (<10 Hz) and sample increment is small (==0.001), the wedge is not thick enough
@@ -137,8 +140,8 @@ def plot_synth(synth, dt, z_tuning, z_onset):
         onset_idx = np.argwhere(wt.astype(np.int64) == z_onset)[0][0]
         # plot synthetic trace at measured onset tuning TWT thickness
         plot.line(
-            x=(onset_idx * dt * 1000 + synth.transpose()[onset_idx, :] * 7 * dx), y=np.flipud(t),
-            line_color="black", line_width=2, line_alpha=0.7, line_dash="dashed"
+            x=(onset_idx * dt * 1000 + (((synth.transpose()[onset_idx, :] - synth_min)/synth_diff) - 0.5) * 4 * dx),
+            y=np.flipud(t), line_color="black", line_width=2, line_alpha=0.7, line_dash="dashed"
         )
     except IndexError:
         pass
