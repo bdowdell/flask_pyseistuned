@@ -53,7 +53,7 @@ def plot_tuning_curve(z, amp, z_apparent, z_tuning, z_onset):
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, title="Tuning Curve", tools=tools,
         x_axis_label="TWT thickness (ms)", y_axis_label="Abs(Amplitude)",
-        x_range=Range1d(-0.01, 100), y_range=Range1d(min_amp, max_amp + 0.01)
+        x_range=Range1d(-0.01, 100), y_range=Range1d(min_amp, max_amp + max_amp*0.1)
     )
     plot.line('x', 'y', source=source, line_width=3)
     # add wedge true & measured thickness to plot
