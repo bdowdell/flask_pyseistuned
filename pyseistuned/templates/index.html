@@ -100,13 +100,13 @@ limitations under the License.
                         Top & Base
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_1_vp(class_='form-control', id='vp1') }}
+                        {{ form.layer_1_vp(class_='form-control', id='vp1', onchange='updateAcousticImpedance()') }}
                     </div>
                     <div class="col-sm">
                         {{ form.layer_1_dens(class_='form-control', id='rho1', onchange='updateAcousticImpedance()') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_1_impedance(class_='form-control-plaintext', id='imp1', placeholder='', readonly=true) }}
+                        {{ form.layer_1_impedance(class_='form-control-plaintext', id='imp1', placeholder='', readonly=true, tabindex=-1) }}
                     </div>
                 </div>
                 <div class="form-row">
@@ -114,13 +114,13 @@ limitations under the License.
                         Wedge
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_2_vp(class_='form-control', id='vp2') }}
+                        {{ form.layer_2_vp(class_='form-control', id='vp2', onchange='updateAcousticImpedance()') }}
                     </div>
                     <div class="col-sm">
                         {{ form.layer_2_dens(class_='form-control', id='rho2', onchange='updateAcousticImpedance()') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_2_impedance(class_='form-control-plaintext', id='imp2', placeholder='', readonly=true) }}
+                        {{ form.layer_2_impedance(class_='form-control-plaintext', id='imp2', placeholder='', readonly=true, tabindex=-1) }}
                         {% for error in form.layer_2_impedance.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
@@ -132,7 +132,7 @@ limitations under the License.
                     </div>
                     <div class="col-sm">
                         {% for field in form.vp_units %}
-                        {{ field }} {{ field.label }}
+                        {{ field(tabindex=-1) }} {{ field.label }}
                         {% endfor %}
                     </div>
                     <div class="col-sm"></div>
@@ -152,7 +152,7 @@ limitations under the License.
                         {{ form.wv_type.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.wv_type(id='wvType', onchange='toggleShowFApp(this)') }}
+                        {{ form.wv_type(id='wvType', onchange='toggleShowFApp(this)', tabindex=-1) }}
                     </div>
                 </div>
                 <div class="form-row">
@@ -163,7 +163,7 @@ limitations under the License.
                         {{ form.frequency(class_='form-control', id='freqC', onchange='updateApparentFrequency(this)', data_toggle="tooltip", data_placement="right", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control-plaintext" id="freqApp" type="text" placeholder="Fapparent" readonly>
+                        <input class="form-control-plaintext" id="freqApp" type="text" placeholder="Fapparent" tabindex=-1 readonly>
                     </div>
                 </div>
                 <div class="form-row">
