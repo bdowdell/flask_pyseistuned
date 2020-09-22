@@ -39,7 +39,8 @@ mail = Mail(app)
 def index():
     form = TuningWedgeForm(vp_units=0, wv_length=0.100, wv_dt=0.001)
     if form.validate_on_submit():
-        return redirect(url_for('results', form=request.form))
+        return redirect(url_for('results', form=request.form), code=307)
+        #return render_template('results.html', form=request.form)
     return render_template('index.html', form=form)
 
 
@@ -93,7 +94,6 @@ def results():
     return render_template('results.html',
                            vp_1=layer_1_vp, rho_1=layer_1_dens,
                            vp_2=layer_2_vp, rho_2=layer_2_dens,
-                           vp_3=layer_3_vp, rho_3=layer_3_dens,
                            vp_units=vp_units, wv_type=wv_type,
                            freq=freq, wv_len=wv_len, wv_dt=wv_dt,
                            wv_div=wv_div, wv_script=wv_script,

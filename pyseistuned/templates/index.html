@@ -53,6 +53,27 @@ limitations under the License.
                 fa.value = '';
             }
         }
+
+        function updateAcousticImpedance() {
+            var vp1 = document.getElementById('vp1');
+            var rho1 = document.getElementById('rho1');
+            var imp1 = document.getElementById('imp1');
+            if( vp1.value != '' && rho1.value != ''){
+                imp1.value = Math.round(vp1.value * rho1.value * 100) / 100;
+            }
+            else{
+                imp1.value = '';
+            }
+            var vp2 = document.getElementById('vp2');
+            var rho2 = document.getElementById('rho2');
+            var imp2 = document.getElementById('imp2');
+            if( vp2.value != '' && rho2.value != ''){
+                imp2.value = Math.round(vp2.value * rho2.value * 100) / 100;
+            }
+            else{
+                imp2.value = '';
+            }
+        }
     </script>
 {% endblock %}
 
@@ -62,7 +83,7 @@ limitations under the License.
         Calculate seismic tuning on the web!
     </p>
     <!-- Tuning Wedge Inputs -->
-    <form action="{{ url_for('results') }}" method="post" novalidate>
+    <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <!-- Rock Properties -->
         <div class="form-row">
@@ -72,17 +93,20 @@ limitations under the License.
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
                     <div class="col-sm"><strong>Density (g/cm<sup>3</sup>)</strong></div>
+                    <div class="col-sm" style="color: grey;">Acoustic Impedance</div>
                 </div>
-                <div class="row"><p></p></div>
                 <div class="form-row">
                     <div class="col-sm">
-                        Top & Base Layer
+                        Top & Base
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_1_vp(class_='form-control') }}
+                        {{ form.layer_1_vp(class_='form-control', id='vp1') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_1_dens(class_='form-control') }}
+                        {{ form.layer_1_dens(class_='form-control', id='rho1', onchange='updateAcousticImpedance()') }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.layer_1_impedance(class_='form-control-plaintext', id='imp1', placeholder='', readonly=true) }}
                     </div>
                 </div>
                 <div class="form-row">
@@ -90,10 +114,16 @@ limitations under the License.
                         Wedge
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_2_vp(class_='form-control') }}
+                        {{ form.layer_2_vp(class_='form-control', id='vp2') }}
                     </div>
                     <div class="col-sm">
-                        {{ form.layer_2_dens(class_='form-control') }}
+                        {{ form.layer_2_dens(class_='form-control', id='rho2', onchange='updateAcousticImpedance()') }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.layer_2_impedance(class_='form-control-plaintext', id='imp2', placeholder='', readonly=true) }}
+                        {% for error in form.layer_2_impedance.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="form-row" style="padding-top:10px;">
@@ -106,9 +136,12 @@ limitations under the License.
                         {% endfor %}
                     </div>
                     <div class="col-sm"></div>
+                    <div class="col-sm"></div>
                 </div>
             </div>
+            <!--
             <div class="col-sm"></div>
+            -->
         </div>
         <!-- Wavelet parameters -->
         <div class="form-row">
