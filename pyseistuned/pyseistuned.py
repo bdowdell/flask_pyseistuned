@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from config import Config
 from pyseistuned.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
@@ -39,29 +39,40 @@ mail = Mail(app)
 def index():
     form = TuningWedgeForm(vp_units=0, wv_length=0.100, wv_dt=0.001)
     if form.validate_on_submit():
-        return redirect(url_for('results', form=request.form), code=307)
-        #return render_template('results.html', form=request.form)
+        # capture inputs to session dictionary ... decimals cannot be JSONified, so multiply by 1000 and cast to int
+        session['vp_1'] = int(form.layer_1_vp.data * 1000)
+        session['rho_1'] = int(form.layer_1_dens.data * 1000)
+        session['vp_2'] = int(form.layer_2_vp.data * 1000)
+        session['rho_2'] = int(form.layer_2_dens.data * 1000)
+        session['vp_3'] = int(form.layer_1_vp.data * 1000)
+        session['rho_3'] = int(form.layer_1_dens.data * 1000)
+        session['vp_units'] = form.vp_units.data
+        session['wv_type'] = form.wv_type.data
+        session['freq'] = form.frequency.data
+        session['wv_len'] = int(form.wv_length.data * 1000)
+        session['wv_dt'] = int(form.wv_dt.data * 1000)
+        return redirect(url_for('results'))
     return render_template('index.html', form=form)
 
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
-    # assign values from TuningWedgeForm
-    layer_1_vp = float(request.form.get('layer_1_vp'))
-    layer_1_dens = float(request.form.get('layer_1_dens'))
-    layer_2_vp = float(request.form.get('layer_2_vp'))
-    layer_2_dens = float(request.form.get('layer_2_dens'))
-    layer_3_vp = float(request.form.get('layer_1_vp'))
-    layer_3_dens = float(request.form.get('layer_1_dens'))
-    vp_units = int(request.form.get('vp_units'))
-    wv_type = int(request.form.get('wv_type'))
-    freq_str = request.form.get('frequency')
+    # assign values from TuningWedgeForm, dividing decimal values by 1000 to recover input value
+    layer_1_vp = session.get('vp_1') / 1000
+    layer_1_dens = session.get('rho_1') / 1000
+    layer_2_vp = session.get('vp_2') / 1000
+    layer_2_dens = session.get('rho_2') / 1000
+    layer_3_vp = session.get('vp_3') / 1000
+    layer_3_dens = session.get('rho_3') / 1000
+    vp_units = int(session.get('vp_units'))
+    wv_type = int(session.get('wv_type'))
+    freq_str = session.get('freq')
     # depending on whether a Ricker or Ormsby wavelet is requested, we may have more than one value
     # split the input string by comma and then typecast to int
-    freq = freq_str.split(',')
+    freq = str(freq_str).split(',')
     freq = [int(x) for x in freq]
-    wv_len = float(request.form.get('wv_length'))
-    wv_dt = float(request.form.get('wv_dt'))
+    wv_len = float(session.get('wv_len')) / 1000
+    wv_dt = float(session.get('wv_dt')) / 1000
 
     # create the tuning wedge model and tuning curve
     rock_props = [layer_1_vp, layer_1_dens, layer_2_vp, layer_2_dens, layer_3_vp, layer_3_dens]
@@ -73,9 +84,11 @@ def results():
                                                                                                           wv_dt,
                                                                                                           wv_type, freq)
 
+    # build wavelet plot and create bokeh script and div
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
 
+    # build amplitude spectrum & phase plots and create script & div
     amplitude_spectrum, phase_plot = bas.plot_amplitude_spectrum(wavelet, wv_dt)
     ampspec_script, ampspec_div = components(amplitude_spectrum)
     phase_script, phase_div = components(phase_plot)
@@ -89,6 +102,7 @@ def results():
     tab2 = Panel(child=earth_mod, title="Earth Model")
     wedge_script, wedge_div = components(Tabs(tabs=[tab1, tab2]))
 
+    # build the tuning curve plot and get script and div
     tuning_curve = btc.plot_tuning_curve(z, amp, z_apparent, tuning_meas, onset_meas)
     tc_script, tc_div = components(tuning_curve)
     return render_template('results.html',
