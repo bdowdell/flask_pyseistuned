@@ -61,7 +61,7 @@ limitations under the License.
     <div id="divDelay" style="display:none">
         <!-- Inputs -->
         <h4>Inputs</h4>
-        <div class="row">
+        <div class="row row-cols-4">
             <!-- Rock Properties -->
             <div class="col-sm">
                 <h5>Rock Properties</h5>
@@ -76,7 +76,7 @@ limitations under the License.
                 <h5>AI</h5>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 <h6>Top & Base Layer</h6>
             </div>
@@ -90,7 +90,7 @@ limitations under the License.
                 {{ (vp_1 * rho_1)|round }} {% if vp_units == 0 %} (m/s)(g/cm<sup>3</sup>) {% else %} (ft/s)(g/cm<sup>3</sup>) {% endif %}
             </div>
         </div>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 <h6>Wedge Layer</h6>
             </div>
@@ -107,7 +107,7 @@ limitations under the License.
         <!-- Wavelet Parameter Inputs -->
         <p></p>
         <h5>Wavelet Parameters</h5>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 <h6>Wavelet Type</h6>
             </div>
@@ -121,7 +121,7 @@ limitations under the License.
                 <h6>Sample Increment</h6>
             </div>
         </div>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 {% if wv_type == 0 %} Ricker {% else %} Ormsby {% endif %}
             </div>
@@ -145,13 +145,13 @@ limitations under the License.
         <p></p>
         <hr />
         <h4>Outputs</h4>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm"><h5>Domain</h5></div>
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm"><h5>Tuning Thickness</h5></div>
                 </div>
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">Theoretical</div>
                     <div class="col-sm">Measured</div>
                 </div>
@@ -160,7 +160,7 @@ limitations under the License.
                 <div class="row">
                     <div class="col-sm"><h5>Tuning Onset</h5></div>
                 </div>
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">Theoretical</div>
                     <div class="col-sm">Measured</div>
                 </div>
@@ -170,13 +170,13 @@ limitations under the License.
             </div>
         </div>
         <!-- Tuning parameters in TWT -->
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 <h6>TWT (ms)</h6>
             </div>
             <!-- Tuning Thickness -->
             <div class="col-sm">
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">
                         {{ tuning_twt|round(2) }}
                     </div>
@@ -187,7 +187,7 @@ limitations under the License.
             </div>
             <!-- Tuning Onset -->
             <div class="col-sm">
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">
                         {{ tuning_twt_onset|round(2) }}
                     </div>
@@ -202,13 +202,13 @@ limitations under the License.
             </div>
         </div>
         <!-- Tuning parameters in depth units -->
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col-sm">
                 <h6>Z {% if vp_units == 0 %} (m) {% else %} (ft) {% endif %}</h6>
             </div>
             <!-- Tuning Thickness -->
             <div class="col-sm">
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">
                         {{ (tuning_twt / 1000 * vp_2)|round(2) }}
                     </div>
@@ -219,7 +219,7 @@ limitations under the License.
             </div>
             <!-- Tuning Onset -->
             <div class="col-sm">
-                <div class="row">
+                <div class="row row-cols-2">
                     <div class="col-sm">
                         {{ (tuning_twt_onset / 1000 * vp_2)|round(2) }}
                     </div>
