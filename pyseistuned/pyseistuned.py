@@ -69,8 +69,7 @@ def results():
     freq_str = session.get('freq')
     # depending on whether a Ricker or Ormsby wavelet is requested, we may have more than one value
     # split the input string by comma and then typecast to int
-    freq = str(freq_str).split(',')
-    freq = [int(x) for x in freq]
+    freq = [int(x) for x in freq_str.split(',')]
     wv_len = float(session.get('wv_len')) / 1000
     wv_dt = float(session.get('wv_dt')) / 1000
 

@@ -82,7 +82,7 @@ class TuningWedgeForm(FlaskForm):
                                                                                                 'reflection.')])
     vp_units = RadioField(label='Vp Units', choices=[(0, 'm/s'), (1, 'ft/s')])
     wv_type = SelectField(label='Wavelet', choices=[(0, 'Ricker'), (1, 'Ormsby')])
-    frequency = IntegerField('Frequency (Hz)')
+    frequency = StringField('Frequency (Hz)')
     wv_length = DecimalField('Length (s)', places=3)
     wv_dt = DecimalField('dt (s)', places=3)
     submit = SubmitField('Calculate')
