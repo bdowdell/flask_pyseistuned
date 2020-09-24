@@ -18,7 +18,7 @@ limitations under the License.
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, Length, NumberRange
+from wtforms.validators import ValidationError, DataRequired, Email, Length, NumberRange, Optional
 
 
 class NotEqualTo(object):
@@ -141,10 +141,12 @@ class TuningWedgeForm(FlaskForm):
     # layer_3 properties will be the same as layer_1
     layer_2_vp = IntegerField('vp_2', validators=[DataRequired(), NumberRange(min=0, max=20000)])
     layer_2_dens = DecimalField('rho_2', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)])
-    layer_2_impedance = IntegerField('imp_2', validators=[NotEqualTo('layer_1_impedance', message='Impedances are the '
-                                                                                                  'same and will not '
-                                                                                                  'produce a '
-                                                                                                  'reflection.')])
+    layer_2_impedance = IntegerField('imp_2', validators=[Optional(), NotEqualTo(
+        'layer_1_impedance',
+        message='Impedances are the '
+                'same and will not '
+                'produce a reflection.'
+    )])
     vp_units = RadioField(label='Vp Units', choices=[(0, 'm/s'), (1, 'ft/s')])
     wv_type = SelectField(label='Wavelet', choices=[(0, 'Ricker'), (1, 'Ormsby')])
     frequency = StringField('Frequency (Hz)', validators=[DataRequired(), ValidateFrequency('wv_type')])
@@ -152,8 +154,8 @@ class TuningWedgeForm(FlaskForm):
     wv_dt = DecimalField('dt (s)',
                          places=3,
                          validators=[
-                                     DataRequired(),
-                                     NumberRange(min=0.0009, max=0.0041, message="dt must be between 0.001 and 0.004")
-                                    ]
+                             DataRequired(),
+                             NumberRange(min=0.0009, max=0.0041, message="dt must be between 0.001 and 0.004")
+                         ]
                          )
     submit = SubmitField('Calculate')
