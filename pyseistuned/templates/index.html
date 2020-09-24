@@ -89,13 +89,13 @@ limitations under the License.
         <div class="form-row">
             <div class="col-sm">
                 <h4>Rock Property Parameters</h4>
-                <div class="form-row">
+                <div class="form-row row-cols-4">
                     <div class="col-sm"></div>
                     <div class="col-sm"><strong>Vp</strong></div>
                     <div class="col-sm"><strong>Density (g/cm<sup>3</sup>)</strong></div>
                     <div class="col-sm" style="color: grey;">Acoustic Impedance</div>
                 </div>
-                <div class="form-row">
+                <div class="form-row row-cols-4">
                     <div class="col-sm">
                         Top & Base
                     </div>
@@ -109,7 +109,7 @@ limitations under the License.
                         {{ form.layer_1_impedance(class_='form-control-plaintext', id='imp1', placeholder='', readonly=true, tabindex='-1', style='color: grey;') }}
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row row-cols-4">
                     <div class="col-sm">
                         Wedge
                     </div>
@@ -122,11 +122,11 @@ limitations under the License.
                     <div class="col-sm">
                         {{ form.layer_2_impedance(class_='form-control-plaintext', id='imp2', placeholder='', readonly=true, tabindex='-1', style='color: grey;') }}
                         {% for error in form.layer_2_impedance.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
+                        <span style="color: red;">{{ error }}</span>
                         {% endfor %}
                     </div>
                 </div>
-                <div class="form-row" style="padding-top:10px;">
+                <div class="form-row row-cols-4" style="padding-top:10px;">
                     <div class="col-sm">
                         {{ form.vp_units.label }}
                     </div>
@@ -147,7 +147,7 @@ limitations under the License.
         <div class="form-row">
             <div class="col-sm">
                 <h4>Wavelet Parameters</h4>
-                <div class="form-row">
+                <div class="form-row row-cols-3">
                     <div class="col-sm">
                         {{ form.wv_type.label }}
                     </div>
@@ -155,7 +155,7 @@ limitations under the License.
                         {{ form.wv_type(id='wvType', onchange='toggleShowFApp(this)', tabindex='-1') }}
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row row-cols-3">
                     <div class="col-sm">
                         {{ form.frequency.label }}
                     </div>
@@ -166,7 +166,7 @@ limitations under the License.
                         <input class="form-control-plaintext" id="freqApp" type="text" placeholder="Fapparent" tabindex='-1' readonly style="color: grey;">
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row row-cols-3">
                     <div class="col-sm">
                         {{ form.wv_length.label }}
                     </div>
@@ -174,7 +174,7 @@ limitations under the License.
                         {{ form.wv_length(class_='form-control') }}
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row row-cols-3">
                     <div class="col-sm">
                         {{ form.wv_dt.label }}
                     </div>
