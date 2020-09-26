@@ -64,11 +64,11 @@ def results():
     layer_2_dens = session.get('rho_2') / 1000
     layer_3_vp = session.get('vp_3') / 1000
     layer_3_dens = session.get('rho_3') / 1000
-    vp_units = int(session.get('vp_units'))
-    wv_type = int(session.get('wv_type'))
-    freq_str = session.get('freq')
+    vp_units = session.get('vp_units')
+    wv_type = session.get('wv_type')
     # depending on whether a Ricker or Ormsby wavelet is requested, we may have more than one value
     # split the input string by comma and then typecast to int
+    freq_str = session.get('freq')
     freq = [int(x) for x in freq_str.split(',')]
     wv_len = float(session.get('wv_len')) / 1000
     wv_dt = float(session.get('wv_dt')) / 1000
