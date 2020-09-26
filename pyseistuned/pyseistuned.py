@@ -37,7 +37,14 @@ mail = Mail(app)
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    form = TuningWedgeForm(vp_units=0, wv_length=0.100, wv_dt=0.001)
+    form = TuningWedgeForm(
+        layer_1_vp=session.get('vp_1')/1000, layer_1_dens=session.get('rho_1')/1000,
+        layer_2_vp=session.get('vp_2')/1000, layer_2_dens=session.get('rho_2')/1000,
+        layer_3_vp=session.get('vp_3')/1000, layer_3_dens=session.get('rho_3')/1000,
+        vp_units=session.get('vp_units', 0), wv_type=session.get('wv_type', 0.100),
+        frequency=session.get('freq'), wv_length=session.get('wv_len', 0.001)/1000,
+        wv_dt=session.get('wv_dt')/1000
+    )
     if form.validate_on_submit():
         # capture inputs to session dictionary ... decimals cannot be JSONified, so multiply by 1000 and cast to int
         session['vp_1'] = int(form.layer_1_vp.data * 1000)
