@@ -113,6 +113,21 @@ limitations under the License.
                 imp2.value = '';
             }
         }
+
+        function resetForm(){
+            document.getElementById('vp1').value = '';
+            document.getElementById('rho1').value = '';
+            document.getElementById('imp1').value = '';
+            document.getElementById('vp2').value = '';
+            document.getElementById('rho2').value = '';
+            document.getElementById('imp2').value = '';
+            document.getElementById('vp_units-0').checked = true;
+            document.getElementById('wvType').value = 0;
+            document.getElementById('freqC').value = '';
+            document.getElementById('freqApp').value = '';
+            document.getElementById('wvLen').value = 0.100;
+            document.getElementById('wvdt').value = 0.001;
+        }
     </script>
 {% endblock %}
 {% block content %}
@@ -189,9 +204,6 @@ limitations under the License.
                     <div class="col-sm"></div>
                 </div>
             </div>
-            <!--
-            <div class="col-sm"></div>
-            -->
         </div>
         <!-- Wavelet parameters -->
         <div class="form-row">
@@ -224,7 +236,7 @@ limitations under the License.
                         {{ form.wv_length.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.wv_length(class_='form-control') }}
+                        {{ form.wv_length(class_='form-control', id='wvLen') }}
                         {% for error in form.wv_length.errors %}
                         <span style="color: red;">{{ error }}</span>
                         {% endfor %}
@@ -235,7 +247,7 @@ limitations under the License.
                         {{ form.wv_dt.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.wv_dt(class_='form-control') }}
+                        {{ form.wv_dt(class_='form-control', id='wvdt') }}
                         {% for error in form.wv_dt.errors %}
                         <span style="color: red;">{{ error }}</span>
                         {% endfor %}
@@ -244,8 +256,8 @@ limitations under the License.
                 <!-- calculate button -->
                 <div class="form-row">
                     <div class="col-sm"></div>
-                    <div class="col-sm offset-md-6" style="padding-top:10px;">
-                        {{ form.submit(class_='btn btn-primary') }}
+                    <div class="col-sm" style="padding-top:10px;">
+                        {{ form.submit(class_='btn btn-primary') }}<a class="btn btn-outline-primary" role="button" onclick="resetForm()">Reset</a>
                     </div>
                 </div>
             </div>
