@@ -18,9 +18,9 @@ limitations under the License.
 {% block content %}
     <h1>{% block title %} About {% endblock %}</h1>
     <p>
-        <strong>PySeisTuned<sup>2.0</sup></strong> is a simple tool for calculating seismic tuning wedges. Input the velocity and density
-        properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and tuning
-        curve are generated.
+        <strong>PySeisTuned<sup>2.0</sup></strong> is a tool for calculating seismic tuning wedges. Input the velocity
+        and density properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and
+        tuning curve are generated.
     </p>
     <p>
         The initial release, <strong>PySeisTuned<sup>1.0</sup></strong>, was inspired by Agile Scientific's
@@ -32,7 +32,7 @@ limitations under the License.
         compatibility with PyQT5 licensing.
     </p>
     <div class="container">
-        <div class="row">
+        <div class="row row-cols-2">
             <div class="col-sm">
                 <img src="../static/img/pst_wedge_calculator.png" class="img-fluid" alt="" loading="lazy">
             </div>
@@ -43,19 +43,33 @@ limitations under the License.
     </div><br />
     <p>
         Enter <strong>PySeisTuned<sup>2.0</sup></strong>, which is now a web app! The PyQT5 GUI is gone and now
-        PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, & Bootstrap. PySeisTuned<sup>2.0</sup>
+        PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, Bootstrap, & JavaScript. PySeisTuned<sup>2.0</sup>
         is open source and licensed under the Apache-2.0 license. My primary goal in re-writing PySeisTuned<sup>2.0</sup>
-        as a web app is to make the tool as easy as possible to use.
-        Web apps have changed the way we interact with software and simplifies end-user consumption. Flask is a
-        powerful and easy to use Python-based web app framework that connects the Python-based code in the background
-        with the HTML5 user-interface.  Styling is made simple by utilizing Bootstrap pre-built CSS style sheets.
+        as a web app is to make the tool as easy as possible to use. Web apps have changed the way we interact with software
+        and simplifies end-user consumption. To me, this means removing the environmental setup
+        steps necessary to run PySeisTuned<sup>1.0</sup> and also removing the need to launch from a terminal. In fact,
+        unless you want to clone the repository locally to customize PySeisTuned<sup>2.0</sup>, there is no longer any
+        "installation" steps required to get running!
+    </p>
+    <p>
+        Flask is a powerful and easy to use Python-based web app framework that connects the Python code in the
+        background with the HTML5 user-interface.  Styling is made simple by utilizing Bootstrap pre-built CSS style
+        sheets. Additionally, some custom JavaScript is required to enable features such as a reset button, displaying
+        Acoustic Impedance of input layer properties, and displaying the apparent frequency of the specified Ricker
+        wavelet. One more enhancement is that all plotting is now done using Bokeh instead of Matplotlib. Using Bokeh
+        enables embedding feature-rich, interactive plots that are more appropriate in a web app.
     </p>
     <div class="container">
-        <div class="row">
+        <div class="row row-cols-8">
             <div class="col-sm"></div>
             <div class="col-sm">
                 <a href="https://www.python.org" target="_blank">
                     <img src="https://img.icons8.com/color/48/000000/python.png" class="img-fluid" alt="" loading="lazy"/>
+                </a>
+            </div>
+            <div class="col-sm">
+                <a href="https://docs.bokeh.org/en/latest/index.html#" target="_blank">
+                    <img src="../static/img/bokeh-logo.png" width="48" height="48" class="img-fluid" alt="" loading="lazy"/>
                 </a>
             </div>
             <div class="col-sm">
@@ -64,13 +78,8 @@ limitations under the License.
                 </a>
             </div>
             <div class="col-sm">
-                <a href="https://www.w3.org/" target="_blank">
+                <a href="https://www.w3.org/html/" target="_blank">
                     <img src="https://img.icons8.com/color/48/000000/html-5.png" class="img-fluid" alt="" loading="lazy"/>
-                </a>
-            </div>
-            <div class="col-sm">
-                <a href="https://www.w3.org/" target="_blank">
-                    <img src="https://img.icons8.com/color/48/000000/css3.png" class="img-fluid" alt="" loading="lazy"/>
                 </a>
             </div>
             <div class="col-sm">
@@ -78,12 +87,18 @@ limitations under the License.
                     <img src="https://img.icons8.com/color/48/000000/bootstrap.png" class="img-fluid" alt="" loading="lazy"/>
                 </a>
             </div>
+            <div class="col-sm">
+                <a href="https://www.javascript.com/" target="_blank">
+                    <img src="https://img.icons8.com/color/48/000000/javascript.png" class="img-fluid" alt="" loading="lazy"/>
+                </a>
+            </div>
             <div class="col-sm"></div>
         </div>
     </div>
+    <br />
     <p>
-        Contributions, suggestions, and bug reports are all welcome! I hope you enjoy using the tool and please
-        let me know if there ways I can make it even better:
+        Contributions, suggestions, and bug reports are all welcome! I hope you enjoy using
+        <strong>PySeisTuned<sup>2.0</sup></strong> and please let me know if there ways I can make it even better:
     </p>
     <p>
         Follow the links below to view the source code, clone the repository, or submit issues and enhancement requests:
@@ -96,7 +111,53 @@ limitations under the License.
             <a href="https://github.com/bdowdell/PySeisTuned" target="_blank">PySeisTuned<sup>1.0</sup></a>
         </li>
     </ul>
+    <p>
+        You can also send an email directly using the <em>Contact</em> link down below in the footer.
+    </p>
     <!-- Introduce a horizontal break to begin a cursory background theory section -->
     <hr />
     <h1>Seismic Tuning Theory Basics</h1>
+    <p>
+        Seismic Tuning Thickness as a concept is a basic geophysical tenet and is crucial in understanding the seismic
+        response. The seismic tuning phenomenon arises from constructive interference of reflected waves at layer
+        interfaces as the bed thickness between the layer begins to thin. As the bed begins to thin, the reflection from
+        the top interface and the bottom interface begin to align and constructively interfere. At a certain point, the
+        constructive interference between the two layers will reach a maximum and this is known as the
+        <strong>Seismic Tuning Thickness</strong> and is the layer thickness below which the top and base reflections
+        are no longer indistinguishable from one another.
+    </p>
+    <p>
+        Widess (1973) published the seminal work on the topic titled <em>"How thin is a thin bed?"</em>, which sought to
+        dispel common misconceptions about thin bed resolvability. In the paper, Widess considers two identical wavelets
+        offset by a time delay. The two wavelets effectively represent the reflections from the top and base of a layer
+        while the time delay effectively represents the bed thickness in Two-Way Time (TWT). Several very important
+        definitions arise from Widess's paper:
+    </p>
+    <dl class="row">
+        <dt class="col-sm-3">Onset of Tuning Thickness</dt>
+        <dd class="col-sm-9">&lambda;/2</dd>
+        <dt class="col-sm-3">Tuning Thickness</dt>
+        <dd class="col-sm-9">&lambda;/4</dd>
+        <dt class="col-sm-3">Limit of resolution</dt>
+        <dd class="col-sm-9">&lambda;/8</dd>
+    </dl>
+    <p>
+        where &lambda; is the velocity-dependent wavelength of the layer's dominant frequency.  Recall the relationship
+        between frequency, velocity, and wavelength:
+    </p>
+    <math>
+        f = v/&lambda;
+    </math>
+    <p>
+        where f is Frequency in Hz, v is velocity in (m or ft)/sec, and &lambda; is wavelength in (m or ft). This
+        equation commonly gets rewritten as:
+    </p>
+    <math>
+        &lambda; = v/f
+    </math>
+    <p>
+        because we typically have an idea about what the velocity and frequency of our zone of interest is and instead
+        want to know wavelength. Once we know the wavelength we can then estimate the tuning parameters using Widess's
+        definitions above.
+    </p>
 {% endblock %}
