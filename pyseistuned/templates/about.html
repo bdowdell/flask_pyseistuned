@@ -2,12 +2,12 @@
 
 {% block content %}
     <h1>{% block title %} About {% endblock %}</h1>
-    <p>
+    <p class="text-justify">
         <strong>PySeisTuned<sup>2.0</sup></strong> is a tool for calculating seismic tuning wedges. Input the velocity
         and density properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and
         tuning curve are generated.
     </p>
-    <p>
+    <p class="text-justify">
         The initial release, <strong>PySeisTuned<sup>1.0</sup></strong>, was inspired by Agile Scientific's
         <a href="https://github.com/agile-geoscience/xlines/blob/master/notebooks/00_Synthetic_wedge_model.ipynb"
            target="_blank">"X Lines of Code"</a> Jupyter Notebook series and was written as a standalone GUI using
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div><br />
-    <p>
+    <p class="text-justify">
         Enter <strong>PySeisTuned<sup>2.0</sup></strong>, which is now a web app! The PyQT5 GUI is gone and now
         PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, Bootstrap, & JavaScript. PySeisTuned<sup>2.0</sup>
         is open source and licensed under the Apache-2.0 license. My primary goal in re-writing PySeisTuned<sup>2.0</sup>
@@ -36,7 +36,7 @@
         unless you want to clone the repository locally to customize PySeisTuned<sup>2.0</sup>, there is no longer any
         "installation" steps required to get running!
     </p>
-    <p>
+    <p class="text-justify">
         Flask is a powerful and easy to use Python-based web app framework that connects the Python code in the
         background with the HTML5 user-interface.  Styling is made simple by utilizing Bootstrap pre-built CSS style
         sheets. Additionally, some custom JavaScript is required to enable features such as a reset button, displaying
@@ -81,11 +81,11 @@
         </div>
     </div>
     <br />
-    <p>
+    <p class="text-justify">
         Contributions, suggestions, and bug reports are all welcome! I hope you enjoy using
         <strong>PySeisTuned<sup>2.0</sup></strong> and please let me know if there ways I can make it even better:
     </p>
-    <p>
+    <p class="text-justify">
         Follow the links below to view the source code, clone the repository, or submit issues and enhancement requests:
     </p>
     <ul>
@@ -96,14 +96,14 @@
             <a href="https://github.com/bdowdell/PySeisTuned" target="_blank">PySeisTuned<sup>1.0</sup></a>
         </li>
     </ul>
-    <p>
+    <p class="text-justify">
         You can also send an email directly using the <em>Contact</em> link down below in the footer.
     </p>
     <!-- Introduce a horizontal break to begin a cursory background theory section -->
     <hr />
     <h1>Seismic Tuning Theory Basics</h1>
-    <p>
-        Seismic Tuning Thickness as a concept is a basic geophysical tenet and is crucial in understanding the seismic
+    <p class="text-justify">
+        Seismic Tuning as a concept is a basic geophysical tenet and is crucial in understanding the seismic
         response. The seismic tuning phenomenon arises from constructive interference of reflected waves at layer
         interfaces as the bed thickness between the layer begins to thin. As the bed begins to thin, the reflection from
         the top interface and the bottom interface begin to align and constructively interfere. At a certain point, the
@@ -111,7 +111,7 @@
         <strong>Seismic Tuning Thickness</strong> and is the layer thickness below which the top and base reflections
         are no longer indistinguishable from one another.
     </p>
-    <p>
+    <p class="text-justify">
         Widess (1973) published the seminal work on the topic titled <em>"How thin is a thin bed?"</em>, which sought to
         dispel common misconceptions about thin bed resolvability. In the paper, Widess considers two identical wavelets
         offset by a time delay. The two wavelets effectively represent the reflections from the top and base of a layer
@@ -126,23 +126,46 @@
         <dt class="col-sm-3">Limit of resolution</dt>
         <dd class="col-sm-9">&lambda;/8</dd>
     </dl>
-    <p>
+    <p class="text-justify">
         where &lambda; is the velocity-dependent wavelength of the layer's dominant frequency.  Recall the relationship
-        between frequency, velocity, and wavelength:
+        between velocity, frequency, and wavelength:
     </p>
-    <math>
-        f = v/&lambda;
-    </math>
-    <p>
-        where f is Frequency in Hz, v is velocity in (m or ft)/sec, and &lambda; is wavelength in (m or ft). This
-        equation commonly gets rewritten as:
+    <blockquote class="blockquote text-center">
+        <math>
+            v = f &times; &lambda;
+        </math>
+    </blockquote>
+    <p class="text-justify">
+        where <var class="font-weight-bold">v</var> is velocity in (m or ft)/sec, <var class="font-weight-bold">f</var>
+        is Frequency in Hz (or cycles/sec), and <var class="font-weight-bold">&lambda;</var> is wavelength in (m or ft).
+        This equation commonly gets rewritten as:
     </p>
-    <math>
-        &lambda; = v/f
-    </math>
-    <p>
+    <blockquote class="blockquote text-center">
+        <math>
+            &lambda; = v/f
+        </math>
+    </blockquote>
+    <p class="text-justify">
         because we typically have an idea about what the velocity and frequency of our zone of interest is and instead
-        want to know wavelength. Once we know the wavelength we can then estimate the tuning parameters using Widess's
-        definitions above.
+        want to know wavelength. Once we know the dominant frequency wavelength we can then estimate the tuning
+        parameters using Widess's definitions above. For example, the tuning thickness is given by:
+    </p>
+    <blockquote class="blockquote text-center">
+        <math>
+            &lambda;<sub>tuning</sub> = v/f/4
+        </math>
+    </blockquote>
+    <p class="text-justify">
+        We can also define the tuning parameters in terms of TWT thickness.  If we take the inverse of frequency, we
+        instead get the TWT period, <var class="font-weight-bold">T</var> in seconds. The equation above can now be
+        written as:
+    </p>
+    <blockquote class="blockquote text-center">
+        <math>
+            &lambda; = v &times; T
+        </math>
+    </blockquote>
+    <p class="text-justify">
+
     </p>
 {% endblock %}

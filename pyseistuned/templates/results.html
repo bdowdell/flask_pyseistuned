@@ -195,10 +195,10 @@
             <div class="col-sm">
                 <div class="row row-cols-2">
                     <div class="col-sm">
-                        {{ (tuning_twt / 1000 * vp_2)|round(2) }}
+                        {{ (tuning_twt / 2 / 1000 * vp_2)|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ (tuning_twt_meas / 1000 * vp_2)|round(2) }}
+                        {{ (tuning_twt_meas / 2 / 1000 * vp_2)|round(2) }}
                     </div>
                 </div>
             </div>
@@ -206,16 +206,16 @@
             <div class="col-sm">
                 <div class="row row-cols-2">
                     <div class="col-sm">
-                        {{ (tuning_twt_onset / 1000 * vp_2)|round(2) }}
+                        {{ (tuning_twt_onset / 2 / 1000 * vp_2)|round(2) }}
                     </div>
                     <div class="col-sm">
-                        {{ (tuning_twt_onset_meas / 1000 * vp_2)|round(2) }}
+                        {{ (tuning_twt_onset_meas / 2 / 1000 * vp_2)|round(2) }}
                     </div>
                 </div>
             </div>
             <!-- Limit of Resolution -->
             <div class="col-sm">
-                {{ (res_lim / 1000 * vp_2)|round(2) }}
+                {{ (res_lim / 2 / 1000 * vp_2)|round(2) }}
             </div>
         </div>
         <!-- Return Home button -->
