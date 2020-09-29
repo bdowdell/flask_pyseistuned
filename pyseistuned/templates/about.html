@@ -162,10 +162,37 @@
     </p>
     <blockquote class="blockquote text-center">
         <math>
-            &lambda; = v &times; T
+            &lambda; = v &times; (T/2)
         </math>
     </blockquote>
     <p class="text-justify">
-
+        with the period <var class="font-weight-bold">T</var> being divided by two to convert to One-Way Time (OWT).
+        Converting the period to OWT is essential as otherwise the depth thickness we measure would be twice the actual
+        bed thickness. This means that Widess's tuning parameters can be expressed in terms of TWT & OWT thickness:
+    </p>
+    <dl class="row">
+        <dt class="col-sm-3">Onset of Tuning Thickness</dt>
+        <dd class="col-sm-9">&lambda;/2 = T (TWT) = T/2 (OWT)</dd>
+        <dt class="col-sm-3">Tuning Thickness</dt>
+        <dd class="col-sm-9">&lambda;/4 = T/2 (TWT) = (T/2)/2 (OWT)</dd>
+        <dt class="col-sm-3">Limit of resolution</dt>
+        <dd class="col-sm-9">&lambda;/8 = T/4 (TWT) = (T/4)/2 (OWT)</dd>
+    </dl>
+    <p class="text-justify">
+        such that the tuning thickness is given by:
+    </p>
+    <blockquote class="blockquote text-center">
+        <math>
+            &lambda;<sub>tuning</sub> = v &times; (T/2)/2
+        </math>
+    </blockquote>
+    <p class="text-justify">
+        preserving the quarter-wavelength relationship in TWT.
+    </p>
+    <p class="text-justify">
+        Tuning wedges for understanding resolution
+    </p>
+    <p class="text-justify">
+        Relationship between spectral decomposition and peak tuning frequency
     </p>
 {% endblock %}
