@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+{% endblock %}
 
 {% block content %}
     <h1>{% block title %} About {% endblock %}</h1>
@@ -120,78 +127,72 @@
     </p>
     <dl class="row">
         <dt class="col-sm-3">Onset of Tuning Thickness</dt>
-        <dd class="col-sm-9">&lambda;/2</dd>
+        <dd class="col-sm-9">\(\lambda/2\)</dd>
         <dt class="col-sm-3">Tuning Thickness</dt>
-        <dd class="col-sm-9">&lambda;/4</dd>
+        <dd class="col-sm-9">\(\lambda/4\)</dd>
         <dt class="col-sm-3">Limit of resolution</dt>
-        <dd class="col-sm-9">&lambda;/8</dd>
+        <dd class="col-sm-9">\(\lambda/8\)</dd>
     </dl>
     <p class="text-justify">
-        where &lambda; is the velocity-dependent wavelength of the layer's dominant frequency.  Recall the relationship
+        where \(\lambda\) is the velocity-dependent wavelength of the layer's dominant frequency.  Recall the relationship
         between velocity, frequency, and wavelength:
     </p>
-    <blockquote class="blockquote text-center">
-        <math>
-            v = f &times; &lambda;
-        </math>
-    </blockquote>
-    <p class="text-justify">
-        where <var class="font-weight-bold">v</var> is velocity in (m or ft)/sec, <var class="font-weight-bold">f</var>
-        is Frequency in Hz (or cycles/sec), and <var class="font-weight-bold">&lambda;</var> is wavelength in (m or ft).
-        This equation commonly gets rewritten as:
+    <p>
+        $$v = f \times \lambda$$
     </p>
-    <blockquote class="blockquote text-center">
-        <math>
-            &lambda; = v/f
-        </math>
-    </blockquote>
+    <p class="text-justify">
+        where \(v\) is velocity in (m or ft)/sec, \(f\) is Frequency in Hz (or cycles/sec), and \(\lambda\) is
+        wavelength in (m or ft). This equation commonly gets rewritten as:
+    </p>
+    <p>
+        $$\lambda = {v\over f}$$
+    </p>
     <p class="text-justify">
         because we typically have an idea about what the velocity and frequency of our zone of interest is and instead
         want to know wavelength. Once we know the dominant frequency wavelength we can then estimate the tuning
         parameters using Widess's definitions above. For example, the tuning thickness is given by:
     </p>
-    <blockquote class="blockquote text-center">
-        <math>
-            &lambda;<sub>tuning</sub> = v/f/4
-        </math>
-    </blockquote>
+    <p>
+        $$\lambda_{tuning} = {v\over f}/4$$
+    </p>
     <p class="text-justify">
         We can also define the tuning parameters in terms of TWT thickness.  If we take the inverse of frequency, we
-        instead get the TWT period, <var class="font-weight-bold">T</var> in seconds. The equation above can now be
+        instead get the TWT period, \(T\) in seconds. The equation above can now be
         written as:
     </p>
-    <blockquote class="blockquote text-center">
-        <math>
-            &lambda; = v &times; (T/2)
-        </math>
-    </blockquote>
+    <p>
+        $$\lambda = v\times T/2$$
+    </p>
     <p class="text-justify">
-        with the period <var class="font-weight-bold">T</var> being divided by two to convert to One-Way Time (OWT).
+        with the period \(T\) being divided by two to convert to One-Way Time (OWT).
         Converting the period to OWT is essential as otherwise the depth thickness we measure would be twice the actual
-        bed thickness. This means that Widess's tuning parameters can be expressed in terms of TWT & OWT thickness:
+        bed thickness. This means that when the Widess tuning parameters are expressed in terms of TWT, the divisor
+        becomes half the wavelength divisor:
     </p>
     <dl class="row">
         <dt class="col-sm-3">Onset of Tuning Thickness</dt>
-        <dd class="col-sm-9">&lambda;/2 = T (TWT) = T/2 (OWT)</dd>
+        <dd class="col-sm-9">\(\lambda/2 = T\)</dd>
         <dt class="col-sm-3">Tuning Thickness</dt>
-        <dd class="col-sm-9">&lambda;/4 = T/2 (TWT) = (T/2)/2 (OWT)</dd>
+        <dd class="col-sm-9">\(\lambda/4 = T/2\)</dd>
         <dt class="col-sm-3">Limit of resolution</dt>
-        <dd class="col-sm-9">&lambda;/8 = T/4 (TWT) = (T/4)/2 (OWT)</dd>
+        <dd class="col-sm-9">\(\lambda/8 = T/4\)</dd>
     </dl>
     <p class="text-justify">
         such that the tuning thickness is given by:
     </p>
-    <blockquote class="blockquote text-center">
-        <math>
-            &lambda;<sub>tuning</sub> = v &times; (T/2)/2
-        </math>
-    </blockquote>
-    <p class="text-justify">
-        preserving the quarter-wavelength relationship in TWT.
+    <p>
+        $$\lambda_{tuning} = v\times ({T\over 2})/2$$
     </p>
+    <p class="text-justify">
+        and the quarter-wavelength Tuning relationship is preserved.
+    </p>
+    <hr />
+    <h1>Seismic Tuning Wedge Model</h1>
     <p class="text-justify">
         Tuning wedges for understanding resolution
     </p>
+    <hr />
+    <h1>Seismic Tuning & Spectral Decomposition</h1>
     <p class="text-justify">
         Relationship between spectral decomposition and peak tuning frequency
     </p>
