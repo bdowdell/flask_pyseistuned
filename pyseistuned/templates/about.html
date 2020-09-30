@@ -167,7 +167,8 @@
         with the period \(T\) being divided by two to convert to One-Way Time (OWT).
         Converting the period to OWT is essential as otherwise the depth thickness we measure would be twice the actual
         bed thickness. This means that when the Widess tuning parameters are expressed in terms of TWT, the divisor
-        becomes half the wavelength divisor:
+        becomes half the wavelength divisor so that when the TWT tuning parameter is converted to OWT, the overall
+        relationship remains the same:
     </p>
     <dl class="row">
         <dt class="col-sm-3">Onset of Tuning Thickness</dt>
@@ -178,13 +179,30 @@
         <dd class="col-sm-9">\(\lambda/8 = T/4\)</dd>
     </dl>
     <p class="text-justify">
-        such that the tuning thickness is given by:
+        such that the tuning parameter thicknesses are given by:
     </p>
     <p>
-        $$\lambda_{tuning} = v\times ({T\over 2})/2$$
+        \begin{align}
+        &\lambda_{onset} = v\times T/2 \\
+        &\lambda_{tuning} = v\times (T/2)/2 \\
+        &\lambda_{limit} = v\times (T/4)/2
+        \end{align}
     </p>
     <p class="text-justify">
-        and the quarter-wavelength Tuning relationship is preserved.
+        The advantage to expressing the various tuning parameters in TWT versus depth units is that doing so only
+        requires knowledge of the layer's dominant frequency and as such, TWT tuning thickness is always constant for
+        a given dominant frequency.  In other words, if the dominant frequency of a particular reflection pair is 25 Hz,
+        then the TWT tuning thickness is simply:
+    </p>
+    <p>
+        $$T_{tuning} = 1/f/2 = 1/25\;Hz/2  = 20\;ms\;TWT\;,$$
+    </p>
+    <p class="text-justify">
+        and if we know that the velocity of the layer, either from well log control or a seismic velocity model, is
+        3,000 m/s, then the tuning thickness in meters is:
+    </p>
+    <p>
+        $$\lambda_{tuning} = v\times (T/2)/2 = 3000\;m/s\times 20\;ms\;TWT/2 = 30\;m$$
     </p>
     <hr />
     <h1>Seismic Tuning Wedge Model</h1>
