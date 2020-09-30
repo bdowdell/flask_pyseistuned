@@ -232,7 +232,24 @@
         the properties of the top and base layers are the same. More detailed forward models can be built to understand
         reflectivity from differing top and base properties, but if the goal is simply to understand seismic resolution
         of a sand body, then in my opinion it is best to keep the top and base properties the same. The underlying
-        assumption is that the encasing shales do not have drastically varying properties.
+        assumption is that the encasing shales do not have drastically varying properties, but that is not always the
+        case.
+    </p>
+    <p class="text-justify">
+        Once \(V_p\) - \(\rho\) pairs are assigned at each sample, the Acoustic Impedance, \(AI = V_p\times\rho\),
+        (also sometimes denoted as \(Z_p\))
+        of each layer is calculated. In a simple wedge model, \(AI\) does not vary laterally or vertically within a
+        given layer. In order to have a seismic reflection generated at a layer boundary, there must be a contrast in
+        \(AI\) across the interface. The reflectivity of a layer interface is called the
+        <strong>Reflection Coefficient</strong>:
+    </p>
+    <p>
+        $$RC = \frac{AI_2 - AI_1}{AI_2 + AI_1}$$
+    </p>
+    <p class="text-justify">
+        If there is no contrast in \(AI\) at the interface of two layers, no seismic reflection is generated and the
+        layer below the interface is deemed to be acoustically invisible. This of course assumes that the lower layer
+        is sufficiently thick the be seismic resolvable.
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
