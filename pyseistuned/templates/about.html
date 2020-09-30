@@ -216,7 +216,23 @@
     <hr />
     <h1>Seismic Tuning Wedge Model</h1>
     <p class="text-justify">
-        Tuning wedges for understanding resolution
+        Now that the foundational concepts behind seismic tuning are laid out, we can now understand the utility of
+        the <strong>Seismic Tuning Wedge Model</strong>. The seismic tuning wedge model is a simple three-layer forward
+        model in which the top and base layers are typically the same and the middle wedge layer simulates the layer of
+        interest. In other words, the top and base layers usually represent the encasing shale and the wedge layer
+        represents a sandstone. The wedge layer is typically given a maximum thickness well above tuning at one end of
+        the model and thins out to zero thickness at the other. The thicknesses of the top and base layers are not
+        important as we only care about the reflections generated at the wedge top and base interfaces.
+    </p>
+    <img src="../static/img/wedge.png" class="img-fluid rounded mx-auto d-block" alt="Wedge Model">
+    <br />
+    <p class="text-justify">
+        For a very simple wedge model, it is only necessary to know the P-velocity and bulk density of the three layers.
+        Generally, and as implemented in <strong>PySeisTuned<sup>2.0</sup></strong>,
+        the properties of the top and base layers are the same. More detailed forward models can be built to understand
+        reflectivity from differing top and base properties, but if the goal is simply to understand seismic resolution
+        of a sand body, then in my opinion it is best to keep the top and base properties the same. The underlying
+        assumption is that the encasing shales do not have drastically varying properties.
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
