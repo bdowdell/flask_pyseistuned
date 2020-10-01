@@ -227,8 +227,8 @@
     <img src="../static/img/wedge.png" class="img-fluid rounded mx-auto d-block" alt="Wedge Model">
     <br />
     <p class="text-justify">
-        For a very simple wedge model, it is only necessary to know the P-velocity and bulk density of the three layers.
-        Generally, and as implemented in <strong>PySeisTuned<sup>2.0</sup></strong>,
+        For a very simple wedge model, it is only necessary to know the P-velocity, \(V_p\), and bulk density, \(\rho\),
+        of the three layers. Generally, and as implemented in <strong>PySeisTuned<sup>2.0</sup></strong>,
         the properties of the top and base layers are the same. More detailed forward models can be built to understand
         reflectivity from differing top and base properties, but if the goal is simply to understand seismic resolution
         of a sand body, then in my opinion it is best to keep the top and base properties the same. The underlying
@@ -240,18 +240,20 @@
         (also sometimes denoted as \(Z_p\))
         of each layer is calculated. In a simple wedge model, \(AI\) does not vary laterally or vertically within a
         given layer. In order to have a seismic reflection generated at a layer boundary, there must be a contrast in
-        \(AI\) across the interface. The reflectivity of a layer interface is called the
+        \(AI\) across the interface. The reflectivity of a layer interface at normal incidence is called the
         <strong>Reflection Coefficient</strong>:
     </p>
     <p>
         $$RC = \frac{AI_2 - AI_1}{AI_2 + AI_1}$$
     </p>
     <p class="text-justify">
-        If there is no contrast in \(AI\) at the interface of two layers, no seismic reflection is generated and the
-        layer below the interface is deemed to be acoustically invisible, which of course assumes that the lower layer
-        is sufficiently thick to be seismically resolvable. This assumption is why half-space models, which consider the
-        layers above and below an interface to be infinitely thick, are only useful for understanding reflectivity
-        at an interface. Wedge models allow us to understand how thickness impacts reflectivity, as well!
+        If there is no contrast in \(AI\) at the interface of two layers, no seismic reflection is generated
+        (\(RC = 0\)) and the layer below the interface is deemed to be acoustically invisible, assuming that the lower
+        layer is sufficiently thick to be seismically resolvable otherwise. This assumption is why half-space models,
+        which consider the layers above and below an interface to be infinitely thick, are only useful for
+        understanding reflectivity at an interface. Wedge models allow us to understand how thickness impacts
+        reflectivity, as well! Calculating the \(RC\) of the wedge model results in an impulse response at the top and
+        base of the wedge and zero values everywhere else.
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
