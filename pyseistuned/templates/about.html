@@ -253,7 +253,17 @@
         which consider the layers above and below an interface to be infinitely thick, are only useful for
         understanding reflectivity at an interface. Wedge models allow us to understand how thickness impacts
         reflectivity, as well! Calculating the \(RC\) of the wedge model results in an impulse response at the top and
-        base of the wedge and zero values everywhere else.
+        base of the wedge and zero values everywhere else. Once the reflection coefficients are calculated, the model
+        can be convolved with a wavelet to produce a wedge model with a synthetic trace for each thickness step. For
+        example, here is the \(AI\), \(RC\), and synthetic trace for a single layer thickness:
+    </p>
+    <img src="../static/img/layerAI_rc_synth.png" class="img-fluid rounded mx-auto d-block" alt="">
+    <br />
+    <p class="text-justify">
+        This image raises an important point. <strong>PySeisTuned<sup>2.0</sup></strong> adopts
+        <strong>SEG Normal Polarity</strong>, meaning that a decrease in \(AI\) results in a negative reflection
+        coefficient, or a trough in the seismic response. Additionally, a decrease in impedance is represented by red
+        while an increase is represented by blue.
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
