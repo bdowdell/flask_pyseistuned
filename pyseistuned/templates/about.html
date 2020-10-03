@@ -23,16 +23,18 @@
         the most user-friendly deployment. PySeisTuned<sup>1.0</sup> is open source and licensed under GPL-3.0 for
         compatibility with PyQT5 licensing.
     </p>
-    <div class="container">
+    <figure class="figure">
         <div class="row row-cols-2">
             <div class="col-sm">
-                <img src="../static/img/pst_wedge_calculator.png" class="img-fluid" alt="" loading="lazy">
+                <img src="../static/img/pst_wedge_calculator.png" class="figure-img img-fluid rounded" alt="" loading="lazy">
+                <figcaption class="figure-caption">PySeisTuned<sup>1.0</sup> Inputs tab</figcaption>
             </div>
             <div class="col-sm">
-                <img src="../static/img/pst_summary_tab.png" class="img-fluid" alt="" loading="lazy">
+                <img src="../static/img/pst_summary_tab.png" class="figure-img img-fluid rounded" alt="" loading="lazy">
+                <figcaption class="figure-caption">PySeisTuned<sup>1.0</sup> Summary tab</figcaption>
             </div>
         </div>
-    </div><br />
+    </figure>
     <p class="text-justify">
         Enter <strong>PySeisTuned<sup>2.0</sup></strong>, which is now a web app! The PyQT5 GUI is gone and now
         PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, Bootstrap, & JavaScript. PySeisTuned<sup>2.0</sup>
@@ -224,8 +226,14 @@
         the model and thins out to zero thickness at the other. The thicknesses of the top and base layers are not
         important as we only care about the reflections generated at the wedge top and base interfaces.
     </p>
-    <img src="../static/img/wedge.png" class="img-fluid rounded mx-auto d-block" alt="Wedge Model">
-    <br />
+    <figure class="figure">
+        <img src="../static/img/wedge.png" class="figure-img img-fluid rounded mx-auto d-block" alt="Wedge Model">
+        <figcaption class="figure-caption">
+            An example of a wedge model with the layers colored by Acoustic Impedance, \(AI\). The model has three
+            layers, with the top and bottom layer having the same \(AI\).  The second layer, which is the wedge, has
+            a maximum thickness on one side and thins to zero thickness at the other.
+        </figcaption>
+    </figure>
     <p class="text-justify">
         For a very simple wedge model, it is only necessary to know the P-velocity, \(V_p\), and bulk density, \(\rho\),
         of the three layers. Generally, and as implemented in <strong>PySeisTuned<sup>2.0</sup></strong>,
@@ -252,18 +260,65 @@
         layer is sufficiently thick to be seismically resolvable otherwise. This assumption is why half-space models,
         which consider the layers above and below an interface to be infinitely thick, are only useful for
         understanding reflectivity at an interface. Wedge models allow us to understand how thickness impacts
-        reflectivity, as well! Calculating the \(RC\) of the wedge model results in an impulse response at the top and
+        reflectivity, as well!
+    </p>
+    <p class="text-justify">
+        Calculating the \(RC\) of the wedge model results in an impulse response at the top and
         base of the wedge and zero values everywhere else. Once the reflection coefficients are calculated, the model
         can be convolved with a wavelet to produce a wedge model with a synthetic trace for each thickness step. For
-        example, here is the \(AI\), \(RC\), and synthetic trace for a single layer thickness:
+        example, here is the \(AI\), \(RC\), and synthetic trace for a blocky model with the following properties:
     </p>
-    <img src="../static/img/layerAI_rc_synth.png" class="img-fluid rounded mx-auto d-block" alt="">
-    <br />
+    <dl class="row">
+        <dt class="col-sm-3">Top & Base Layer</dt>
+        <dd class="col-sm-9">\(V_p = 3,000\;m/s\;,\rho = 2.5\;g/cm^3\)</dd>
+        <dt class="col-sm-3">Wedge Layer</dt>
+        <dd class="col-sm-9">\(V_p = 2,700\;m/s\;,\rho = 2.3\;g/cm^3\)</dd>
+        <dt class="col-sm-3">Ricker Wavelet</dt>
+        <dd class="col-sm-9">\(F_{central} = 25\;Hz\;,duration = 0.100\;sec\;,dt = 0.001\;sec\)</dd>
+    </dl>
+    <figure class="figure">
+        <img src="../static/img/layerAI_rc_synth.png" class="figure-img img-fluid rounded mx-auto d-block" alt="">
+        <figcaption class="figure-caption">
+            This figure illustrates the relationship between Acoustic Impedance, \(AI\), Reflection Coefficient, \(RC\),
+            and the synthetic seismic trace. This simple blocky model is extracted from a wedge model at the point
+            where the wedge thickness is 80 ms TWT. The \(AI\) of the middle layer decreases relative to the layers
+            above and below. This results in a negative \(RC\) at the top interface of the layer and a positive \(RC\)
+            at the bottom interface. When a \(RC\) series is convolved with a wavelet, the result is a seismic trace.
+        </figcaption>
+    </figure>
     <p class="text-justify">
-        This image raises an important point. <strong>PySeisTuned<sup>2.0</sup></strong> adopts
+        This raises an important point about polarity conventions. <strong>PySeisTuned<sup>2.0</sup></strong> adopts
         <strong>SEG Normal Polarity</strong>, meaning that a decrease in \(AI\) results in a negative reflection
         coefficient, or a trough in the seismic response. Additionally, a decrease in impedance is represented by red
-        while an increase is represented by blue.
+        while an increase is represented by blue. While this seems simple, understanding the polarity convention of a
+        seismic dataset is fundamental to successful interpretation.
+    </p>
+    <p class="text-justify">
+        We can now look at a wedge model which extends the blocky impedance model above. Using the properties for the
+        layers as defined above but varying thickness of the middle wedge layer from 0 to 100 ms TWT results creates
+        the following wedge model:
+    </p>
+    <figure class="figure">
+        <img src="../static/img/wedge_model_w_blocky_impedance.png" class="figure-img img-fluid rounded mx-auto d-block" alt="blocky wedge model">
+        <figcaption class="figure-caption">
+            Wedge model showing blocky acoustic impedance for every fifth trace. The layer impedances are rendered in
+            transparent color.
+        </figcaption>
+    </figure>
+    <p class="text-justify">
+        Next, the \(RC\) at the top and base wedge interfaces are calculated and then convolved with the same Ricker
+        wavelet with \(F_{central} = 25\;Hz\) to create the synthetic seismic wedge model:
+    </p>
+    <figure class="figure">
+        <img src="../static/img/synthetic_wedge_model.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge model">
+        <figcaption class="figure-caption">
+            Synthetic seismic wedge model resulting from convolving the reflectivities of the \(AI\) wedge model with a
+            \(F_{central} = 25\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the variable density.
+        </figcaption>
+    </figure>
+    <p class="text-justify">
+        Cool! So now we have synthetic wedge model, but now what? What does this tell us and why do we care about what
+        all we just went through?
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
