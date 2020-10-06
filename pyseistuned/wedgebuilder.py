@@ -229,7 +229,7 @@ def tuning_curve(synth, rock_props, dt, w_type, f=None):
     z_apparent = z_apparent.astype(np.int64)
 
     # extract the amplitude along the top of the wedge model
-    amp = abs(synth[top, :])
+    amp = abs(synth[top_idx, :])
 
     # sometimes if frequency is very low and the sample increment is small, the wedge will not be wide enough to get
     # the tuning onset and will result in an IndexError.  When that happens, return theoretical onset instead.
