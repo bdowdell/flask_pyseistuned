@@ -313,12 +313,70 @@
         <img src="../static/img/synthetic_wedge_model.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge model">
         <figcaption class="figure-caption">
             Synthetic seismic wedge model resulting from convolving the reflectivities of the \(AI\) wedge model with a
-            \(F_{central} = 25\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the variable density.
+            \(F_{central} = 25\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the interpolated density.
         </figcaption>
     </figure>
     <p class="text-justify">
         Cool! So now we have synthetic wedge model, but now what? What does this tell us and why do we care about what
-        all we just went through?
+        all we just went through? If we extract the amplitude across the top of the wedge, we can create a plot called
+        the <em>Tuning Curve</em>, shown below:
+    </p>
+    <figure class="figure">
+        <img src="../static/img/tuning_curve.png" class="figure-img img-fluid rounded mx-auto d-block" alt="tuning curve">
+        <figcaption class="figure-caption">
+            Tuning curve (left) extracted along the top of the wedge at the interface of layers 1 and 2, and a plot
+            (right) of true versus apparent wedge thickness.
+        </figcaption>
+    </figure>
+    <p class="text-justify">
+        From the tuning curve we can quickly make observations about how layer thickness impacts relfection amplitude.
+        First, when the wedge is much thicker than tuning thickness, the amplitude at the top interface is unaffected.
+        Once the wedge thins to a thickness of \(\lambda/2\) or \(T\), we see that the tuning curve begins to turn
+        upwards as the reflections from the top and base of the wedge begin to constructively interfere. Continuing to
+        thin the wedge results in stronger constructive interference until thinned to a thickness of \(\lambda/4\) or
+        \(T/2\) at which point constructive interference reaches a maximum. This is the <em>Tuning</em> thickness and
+        is the thinnest a layer can be and still seismically resolve a layer's top and base.
+        Thinning the wedge beyond tuning will then result in destructive interference between the top and base wedge
+        reflections and the tuning curve decreases in amplitude rapidly. If a layer is thinner than the tuning
+        thickness, the top and base reflections can no longer be fully resolved and the layer thickness cannot be
+        directly estimated from seismic mapping. More on this in a moment ...
+    </p>
+    <p class="text-justify">
+        Let's take another look at the interpolated density and wiggle trace plot of the synthetic wedge model:
+    </p>
+    <figure class="figure">
+        <img src="../static/img/synthetic_wedge_model_extra.png" class="igure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge">
+        <figcaption class="figure-caption">
+            Interpolated density and wiggle trace plot of synthetic wedge model, as above, but now with several
+            additional annotations. The true wedge top and base are plotted with thick black lines while the apparent
+            wedge top and base are plotted with dashed grey lines. A wiggle trace is also added in thick red at tuning
+            thickness and dashed red at onset of tuning thickness.
+        </figcaption>
+    </figure>
+    <p class="text-justify">
+        On this version of the synthetic wedge model I've added the true wedge top and base surfaces in thick black
+        lines and the apparent wedge top and base surfaces in dashed grey lines. As shown in the above figure of true
+        versus apparent wedge thickness, the true and apparent wedge top and base surfaces are the same until the
+        onset of tuning thickness. At this wedge thickness, the apparent top and base surfaces diverge from the true
+        top and base surfaces and the wedge thickness is actually apparently thinner than true thickness. At tuning
+        thickness, the true and apparent surfaces cross and for wedge thickness below tuning thickness, the apparent
+        top and base surfaces are now thicker than the true wedge thickness. If the layer we are mapping is below the
+        tuning thickness and we pick a trough-peak pair for the top and base surfaces, our interpreted thickness
+        will overestimate the true layer thickness.
+    </p>
+    <p class="text-justify">
+        So far I have only discussed the relation between layer thickness and reflection amplitude and how it relates
+        to seismic resolution. However, let's turn this discussion on its head and talk about amplitude as a function
+        of thickness. It should be very obvious by now (I hope!) that thickness variations impact amplitude around
+        tuning thickness. This means that if our layer of interest is close to tuning thickness, any amplitude attribute
+        extractions we make will have a tuning component embedded in it. In other words, when beds are thin, amplitudes
+        cannot be trusted! If we look at the portion of the tuning curve where thickness is well above tuning, the
+        amplitude response is the true amplitude response. At and approaching tuning thickness, amplitude is
+        over-estimated as a result of constructive interference. If the layer becomes very thin, the amplitude rapidly
+        drops off and becomes significantly below the true amplitude response when the layer is well above tuning. This
+        leads us to the topic of <em>Detuning</em> which refers to correcting amplitude maps for tuning thickness
+        phenomenon. Detuning is a bit beyond the scope of this discussion so I would instead refer you to the works of
+        <a href="https://doi.org/10.1190/1.2794386" target="_blank">Patrick Connolly</a>.
     </p>
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
