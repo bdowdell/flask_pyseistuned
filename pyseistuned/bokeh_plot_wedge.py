@@ -119,13 +119,13 @@ def plot_synth(synth, dt, z_tuning, z_onset):
 
     # plotting wiggle trace with a little help from https://github.com/fatiando/fatiando
     # using slice notation to get every second trace
-    dx = ((np.max(wt) - np.min(wt))/synth.shape[1])*2  # x-axis increment
+    dx = int(round(((np.max(wt) - np.min(wt))/synth.shape[1])*2))  # x-axis increment
     synth_min = synth.min()  # min value of synthetic for normalization
     synth_max = synth.max()  # max value of synthetic for normalization
     synth_diff = synth_max - synth_min
-    for i, trace in enumerate(synth.transpose()[::2, :]):
+    for i, trace in enumerate(synth.transpose()[::dx, :]):
         tr = (((trace - synth_min)/synth_diff) - 0.5)*4*dx
-        x = 0 + i*dx
+        x = i*dx
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
     # plot synthetic trace at measured tuning TWT thickness
     plot.line(
