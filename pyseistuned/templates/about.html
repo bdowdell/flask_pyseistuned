@@ -381,6 +381,15 @@
     <hr />
     <h1>Seismic Tuning & Spectral Decomposition</h1>
     <p class="text-justify">
-        Relationship between spectral decomposition and peak tuning frequency
+        Spectral decomposition in many ways is a very special case of seismic tuning. While there are many different
+        ways to implement spectral decomposition, the basic idea is to decompose a seismic trace into narrow frequency
+        bands. The <em>Law of Superposition</em> allows us to additively sum narrow frequency band representations of a
+        seismic trace to reconstruct the full bandwidth trace. Consider for a moment that in performing spectral
+        decomposition of a trace, we create iso-frequency representations of that trace from 10 to 30 Hz in 5 Hz
+        increments. If we then compare each of those iso-frequency traces to one another, we will see that for a given
+        layer thickness, one of the iso-frequencies will have peak magnitude compared to the others. If that were, for
+        example, 25 Hz, then we would say that the event "tunes up" at 25 Hz. In other words, the frequency of an event
+        at its peak magnitude can be directly used to estimate thickness because the event is at tuning thickness for
+        that given frequency!
     </p>
 {% endblock %}
