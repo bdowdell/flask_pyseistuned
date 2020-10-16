@@ -5,6 +5,8 @@
     <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="../static/css/style.css" />
 {% endblock %}
 
 {% block content %}
@@ -97,14 +99,15 @@
     <p class="text-justify">
         Follow the links below to view the source code, clone the repository, or submit issues and enhancement requests:
     </p>
-    <ul>
-        <li>
+    <ul class="no_bullet">
+        <li class="wiggle">
             <a href="https://github.com/bdowdell/flask_pyseistuned" target="_blank">PySeisTuned<sup>2.0</sup></a>
         </li>
-        <li>
+        <li class="wiggle">
             <a href="https://github.com/bdowdell/PySeisTuned" target="_blank">PySeisTuned<sup>1.0</sup></a>
         </li>
     </ul>
+    <br />
     <p class="text-justify">
         You can also send an email directly using the <em>Contact</em> link down below in the footer.
     </p>
