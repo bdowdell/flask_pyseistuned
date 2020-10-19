@@ -348,7 +348,7 @@
         Let's take another look at the interpolated density and wiggle trace plot of the synthetic wedge model:
     </p>
     <figure class="figure">
-        <img src="../static/img/synthetic_wedge_model_extra.png" class="igure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge">
+        <img src="../static/img/synthetic_wedge_model_extra.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge">
         <figcaption class="figure-caption">
             Interpolated density and wiggle trace plot of synthetic wedge model, as above, but now with several
             additional annotations. The true wedge top and base are plotted with thick black lines while the apparent
@@ -388,11 +388,29 @@
         ways to implement spectral decomposition, the basic idea is to decompose a seismic trace into narrow frequency
         bands. The <em>Law of Superposition</em> allows us to additively sum narrow frequency band representations of a
         seismic trace to reconstruct the full bandwidth trace. Consider for a moment that in performing spectral
-        decomposition of a trace, we create iso-frequency representations of that trace from 10 to 30 Hz in 5 Hz
+        decomposition of a trace, we create iso-frequency representations of that trace from 5 to 60 Hz in 5 Hz
         increments. If we then compare each of those iso-frequency traces to one another, we will see that for a given
         layer thickness, one of the iso-frequencies will have peak magnitude compared to the others. If that were, for
-        example, 25 Hz, then we would say that the event "tunes up" at 25 Hz. In other words, the frequency of an event
-        at its peak magnitude can be directly used to estimate thickness because the event is at tuning thickness for
-        that given frequency!
+        example, 25 Hz, then we would say that the event "tunes up" at 25 Hz.
+    </p>
+    <figure class="figure">
+        <img src="../static/img/isofreq_gather.png" class="figure-img img-fluid rounded mx-auto d-block" alt="iso-frequency gather">
+        <figcaption class="figure-caption">
+            Panel showing iso-frequency gather response for layers of varying TWT (ms) thickness. As layers increase
+            in thickness, the peak magnitude of the iso-frequency gather shifts towards lower frequencies. For each
+            layer, the tuning frequency is notated on the gather by a black '+'. The layer thicknesses are 10, 20, 30,
+            40, 50, & 100 ms TWT with a 100 ms TWT layer in between.
+        </figcaption>
+    </figure>
+    <p class="text-justify">
+        Tying this back to the seismic tuning wedge model, we know that peak amplitude occurs at the tuning frequency.
+        As the frequency used to construct the tuning wedge varies, the tuning thickness varies, as well, but peak
+        amplitude is always at the tuning thickness. If we compare the amplitude responses of a given layer at different
+        frequencies, we see that one frequency will have peak amplitude compared to all the others. This frequency is
+        the tuning frequency and can be used for estimating the layer's thickness. <em>Frequency at Peak Magnitude</em>
+        is a 3D volumetric spectral decomposition attribute that can readily provide tuning frequencies. Another
+        common method of investigating spectral decomposition is via RGB color blending of three iso-frequency volumes.
+        Spectral decomposition is a really powerful tool that can be very helpful in estimating layer thicknesses, all
+        thanks to the seismic tuning wedge model!
     </p>
 {% endblock %}
