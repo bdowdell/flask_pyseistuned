@@ -113,7 +113,7 @@ def plot_synth(synth, dt, z_tuning, z_onset):
     plot = figure(
         plot_height=300, plot_width=400,
         tooltips=TOOLTIPS, tools=tools, title="Synthetic Wedge Model",
-        x_range=Range1d(0, 100), x_axis_label="TWT Wedge Thickness (ms)",
+        x_range=Range1d(0, wt[-1]), x_axis_label="TWT Wedge Thickness (ms)",
         y_range=[np.max(t), 0], y_axis_label="TWT (ms)"
     )
 
@@ -125,7 +125,7 @@ def plot_synth(synth, dt, z_tuning, z_onset):
     synth_diff = synth_max - synth_min
     for i, trace in enumerate(synth.transpose()[::dx, :]):
         tr = (((trace - synth_min)/synth_diff) - 0.5)*4*dx
-        x = i*dx
+        x = wt[i*dx]
         plot.line(x=x + tr, y=np.flipud(t), line_color="black", line_alpha=0.5)
     # plot synthetic trace at measured tuning TWT thickness
     plot.line(
@@ -147,7 +147,7 @@ def plot_synth(synth, dt, z_tuning, z_onset):
         pass
 
     # plot synthetic as image
-    plot.image(image=[synth], x=0, y=np.max(t), dw=np.max(wt), dh=np.max(t),
+    plot.image(image=[synth], x=0, y=np.max(t), dw=wt[-1], dh=np.max(t),
                palette=RdBu11[::-1], level="image")
 
     plot.grid.grid_line_width = 0
