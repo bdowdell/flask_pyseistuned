@@ -25,18 +25,20 @@
         the most user-friendly deployment. PySeisTuned<sup>1.0</sup> is open source and licensed under GPL-3.0 for
         compatibility with PyQT5 licensing.
     </p>
-    <figure class="figure">
-        <div class="row row-cols-2">
-            <div class="col-sm">
+    <div class="row row-cols-2">
+        <div class="col-sm">
+            <figure class="figure">
                 <img src="../static/img/pst_wedge_calculator.png" class="figure-img img-fluid rounded" alt="" loading="lazy">
                 <figcaption class="figure-caption">PySeisTuned<sup>1.0</sup> Inputs tab</figcaption>
-            </div>
-            <div class="col-sm">
+            </figure>
+        </div>
+        <div class="col-sm">
+            <figure class="figure">
                 <img src="../static/img/pst_summary_tab.png" class="figure-img img-fluid rounded" alt="" loading="lazy">
                 <figcaption class="figure-caption">PySeisTuned<sup>1.0</sup> Summary tab</figcaption>
-            </div>
+            </figure>
         </div>
-    </figure>
+    </div>
     <p class="text-justify">
         Enter <strong>PySeisTuned<sup>2.0</sup></strong>, which is now a web app! The PyQT5 GUI is gone and now
         PySeisTuned<sup>2.0</sup> runs using Python 3, Flask, HTML5, Bootstrap, & JavaScript. PySeisTuned<sup>2.0</sup>
@@ -230,7 +232,7 @@
         important as we only care about the reflections generated at the wedge top and base interfaces.
     </p>
     <figure class="figure">
-        <img src="../static/img/wedge.png" class="figure-img img-fluid rounded mx-auto d-block" alt="Wedge Model">
+        <img src="../static/img/wedge.png" class="figure-img img-fluid rounded mx-auto d-block" alt="Wedge Model" loading="lazy">
         <figcaption class="figure-caption">
             An example of a wedge model with the layers colored by Acoustic Impedance, \(AI\). The model has three
             layers, with the top and bottom layer having the same \(AI\).  The second layer, which is the wedge, has
@@ -280,7 +282,7 @@
         <dd class="col-sm-9">\(F_{central} = 25\;Hz\;,duration = 0.100\;sec\;,dt = 0.001\;sec\)</dd>
     </dl>
     <figure class="figure">
-        <img src="../static/img/layerAI_rc_synth.png" class="figure-img img-fluid rounded mx-auto d-block" alt="">
+        <img src="../static/img/layerAI_rc_synth.png" class="figure-img img-fluid rounded mx-auto d-block" alt="" loading="lazy">
         <figcaption class="figure-caption">
             This figure illustrates the relationship between Acoustic Impedance, \(AI\), Reflection Coefficient, \(RC\),
             and the synthetic seismic trace. This simple blocky model is extracted from a wedge model at the point
@@ -302,7 +304,7 @@
         the following wedge model:
     </p>
     <figure class="figure">
-        <img src="../static/img/wedge_model_w_blocky_impedance.png" class="figure-img img-fluid rounded mx-auto d-block" alt="blocky wedge model">
+        <img src="../static/img/wedge_model_w_blocky_impedance.png" class="figure-img img-fluid rounded mx-auto d-block" alt="blocky wedge model" loading="lazy">
         <figcaption class="figure-caption">
             Wedge model showing blocky acoustic impedance for every fifth trace. The layer impedances are rendered in
             transparent color.
@@ -313,7 +315,7 @@
         wavelet with \(F_{central} = 25\;Hz\) to create the synthetic seismic wedge model:
     </p>
     <figure class="figure">
-        <img src="../static/img/synthetic_wedge_model.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge model">
+        <img src="../static/img/synthetic_wedge_model.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge model" loading="lazy">
         <figcaption class="figure-caption">
             Synthetic seismic wedge model resulting from convolving the reflectivities of the \(AI\) wedge model with a
             \(F_{central} = 25\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the interpolated density.
@@ -325,7 +327,7 @@
         the <em>Tuning Curve</em>, shown below:
     </p>
     <figure class="figure">
-        <img src="../static/img/tuning_curve.png" class="figure-img img-fluid rounded mx-auto d-block" alt="tuning curve">
+        <img src="../static/img/tuning_curve.png" class="figure-img img-fluid rounded mx-auto d-block" alt="tuning curve" loading="lazy">
         <figcaption class="figure-caption">
             Tuning curve (left) extracted along the top of the wedge at the interface of layers 1 and 2, and a plot
             (right) of true versus apparent wedge thickness.
@@ -348,7 +350,7 @@
         Let's take another look at the interpolated density and wiggle trace plot of the synthetic wedge model:
     </p>
     <figure class="figure">
-        <img src="../static/img/synthetic_wedge_model_extra.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge">
+        <img src="../static/img/synthetic_wedge_model_extra.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge" loading="lazy">
         <figcaption class="figure-caption">
             Interpolated density and wiggle trace plot of synthetic wedge model, as above, but now with several
             additional annotations. The true wedge top and base are plotted with thick black lines while the apparent
@@ -394,7 +396,7 @@
         example, 25 Hz, then we would say that the event "tunes up" at 25 Hz.
     </p>
     <figure class="figure">
-        <img src="../static/img/isofreq_gather.png" class="figure-img img-fluid rounded mx-auto d-block" alt="iso-frequency gather">
+        <img src="../static/img/isofreq_gather.png" class="figure-img img-fluid rounded mx-auto d-block" alt="iso-frequency gather" loading="lazy">
         <figcaption class="figure-caption">
             Panel showing iso-frequency gather response for layers of varying TWT (ms) thickness. As layers increase
             in thickness, the peak magnitude of the iso-frequency gather shifts towards lower frequencies. For each
