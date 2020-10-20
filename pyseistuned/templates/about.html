@@ -402,7 +402,10 @@
             Panel showing iso-frequency gather response for layers of varying TWT (ms) thickness. As layers increase
             in thickness, the peak magnitude of the iso-frequency gather shifts towards lower frequencies. For each
             layer, the tuning frequency is notated on the gather by a black '+'. The layer thicknesses are 10, 20, 30,
-            40, 50, & 100 ms TWT with a 100 ms TWT layer in between.
+            40, 50, & 100 ms TWT with a 100 ms TWT layer in between, as illustrated in the impedance model. The
+            reflectivity series shows the reflection coefficients at the top and base of each layer. Each trace in the
+            iso-frequency gather represents the convolution of the reflectivity series with a narrow-band filter which
+            in this instance is a Ricker wavelet.
         </figcaption>
     </figure>
     <p class="text-justify">
@@ -410,10 +413,14 @@
         As the frequency used to construct the tuning wedge varies, the tuning thickness varies, as well, but peak
         amplitude is always at the tuning thickness. If we compare the amplitude responses of a given layer at different
         frequencies, we see that one frequency will have peak amplitude compared to all the others. This frequency is
-        the tuning frequency and can be used for estimating the layer's thickness. <em>Frequency at Peak Magnitude</em>
-        is a 3D volumetric spectral decomposition attribute that can readily provide tuning frequencies. Another
-        common method of investigating spectral decomposition is via RGB color blending of three iso-frequency volumes.
-        Spectral decomposition is a really powerful tool that can be very helpful in estimating layer thicknesses, all
-        thanks to the seismic tuning wedge model!
+        the tuning frequency and can be used for estimating the layer's thickness. The figure above shows an impedance
+        model where each subsequent layer is thicker. We can convolve the reflectivity series derived from this model
+        with a suite of Ricker wavelets to create an iso-frequency gather. What we observe is that as layer thickness
+        changes, the maximum energy changes as a function of frequency. Thinner layers have maximum energy at higher
+        frequencies while thicker layers have maximum energy at lower frequencies. We now know from the tuning wedge
+        model that the maximum amplitude at a layer interface occurs at the tuning thickness of the wedge. So, for a
+        set layer thickness, the iso-frequency trace with maximum amplitude for that layer is at tuning (hence "tuning
+        frequency") and we now that the top and base of the layer are resolved. We can then use the equations above to
+        relate frequency to period and solve for the layer's thickness. <em>Spectral Decomposition is really cool!</em>
     </p>
 {% endblock %}
