@@ -34,7 +34,7 @@ app.config.from_object(Config)
 mail = Mail(app)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = TuningWedgeForm(
