@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from pyseistuned import pyseistuned
+from app import pyseistuned
 
 if __name__ == '__main__':
     pyseistuned.app.run()

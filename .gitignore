@@ -8,5 +8,5 @@ htmlcov/
 dist/
 build/
 #.egg-info/
-pyseistuned/pyseistuned.py.bak
+app/pyseistuned.py.bak
 nb/.ipynb_checkpoints/

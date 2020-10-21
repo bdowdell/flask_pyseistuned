@@ -18,13 +18,13 @@ limitations under the License.
 
 from flask import Flask, render_template, redirect, url_for, request, session
 from config import Config
-from pyseistuned.forms import ContactForm, TuningWedgeForm
+from app.forms import ContactForm, TuningWedgeForm
 from flask_mail import Mail, Message
-import pyseistuned.wedgebuilder as wb
-import pyseistuned.bokeh_wavelet as bokeh_wavelet
-import pyseistuned.bokeh_amplitude_spectrum as bas
-import pyseistuned.bokeh_plot_wedge as bokeh_wedge
-import pyseistuned.bokeh_tuning_curve as btc
+import app.wedgebuilder as wb
+import app.bokeh_wavelet as bokeh_wavelet
+import app.bokeh_amplitude_spectrum as bas
+import app.bokeh_plot_wedge as bokeh_wedge
+import app.bokeh_tuning_curve as btc
 from bokeh.embed import components
 from bokeh.models import Panel, Tabs
 from flask_weasyprint import render_pdf
