@@ -42,7 +42,7 @@ First, set the FLASK_APP environment variable:
 
 set the FLASK_CONFIG environment variable:
 
-`$ export FLASK_ENV=development`
+`$ export FLASK_CONFIG=development`
 
 and set the FLASK_CONFIG environment variable:
 
