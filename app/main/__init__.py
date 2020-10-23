@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from app import pyseistuned
+from flask import Blueprint
 
-if __name__ == '__main__':
-    pyseistuned.app.run()
+main = Blueprint('main', __name__)
+
+from . import views

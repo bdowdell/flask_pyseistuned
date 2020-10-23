@@ -36,7 +36,7 @@ limitations under the License.
 </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}">
+        <a class="navbar-brand" href="{{ url_for('main.index')}}">
             <img src="../static/img/wedge.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
             PySeisTuned<sup>2.0</sup>
         </a>
@@ -45,7 +45,7 @@ limitations under the License.
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link active" href="{{ url_for('about')}}">About</a>
+                <a class="nav-link active" href="{{ url_for('main.about')}}">About</a>
                 <a class="nav-link active" href="https://github.com/bdowdell/flask_pyseistuned" target="_blank">
                     <img src="../static/img/icons8-github-30.png" width="25" height="25" alt="" loading="lazy">GitHub
                 </a>
@@ -60,7 +60,7 @@ limitations under the License.
             <div class="navbar-nav">
                 <a class="nav-link" href="https://github.com/bdowdell/flask_pyseistuned/blob/master/LICENSE" target="_blank">
                     Copyright 2020, Benjamin L. Dowdell</a>
-                <a class="nav-link" href="{{ url_for('contact')}}">Contact</a>
+                <a class="nav-link" href="{{ url_for('main.contact')}}">Contact</a>
                 <a class="nav-link" href="https://icons8.com/icons" target="_blank">icons by Icons8</a>
             </div>
         </div>

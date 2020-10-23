@@ -16,19 +16,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask import Flask
-from flask_mail import Mail
-from config import config
+from app import mail
+from flask import current_app
+from flask_mail import Message
+from threading import Thread
 
-mail = Mail()
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
 
 
-def create_app(config_name):
-    app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    mail.init_app(app)
-    
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
-    
-    return app
+def send_email(subject, sender_email, sender_name, recipients, text_body):
+    msg = Message(
+        subject,
+        sender=sender_email,
+        recipients=recipients,
+        extra_headers={'name': sender_name}
+    )
+    msg.body = text_body
+    Thread(target=send_async_email,
+           args=(current_app._get_current_object(), msg)).start()

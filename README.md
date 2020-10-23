@@ -38,11 +38,15 @@ Before you can run the flask_pyseistuned web app, you need to set several flask-
 
 First, set the FLASK_APP environment variable:
 
-`$ export FLASK_APP=pyseistuned/pyseistuned`
+`$ export FLASK_APP=pyseistuned.py`
 
-And then set the FLASK_ENV environment variable:
+set the FLASK_CONFIG environment variable:
 
 `$ export FLASK_ENV=development`
+
+and set the FLASK_CONFIG environment variable:
+
+`$ export FLASK_DEBUG=1`
 
 The FLASK_APP variable tells flask what application it is supposed to run and the FLASK_ENV variable specifies you will be running in a development mode so that the visual debugger is available in the web browers when things go wrong.
 
