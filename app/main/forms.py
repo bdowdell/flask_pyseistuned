@@ -59,7 +59,7 @@ class ValidateFrequency(object):
     """
     Custom validator for frequency field.  Requires input of wavelet type field.
 
-    Paramaters
+    Parameters
     ----------
     fieldname : str
         The name of the wavelet type form field
