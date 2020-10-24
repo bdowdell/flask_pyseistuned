@@ -110,7 +110,7 @@
             document.getElementById('vp_units-0').checked = true;
             document.getElementById('wvType').value = 0;
             document.getElementById('freqC').value = '';
-            document.getElementById('freqApp').value = '';
+            document.getElementById('freqPeak').value = '';
             document.getElementById('wvLen').value = 0.100;
             document.getElementById('wvdt').value = 0.001;
         }
@@ -243,7 +243,7 @@
                 <div class="form-row">
                     <div class="col-sm"></div>
                     <div class="col-sm" style="padding-top:10px;">
-                        {{ form.submit(class_='btn btn-primary') }} <button class="btn btn-outline-primary" name="reset" type="button" value="Reset" onclick="resetForm();toggleShowFApp();">Reset</button>
+                        {{ form.submit(class_='btn btn-primary') }} <button class="btn btn-outline-primary" name="reset" type="button" value="Reset" onclick="resetForm();toggleShowFPeak();">Reset</button>
                     </div>
                 </div>
             </div>
