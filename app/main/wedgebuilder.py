@@ -126,7 +126,7 @@ def get_central_frequency(w_type, f=None):
     w_type : int
         Wavelet type. 0 is Rikcer, 1 is Ormsby
     f : list
-        frequency paramters of wavelet
+        frequency parameters of wavelet
 
     Returns
     -------
