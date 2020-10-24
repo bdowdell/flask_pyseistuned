@@ -75,15 +75,21 @@ def results():
     wv_len = float(session.get('wv_len')) / 1000
     wv_dt = float(session.get('wv_dt')) / 1000
 
-    # create the tuning wedge model and tuning curve
+    # create the tuning wedge model, theoretical tuning parameters, & tuning curve
     rock_props = [layer_1_vp, layer_1_dens, layer_2_vp, layer_2_dens, layer_3_vp, layer_3_dens]
+    acoustic_impedance = wb.impedance_model(rock_props)
     rc, imp = wb.earth_model(rock_props)
     wavelet = wb.wavelet(wv_len, wv_dt, wv_type, freq)
+    f_central = wb.get_central_frequency(wv_type, freq)
+    tuning_onset = wb.get_theoretical_onset_tuning_thickness(f_central)
+    tuning = wb.get_theoretical_tuning_thickness(f_central)
+    resolution_limit = wb.get_theoretical_resolution_limit(f_central)
     synth = wb.tuning_wedge(rc, wavelet)
-    z, tuning_meas, amp, z_apparent, onset_meas, tuning_onset, tuning, resolution_limit = wb.tuning_curve(synth,
-                                                                                                          rock_props,
-                                                                                                          wv_dt,
-                                                                                                          wv_type, freq)
+    z = wb.get_wedge_thickness(synth, wv_dt)
+    z_apparent = wb.get_apparent_wedge_thickness(synth, wv_dt, acoustic_impedance)
+    tuning_meas = wb.get_measured_tuning_thickness(synth, wv_dt, acoustic_impedance)
+    onset_meas = wb.get_measured_onset_tuning_thickness(z, z_apparent, f_central)
+    amp = wb.get_tuning_curve_amplitude(acoustic_impedance, synth)
 
     # build wavelet plot and create bokeh script and div
     wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)

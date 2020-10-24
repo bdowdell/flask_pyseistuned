@@ -20,19 +20,19 @@
             //check what the selected wavelet type is on load for displaying Ricker apparent frequency
             var state = document.getElementById('wvType');
             if( state.value == 1){
-                $('#freqApp').hide();
+                $('#freqPeak').hide();
             }
             else{
-                $('#freqApp').show();
+                $('#freqPeak').show();
             }
-            //calculate the Ricker apparent frequency on page load
-            var fa = document.getElementById('freqApp');
+            //calculate the Ricker peak frequency on page load
+            var fp = document.getElementById('freqPeak');
             var fc = document.getElementById('freqC')
             if( fc.value != ''){
-                fa.value = String(Math.round(((fc.value * (Math.PI / Math.sqrt(6))) + 0.00001) * 100) / 100) + " Hz";
+                fp.value = String(Math.round(((fc.value / (Math.PI / Math.sqrt(6))) + 0.00001) * 100) / 100) + " Hz";
             }
             else{
-                fa.value = '';
+                fp.value = '';
             }
             //calculate layer impedances on page load
             var vp1 = document.getElementById('vp1');
@@ -55,27 +55,27 @@
             }
         }
 
-        function toggleShowFApp() {
+        function toggleShowFPeak() {
             var state = document.getElementById('wvType');
             if( state.value == 1){
                 document.getElementById('freqC').value = '';
-                $('#freqApp').hide();
-                document.getElementById('freqApp').value = '';
+                $('#freqPeak').hide();
+                document.getElementById('freqPeak').value = '';
             }
             else{
                 document.getElementById('freqC').value = '';
-                $('#freqApp').show();
-                document.getElementById('freqApp').value = '';
+                $('#freqPeak').show();
+                document.getElementById('freqPeak').value = '';
             }
         }
 
-        function updateApparentFrequency(fc) {
-            var fa = document.getElementById('freqApp');
+        function updatePeakFrequency(fc) {
+            var fp = document.getElementById('freqPeak');
             if( fc.value != ''){
-                fa.value = String(Math.round(((fc.value * (Math.PI / Math.sqrt(6))) + 0.00001) * 100) / 100) + " Hz";
+                fp.value = String(Math.round(((fc.value / (Math.PI / Math.sqrt(6))) + 0.00001) * 100) / 100) + " Hz";
             }
             else{
-                fa.value = '';
+                fp.value = '';
             }
         }
 
@@ -200,7 +200,7 @@
                         {{ form.wv_type.label }}
                     </div>
                     <div class="col-sm">
-                        {{ form.wv_type(id='wvType', onchange='toggleShowFApp()', tabindex='-1') }}
+                        {{ form.wv_type(id='wvType', onchange='toggleShowFPeak()', tabindex='-1') }}
                     </div>
                 </div>
                 <div class="form-row row-cols-3">
@@ -208,13 +208,13 @@
                         {{ form.frequency.label }}
                     </div>
                     <div class="col-sm-3">
-                        {{ form.frequency(class_='form-control', id='freqC', oninput='updateApparentFrequency(this)', data_toggle="tooltip", data_placement="bottom", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
+                        {{ form.frequency(class_='form-control', id='freqC', oninput='updatePeakFrequency(this)', data_toggle="tooltip", data_placement="bottom", title="Ricker: enter central frequency<br /><br />Ormsby: enter comma separated frequencies F1, F2, F3, F4") }}
                         {% for error in form.frequency.errors %}
                         <span style="color: red;">{{ error }}</span>
                         {% endfor %}
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control-plaintext" id="freqApp" type="text" placeholder="Fapparent" tabindex='-1' readonly style="color: grey;">
+                        <input class="form-control-plaintext" id="freqPeak" type="text" placeholder="Fpeak" tabindex='-1' readonly style="color: grey;">
                     </div>
                 </div>
                 <div class="form-row row-cols-3">

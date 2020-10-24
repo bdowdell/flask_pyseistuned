@@ -19,6 +19,25 @@ limitations under the License.
 import numpy as np
 
 
+def impedance_model(rock_props):
+    """
+
+    Parameters
+    ----------
+    rock_props : list
+        A list of len 6 containing Vp-Density pairs for each of the three layers
+
+    Returns
+    -------
+    ndarray
+
+    """
+    # calculate AI
+    rocks = np.array(rock_props).reshape(3, 2)
+    acoustic_impedance = np.apply_along_axis(np.product, -1, rocks)
+    return acoustic_impedance
+
+
 def earth_model(rock_props):
     """Builds a earth model using input Vp-Density pairs and calculates reflection coefficients and layer impedance.
 
@@ -57,23 +76,6 @@ def earth_model(rock_props):
     return rc, imp
 
 
-def rc_mask(rc):
-    """Creates a mask for where RC is 0
-    
-    Parameters
-    ----------
-    rc : ndarray
-        Numpy array of reflection coefficients
-
-    Returns
-    -------
-    ndarray
-        A masked ndarray for zero values
-
-    """
-    return np.ma.masked_equal(rc, 0)
-
-
 def wavelet(duration=0.100, dt=0.001, w_type=0, f=None):
     """This function defines a wavelet to convolve with the earth model reflection coefficients
 
@@ -107,12 +109,84 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=None):
         w = (((a * (np.sinc(f4 * t))**2) - (b * (np.sinc(f3 * t))**2)) -
              ((c * (np.sinc(f2 * t))**2) - (d * (np.sinc(f1 * t))**2)))
     else:
-        # Ricker wavelet
-        f = f[0]
+        # Ricker wavelet defined in terms of F_central instead of F_peak so that the period
+        # can be used to estimated tuning with the frequency expected by the user
+        f = f[0] / (np.pi / np.sqrt(6))
         w = (1.0 - 2.0 * (np.pi ** 2) * (f ** 2) * (t ** 2)) * np.exp(
             -(np.pi ** 2) * (f ** 2) * (t ** 2)
         )
     return np.squeeze(w) / np.amax(w)
+
+
+def get_central_frequency(w_type, f=None):
+    """
+
+    Parameters
+    ----------
+    w_type : int
+        Wavelet type. 0 is Rikcer, 1 is Ormsby
+    f : list
+        frequency paramters of wavelet
+
+    Returns
+    -------
+    int
+
+    """
+    if f is None:
+        f = [25]
+    if w_type:
+        return int((f[0] + f[3]) / 2)
+    else:
+        return f[0]
+
+
+def get_theoretical_onset_tuning_thickness(f_central):
+    """
+
+    Parameters
+    ----------
+    f_central : float
+        wavelet central frequency in Hz
+
+    Returns
+    -------
+    float
+
+    """
+    return 1 / f_central * 1000
+
+
+def get_theoretical_tuning_thickness(f_central):
+    """
+
+    Parameters
+    ----------
+    f_central : float
+        wavelet central frequency in Hz
+
+    Returns
+    -------
+    float
+
+    """
+    return 1 / f_central / 2 * 1000
+
+
+def get_theoretical_resolution_limit(f_central):
+    """
+
+    Parameters
+    ----------
+    f_central : float
+        wavelet central frequency in Hz
+
+    Returns
+    -------
+    float
+
+    """
+    return 1 / f_central / 4 * 1000
 
 
 def tuning_wedge(rc, w):
@@ -131,116 +205,139 @@ def tuning_wedge(rc, w):
         ndarray of synthetic tuning wedge
 
     """
-    synth = np.apply_along_axis(lambda t: np.convolve(t, w, mode="same"), axis=0, arr=rc)
-    return synth
+    return np.apply_along_axis(lambda t: np.convolve(t, w, mode="same"), axis=0, arr=rc)
 
 
-def tuning_curve(synth, rock_props, dt, w_type, f=None):
-    """Calculates the tuning curve
+def get_wedge_thickness(synth, dt):
+    """Calculates wedge thickness in milliseconds
 
     Parameters
     ----------
     synth : ndarray
-        array of synthetic seismic values
-    rock_props : list
-        list of rock properties (Vp, Density)
+        (n, m) array containing synthetic seismogram values
     dt : float
-        wavelet sample increment
-    w_type : int
-        Wavelet type. 0 for Ricker, 1 for Ormsby
-    f : list
-        wavelet frequency(ies)
+        wavelet sample increment in seconds
 
     Returns
     -------
-    z : ndarray
-        wedge thickness
-    z_tuning : float
-        tuning thickness in TWT
-    amp : ndarray
-        extracted amplitude along the top of the wedge model
-    z_apparent : ndarray
-        apparent wedge thickness
-    z_onset : int
-        wedge thickness at onset of tuning
-    tuning_onset : float
-        tuning onset thickness in milliseconds
-    tuning : float
-        tuning thickness in milliseconds
-    resolution_limit : float
-        limit of resolution in milliseconds
+    dz : ndarray
+        (m, ) array containing absolute thickness of the wedge, in milliseconds
 
     """
+    dz = np.zeros(synth.shape[1])
+    dz[1:] += dt
+    dz = np.cumsum(dz) * 1000
+    return dz.astype(np.int64)
 
-    # Get central frequency depending on wavelet type, first set default value if not passed in
-    if f is None:
-        f = [25]
-    if w_type:
-        # take average of low cut and high cut in Ormsby filter
-        f_central = (f[0] + f[3]) / 2
-        tuning_onset = 1 / f_central * 1000
-        tuning = tuning_onset / 2
-        resolution_limit = 1 / f_central / 4 * 1000
-    else:
-        # Ricker central frequency
-        f_central = f[0]
-        f_apparent = f_central * np.pi / np.sqrt(6)
-        tuning_onset = 1 / f_apparent * 1000
-        tuning = tuning_onset / 2
-        resolution_limit = 1 / f_apparent / 4 * 1000
 
-    rocks = np.array(rock_props).reshape(3, 2)
-    AI = np.apply_along_axis(np.product, -1, rocks)
+def get_apparent_wedge_thickness(synth, dt, acoustic_impedance):
+    """
 
-    # create an ndarray containing index value of top of wedge
-    if AI[1] < AI[0]:
-        top_idx = np.nanargmin(synth[:, -1])  # use the last column in model to get top at min amplitude
-    else:
-        top_idx = np.nanargmax(synth[:, -1])  # use the last column in model to get top at max amplitude
+    Parameters
+    ----------
+    synth : ndarray
+        (n, m) array containing synthetic seismogram values
+    dt : float
+        wavelet sample increment in seconds
+    acoustic_impedance : ndarray
+        (3, ) array of layer acoustic impedances
 
-    top = np.ones(synth.shape[1], dtype=int) * top_idx
+    Returns
+    -------
+    apparent_dz : ndarray
+        (m, ) shape array containing apparent wedge thickness in milliseconds
 
-    # calculate the wedge thickness
-    z = np.zeros(synth.shape[1])
-    z[1:] += dt
-    z = np.cumsum(z) * 1000
-    z = z.astype(np.int64)  # force wedge thicknesses to be integers
-
-    # determine the thickness at which synth has max amplitude
-    # This is the measured tuning thickness in TWT
-    z_tuning_idx = np.nanargmax(abs(synth[np.nanmax(top), :]))
-    z_tuning_arr = np.zeros(z_tuning_idx + 1)
-    z_tuning_arr[1:] += dt
-    z_tuning_arr = np.cumsum(z_tuning_arr) * 1000
-    z_tuning = z_tuning_arr[-1]
-
+    """
     # determine the apparent thickness at which synth has max amplitude
     # this represents what is seismically resolvable, in TWT
-    if AI[1] < AI[0]:
+    if acoustic_impedance[1] < acoustic_impedance[0]:
         top_apparent = np.apply_along_axis(np.nanargmin, 0, synth)
         base_apparent = np.apply_along_axis(np.nanargmax, 0, synth)
     else:
         top_apparent = np.apply_along_axis(np.nanargmax, 0, synth)
         base_apparent = np.apply_along_axis(np.nanargmin, 0, synth)
 
-    z_apparent = base_apparent - top_apparent
-    z_apparent[0] = z_apparent[1]  # project the minimum apparent thickness to the first index
-    z_apparent = z_apparent * dt * 1000
-    z_apparent = z_apparent.astype(np.int64)
+    apparent_dz = base_apparent - top_apparent
+    apparent_dz[0] = apparent_dz[1]  # project the minimum apparent thickness to the first index
+    apparent_dz = apparent_dz * dt * 1000
+    return apparent_dz.astype(np.int64)
 
-    # extract the amplitude along the top of the wedge model
-    amp = abs(synth[top_idx, :])
 
+def get_measured_tuning_thickness(synth, dt, acoustic_impedance):
+    """
+
+    Parameters
+    ----------
+    synth : ndarray
+        (n, m) array containing synthetic seismogram values
+    dt : float
+        wavelet sample increment in seconds
+    acoustic_impedance : ndarray
+        (3, ) array of layer acoustic impedances
+
+    Returns
+    -------
+    float
+
+    """
+    if acoustic_impedance[1] < acoustic_impedance[0]:
+        top_idx = np.nanargmin(synth[:, -1])  # use the last column in model to get top at min amplitude
+    else:
+        top_idx = np.nanargmax(synth[:, -1])  # use the last column in model to get top at max amplitude
+    top = np.ones(synth.shape[1], dtype=int) * top_idx
+    # determine the thickness at which synth has max amplitude
+    # This is the measured tuning thickness in TWT
+    z_tuning_idx = np.nanargmax(abs(synth[np.nanmax(top), :]))
+    z_tuning_arr = np.zeros(z_tuning_idx + 1)
+    z_tuning_arr[1:] += dt
+    z_tuning_arr = np.cumsum(z_tuning_arr) * 1000
+    return z_tuning_arr[-1]
+
+
+def get_measured_onset_tuning_thickness(dz, apparent_dz, f_central):
+    """
+
+    Parameters
+    ----------
+    dz : ndarray
+        (n, ) array containing true wedge thickness in milliseconds
+    apparent_dz : ndarray
+        (n, ) array containing apparent wedge thicknes in millseconds
+    f_central : float
+        central frequency of wavelet
+    Returns
+    -------
+    int
+
+    """
     # sometimes if frequency is very low and the sample increment is small, the wedge will not be wide enough to get
     # the tuning onset and will result in an IndexError.  When that happens, return theoretical onset instead.
     try:
         # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
-        z_onset_idx = np.argwhere(z - z_apparent > 0)[-1][0] + 1  # the last value is where thinning causes tuning onset
-        z_onset = z_apparent[z_onset_idx]
+        # the last value is where thinning causes tuning onset
+        onset_idx = np.argwhere(dz - apparent_dz > 0)[-1][0] + 1
+        return apparent_dz[onset_idx]
     except IndexError:
-        if w_type:
-            z_onset = int((1 / f_central) * 1000)
-        else:
-            z_onset = int((1 / (np.pi / np.sqrt(6) * f_central)) * 1000)
+        return int((1 / f_central) * 1000)
 
-    return z, z_tuning, amp, z_apparent, z_onset, tuning_onset, tuning, resolution_limit
+
+def get_tuning_curve_amplitude(acoustic_impedance, synth):
+    """
+
+    Parameters
+    ----------
+    acoustic_impedance : ndarray
+        (3, ) array of layer acoustic impedances
+    synth : ndarray
+        (n, m) array containing sythetic seismogram values
+
+    Returns
+    -------
+    ndarray
+
+    """
+    if acoustic_impedance[1] < acoustic_impedance[0]:
+        top_idx = np.nanargmin(synth[:, -1])  # use the last column in model to get top at min amplitude
+    else:
+        top_idx = np.nanargmax(synth[:, -1])  # use the last column in model to get top at max amplitude
+    return abs(synth[top_idx, :])
