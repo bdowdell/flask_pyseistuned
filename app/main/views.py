@@ -21,9 +21,9 @@ from . import main
 from .. email import send_email
 from . forms import ContactForm, TuningWedgeForm
 from . import wedgebuilder as wb
-from . import bokeh_wavelet as bokeh_wavelet
+from . import bokeh_wavelet as bwv
 from . import bokeh_amplitude_spectrum as bas
-from . import bokeh_plot_wedge as bokeh_wedge
+from . import bokeh_plot_wedge as bwg
 from . import bokeh_tuning_curve as btc
 from bokeh.embed import components
 from bokeh.models import Panel, Tabs
@@ -92,7 +92,7 @@ def results():
     amp = wb.get_tuning_curve_amplitude(acoustic_impedance, synth)
 
     # build wavelet plot and create bokeh script and div
-    wavelet_plot = bokeh_wavelet.plot_wavelet(wavelet, wv_len)
+    wavelet_plot = bwv.plot_wavelet(wavelet, wv_len)
     wv_script, wv_div = components(wavelet_plot)
 
     # build amplitude spectrum & phase plots and create script & div
@@ -101,8 +101,8 @@ def results():
     phase_script, phase_div = components(phase_plot)
 
     # Get the synthetic wedge and earth model plots
-    earth_mod = bokeh_wedge.plot_earth_model(imp, wv_dt)
-    synth_mod = bokeh_wedge.plot_synth(synth, wv_dt, tuning_meas, onset_meas)
+    earth_mod = bwg.plot_earth_model(imp, wv_dt)
+    synth_mod = bwg.plot_synth(synth, wv_dt, tuning_meas, onset_meas)
 
     # put the synthetic wedge and earth model plots together in a tabbed panel
     tab1 = Panel(child=synth_mod, title="Synthetic Wedge")
