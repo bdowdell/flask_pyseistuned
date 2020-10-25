@@ -302,7 +302,7 @@ def get_measured_onset_tuning_thickness(dz, apparent_dz, f_central):
     dz : ndarray
         (n, ) array containing true wedge thickness in milliseconds
     apparent_dz : ndarray
-        (n, ) array containing apparent wedge thicknes in millseconds
+        (n, ) array containing apparent wedge thickness in milliseconds
     f_central : float
         central frequency of wavelet
     Returns
