@@ -44,6 +44,14 @@ class WedgeBuilderTestCase(unittest.TestCase):
         self.assertEqual(self.layer_1_impedance, wb_acoustic_impedance[0])
         self.assertEqual(self.layer_2_impedance, wb_acoustic_impedance[1])
         self.assertEqual(self.layer_3_impedance, wb_acoustic_impedance[2])
+        with self.assertRaises(ValueError):
+            wb.impedance_model(5)
+        with self.assertRaises(ValueError):
+            wb.impedance_model('apple')
+        with self.assertRaises(TypeError):
+            wb.impedance_model(['apple', 2.5, 2700, 2.3, 3000, 2.5])
+        with self.assertRaises(TypeError):
+            wb.impedance_model(['3000', '2.5', '2700', '2.3', '3000', '2.5'])
 
     def test_01_earth_model(self):
         wb_rc, wb_imp = wb.earth_model(self.rock_props)
@@ -51,39 +59,61 @@ class WedgeBuilderTestCase(unittest.TestCase):
         self.assertEqual(wb_rc.shape, (240, 101))
         self.assertIsInstance(wb_imp, np.ndarray)
         self.assertEqual(wb_imp.shape, (240, 101))
+        with self.assertRaises(ValueError):
+            _, _ = wb.earth_model(5)
+        with self.assertRaises(ValueError):
+            _, _ = wb.earth_model('apple')
+        with self.assertRaises(TypeError):
+            _, _ = wb.earth_model(['apple', 2.5, 2700, 2.3, 3000, 2.5])
+        with self.assertRaises(TypeError):
+            _, _ = wb.earth_model(['3000', '2.5', '2700', '2.3', '3000', '2.5'])
 
     def test_02_wavelet_ricker(self):
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
         self.assertIsInstance(wb_wavelet, np.ndarray)
         self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
+        with self.assertRaises(TypeError):
+            wb.wavelet(self.duration, self.dt, w_type=0, f=30)
         
     def test_03_wavelet_ormsby(self):
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=1, f=[5, 10, 40, 50])
         self.assertIsInstance(wb_wavelet, np.ndarray)
         self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
+        with self.assertRaises(ValueError):
+            wb.wavelet(self.duration, self.dt, w_type=1, f=[5, 10, 40])
 
     def test_04_get_central_frequency_ricker(self):
         wb_central_frequency = wb.get_central_frequency(w_type=0, f=[30])
         self.assertEqual(wb_central_frequency, 30)
+        with self.assertRaises(TypeError):
+            wb.get_central_frequency(w_type=0, f=30)
 
     def test_05_get_central_frequency_ormsby(self):
         wb_central_frequency = wb.get_central_frequency(w_type=1, f=[5, 10, 40, 50])
         self.assertEqual(wb_central_frequency, int((5 + 50) / 2))
+        with self.assertRaises(IndexError):
+            wb.get_central_frequency(w_type=1, f=[5, 10, 40])
 
     def test_06_get_theoretical_onset_tuning_thickness(self):
         f_central = 30
         onset_thickness = 1 / f_central * 1000
         self.assertEqual(wb.get_theoretical_onset_tuning_thickness(f_central), onset_thickness)
+        with self.assertRaises(TypeError):
+            wb.get_theoretical_onset_tuning_thickness('30')
 
     def test_07_get_theoretical_tuning_thickness(self):
         f_central = 30
         tuning_thickness = 1 / f_central / 2 * 1000
         self.assertEqual(wb.get_theoretical_tuning_thickness(f_central), tuning_thickness)
+        with self.assertRaises(TypeError):
+            wb.get_theoretical_tuning_thickness('30')
 
     def test_08_get_theoretical_resolution_limit(self):
         f_central = 30
         resolution_limit = 1 / f_central / 4 * 1000
         self.assertEqual(wb.get_theoretical_resolution_limit(f_central), resolution_limit)
+        with self.assertRaises(TypeError):
+            wb.get_theoretical_resolution_limit('30')
 
     def test_09_tuning_wedge_ricker_wavelet(self):
         wb_rc, wb_imp = wb.earth_model(self.rock_props)
