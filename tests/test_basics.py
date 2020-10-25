@@ -30,8 +30,8 @@ class BasicTestCase(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
-    def test_app_exists(self):
+    def test_00_app_exists(self):
         self.assertFalse(current_app is None)
 
-    def test_app_is_test(self):
+    def test_01_app_is_test(self):
         self.assertTrue(current_app.config['TESTING'])
