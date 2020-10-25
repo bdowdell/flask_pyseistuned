@@ -155,3 +155,12 @@ class WedgeBuilderTestCase(unittest.TestCase):
         measured_onset_tuning = wb.get_measured_onset_tuning_thickness(dz_true, dz_apparent, 30)
         self.assertIsInstance(measured_onset_tuning, int)
         self.assertGreater(measured_onset_tuning, 0)
+        
+    def test_15_get_tuning_curve_amplitude(self):
+        wb_rc, _ = wb.earth_model(self.rock_props)
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
+        wb_synth = wb.tuning_wedge(wb_rc, wb_wavelet)
+        tuning_curve_amp = wb.get_tuning_curve_amplitude(self.acoustic_impedance, wb_synth)
+        self.assertIsInstance(tuning_curve_amp, np.ndarray)
+        self.assertEqual(tuning_curve_amp.shape, (101, ))
+        self.assertGreaterEqual(np.min(tuning_curve_amp), 0)
