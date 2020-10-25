@@ -39,7 +39,15 @@ def plot_amplitude_spectrum(w, dt):
     # get the amplitude spectrum of the wavelet using discrete Fourier transform
     # note: power_spectrum = amplitude_spectrum**2 and dB scale if 20*np.log10(amplitude_spectrum)
     amplitude_spectrum = abs(np.fft.rfft(w))
-    amp_dB = 20 * np.log10(amplitude_spectrum/np.max(amplitude_spectrum))
+    # sometimes there will be zeros in the amplitude spectrum, which results in a RuntimeWarning in np.log10
+    # handle this by temporarily raising the divide by zero warning to a FloatingPointError
+    # and replace the zero with the minimum value of the non-zero data
+    with np.errstate(divide='raise'):
+        try:
+            amp_dB = 20 * np.log10(amplitude_spectrum/np.max(amplitude_spectrum))
+        except FloatingPointError:
+            amplitude_spectrum[amplitude_spectrum == 0] = np.min(amplitude_spectrum[np.nonzero(amplitude_spectrum)])
+            amp_dB = 20 * np.log10(amplitude_spectrum/np.max(amplitude_spectrum))
     phase = np.angle(amplitude_spectrum, deg=True)
     nyquist = 1 / (2 * dt)
 
