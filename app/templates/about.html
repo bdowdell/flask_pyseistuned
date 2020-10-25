@@ -199,7 +199,7 @@
     <p class="text-justify">
         The advantage to expressing the various tuning parameters in TWT versus depth units is that doing so only
         requires knowledge of the layer's dominant frequency and as such, TWT tuning thickness is always constant for
-        a given dominant frequency.  In other words, if the dominant frequency of a particular reflection pair is 25 Hz,
+        a given frequency.  In other words, if the apparent frequency of a particular reflection pair is 25 Hz,
         then the TWT tuning thickness is simply:
     </p>
     <p>
@@ -280,7 +280,7 @@
         <dt class="col-sm-3">Wedge Layer</dt>
         <dd class="col-sm-9">\(V_p = 2,700\;m/s\;,\rho = 2.3\;g/cm^3\)</dd>
         <dt class="col-sm-3">Ricker Wavelet</dt>
-        <dd class="col-sm-9">\(F_{central} = 25\;Hz\;,duration = 0.100\;sec\;,dt = 0.001\;sec\)</dd>
+        <dd class="col-sm-9">\(F_{central} = 32\;Hz\;,duration = 0.100\;sec\;,dt = 0.001\;sec\)</dd>
     </dl>
     <figure class="figure">
         <img src="../static/img/layerAI_rc_synth.png" class="figure-img img-fluid rounded mx-auto d-block" alt="" loading="lazy">
@@ -313,13 +313,13 @@
     </figure>
     <p class="text-justify">
         Next, the \(RC\) at the top and base wedge interfaces are calculated and then convolved with the same Ricker
-        wavelet with \(F_{central} = 25\;Hz\) to create the synthetic seismic wedge model:
+        wavelet with \(F_{central} = 32\;Hz\) to create the synthetic seismic wedge model:
     </p>
     <figure class="figure">
         <img src="../static/img/synthetic_wedge_model.png" class="figure-img img-fluid rounded mx-auto d-block" alt="synthetic wedge model" loading="lazy">
         <figcaption class="figure-caption">
             Synthetic seismic wedge model resulting from convolving the reflectivities of the \(AI\) wedge model with a
-            \(F_{central} = 25\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the interpolated density.
+            \(F_{central} = 32\;Hz\) Ricker wavelet. Every fifth trace is plotted along with the interpolated density.
         </figcaption>
     </figure>
     <p class="text-justify">
