@@ -316,7 +316,7 @@ def get_measured_onset_tuning_thickness(dz, apparent_dz, f_central):
         # calculate the tuning onset thickness based on divergence between true and apparent wedge thickness
         # the last value is where thinning causes tuning onset
         onset_idx = np.argwhere(dz - apparent_dz > 0)[-1][0] + 1
-        return apparent_dz[onset_idx]
+        return int(apparent_dz[onset_idx])
     except IndexError:
         return int((1 / f_central) * 1000)
 
