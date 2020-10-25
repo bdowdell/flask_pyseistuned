@@ -222,6 +222,59 @@
         \end{align}
     </p>
     <hr />
+    <h1>A note about wavelets</h1>
+    <p class="text-justify">
+        Much has been written and discussed about wavelets, reflecting their central importance to understanding the
+        seismic response. In theory, a seismic wavelet is a stationary filter which is convolved with the earth's
+        reflectivity series, producing reflections that are recorded as seismic data. One of the most commonly used
+        wavelets in seismic forward modelling is the <a href="https://wiki.seg.org/wiki/Dictionary:Ricker_wavelet"
+                                                        target="_blank">Ricker wavelet</a>, named after Norman Ricker.
+    </p>
+    <p class="text-justify">
+        The Ricker wavelet amplitude response as a function of time is defined as:
+    </p>
+    <p>
+        $$A(t) = (1 - 2\pi^2f_{peak}^2t^2)e^{-\pi^2f_{peak}^2t^2}\;,\;where$$
+    </p>
+    <p class="text-justify">
+        \(f_{peak}\) is the peak frequency used to define the Ricker wavelet, \(t\) is the time duration of the
+        wavelet, \(\pi\) is the constant Pi, and \(e\) is the constant Euler's number. The Ricker wavelet is a
+        zero-phase wavelet meaning that the energy is centered about \(t=0\), and is mathematically the second
+        derivative of the Gaussian function. An important distinction of the Ricker wavelet is that its amplitude
+        spectra is asymmetric which means that \(f_{peak}\) is not equal to \(f_{central}\). This is important because
+        for a wavelet with \(f_{peak} = 25\;Hz\), one would expect the period of the wavelet to be \(T = 1/f = 40\;ms\).
+        However, for a Ricker wavelet, the period is actually defined as:
+    </p>
+    <p>
+        $$T = \frac{\sqrt{6}}{\pi f_{peak}}$$
+    </p>
+    <p class="text-justify">
+        This means that for a Ricker wavelet defined with \(f_{peak} = 25\;Hz\), the period is actually 31.2 ms instead
+        of 40 ms, and the apparent frequency is actually \(f_{apparent} = 1 / 0.031188\;sec = 32.06\;Hz\). For the
+        Ricker wavelet, it turns out that \(f_{apparent}\) is equal to \(f_{central}\). If we flip the equation of the
+        Ricker wavelet period, we can show the relation between \(f_{central}\) and \(f_{peak}\) to be:
+    </p>
+    <p>
+        $$f_{central} = \frac{\pi}{\sqrt{6}}f_{peak}$$
+    </p>
+    <p class="text-justify">
+        As it relates to <strong>PySeisTuned<sup>2.0</sup></strong>, I have taken the assumption that when the user
+        specifies the frequency for a Ricker wavelet, that is in fact the frequency with which the wavelet period should
+        correspond. Therefore, in defining the Ricker wavelet, I assume that \(f_{central}\) is specified and apply the
+        \(\frac{\pi}{\sqrt{6}}\) correction to pass the corresponding \(f_{peak}\) to the Ricker wavelet function
+        definition. In doing so, the resulting period can be used directly for estimating seismic tuning parameters for
+        the frequency of interest. This means that specifying a Ricker wavelet with \(f_{central} = 25\;Hz\) will
+        result in a tuning thickness of \(1/f_{central}/2 = 20\;ms\), as expected.
+    </p>
+    <p class="text-justify">
+        The user also has the option of defining an Ormsby wavelet in constructing the synthetic tuning wedge model.
+        I personally do not think that there is much value in using the Ormsby wavelet for this purpose, but I included
+        it as an option. My reason for this preference is that seismic tuning loses its meaning if the wavelet frequency
+        spectrum becomes very broad. Ormsby wavelets tend to be very ringy, especially if the high-pass to high-cut
+        slope is steep, making the Ormsby wavelet a poor candidate for narrow pass-band filters, which is another reason
+        I do not think they are ideal for tuning wedge models. Nonetheless, the option is there.
+    </p>
+    <hr />
     <h1>Seismic Tuning Wedge Model</h1>
     <p class="text-justify">
         Now that the foundational concepts behind seismic tuning are laid out, we can now understand the utility of
