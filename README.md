@@ -67,7 +67,15 @@ and then set the MAIL_PORT variable:
 
 At this point you are now ready to run the application!
 
-### 6) Launch the flask web app
+### 6) Run unit tests
+This project uses the Python unittest package to run automated unit tests. To run the tests, run the command after 
+setting the environmental variables above:
+
+`$ flask test`
+
+If all the tests pass, each test should be followed by "... OK" with a final "OK" at the end.
+
+### 7) Launch the flask web app
 To launch the web app, simply type the command:
 
 `$ flask run`
@@ -84,12 +92,3 @@ You should see a message that states:
  * Debugger PIN: xxx-xxx-xxx
 ```
 This means that the web app is running! Click the link and it will open in your default web browser.
-
-### 7) Run unit tests
-This project uses the Python unittest package to run automated unit tests. To run the tests, run the command after 
-setting the environmental variables above:
-
-`$ flask test`
-
-If all the tests pass, each test should be followed by "... OK" with a final "OK" at the end.
- 
