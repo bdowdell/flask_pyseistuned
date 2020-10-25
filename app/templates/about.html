@@ -239,10 +239,10 @@
     <p class="text-justify">
         \(f_{peak}\) is the peak frequency used to define the Ricker wavelet, \(t\) is the time duration of the
         wavelet, \(\pi\) is the constant Pi, and \(e\) is the constant Euler's number. The Ricker wavelet is a
-        zero-phase wavelet meaning that the energy is centered about \(t=0\), and is mathematically the second
+        zero-phase wavelet meaning that the energy is centered about \(t=0\) and is mathematically the second
         derivative of the Gaussian function. An important distinction of the Ricker wavelet is that its amplitude
         spectra is asymmetric which means that \(f_{peak}\) is not equal to \(f_{central}\). This is important because
-        for a wavelet with \(f_{peak} = 25\;Hz\), one would expect the period of the wavelet to be \(T = 1/f = 40\;ms\).
+        for a wavelet with \(f_{peak} = 25\;Hz\), one might expect the period of the wavelet to be \(T = 1/f = 40\;ms\).
         However, for a Ricker wavelet, the period is actually defined as:
     </p>
     <p>
@@ -264,7 +264,7 @@
         \(\frac{\pi}{\sqrt{6}}\) correction to pass the corresponding \(f_{peak}\) to the Ricker wavelet function
         definition. In doing so, the resulting period can be used directly for estimating seismic tuning parameters for
         the frequency of interest. This means that specifying a Ricker wavelet with \(f_{central} = 25\;Hz\) will
-        result in a tuning thickness of \(1/f_{central}/2 = 20\;ms\), as expected.
+        result in a tuning thickness of \(T_{tuning} = 1/25\;Hz/2 = 20\;ms\;TWT\), as expected.
     </p>
     <p class="text-justify">
         The user also has the option of defining an Ormsby wavelet in constructing the synthetic tuning wedge model.
