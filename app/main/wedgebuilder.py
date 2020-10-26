@@ -97,7 +97,10 @@ def wavelet(duration=0.100, dt=0.001, w_type=0, f=None):
 
     """
     if f is None:
-        f = [25]
+        if w_type:
+            f = [5, 10, 50, 100]
+        else:
+            f = [25]
     t = np.linspace(-duration / 2, (duration - dt) / 2, int(duration / dt))
     if w_type:
         # Ormsby wavelet

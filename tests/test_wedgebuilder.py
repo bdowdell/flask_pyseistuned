@@ -74,6 +74,11 @@ class WedgeBuilderTestCase(unittest.TestCase):
         self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
         with self.assertRaises(TypeError):
             wb.wavelet(self.duration, self.dt, w_type=0, f=30)
+
+    def test_wavelet_ricker_no_input_freq(self):
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0)
+        self.assertIsInstance(wb_wavelet, np.ndarray)
+        self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
         
     def test_wavelet_ormsby(self):
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=1, f=[5, 10, 40, 50])
@@ -81,6 +86,11 @@ class WedgeBuilderTestCase(unittest.TestCase):
         self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
         with self.assertRaises(ValueError):
             wb.wavelet(self.duration, self.dt, w_type=1, f=[5, 10, 40])
+
+    def test_wavelet_ormsby_no_input_freq(self):
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=1)
+        self.assertIsInstance(wb_wavelet, np.ndarray)
+        self.assertEqual(len(wb_wavelet), int(self.duration / self.dt))
 
     def test_get_central_frequency_ricker(self):
         wb_central_frequency = wb.get_central_frequency(w_type=0, f=[30])
