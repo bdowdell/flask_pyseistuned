@@ -41,7 +41,7 @@ class BokehTuningCurveTestCase(unittest.TestCase):
         )
         self.amplitude = wb.get_tuning_curve_amplitude(self.acoustic_impedance, self.synth)
         
-    def test_00_plot_tuning_curve(self):
+    def test_plot_tuning_curve(self):
         self.assertIsInstance(self.true_wedge_thickness, np.ndarray)
         self.assertGreaterEqual(np.min(self.true_wedge_thickness), 0)
         self.assertIsInstance(self.amplitude, np.ndarray)

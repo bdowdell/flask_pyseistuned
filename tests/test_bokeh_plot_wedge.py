@@ -40,14 +40,14 @@ class BokehPlotWedgeTestCase(unittest.TestCase):
             self.true_wedge_thickness, self.apparent_wedge_thickness, self.f_central
         )
 
-    def test_00_plot_earth_model(self):
+    def test_plot_earth_model(self):
         self.assertIsInstance(self.imp, np.ndarray)
         self.assertEqual(self.imp.shape, (240, 101))
         self.assertIsInstance(self.dt, float)
         imp_plot = bpw.plot_earth_model(self.imp, self.dt)
         self.assertIsInstance(type(imp_plot), type(figure.__class__))
 
-    def test_01_plot_synth(self):
+    def test_plot_synth(self):
         self.assertIsInstance(self.synth, np.ndarray)
         self.assertEqual(self.synth.shape, (240, 101))
         self.assertIsInstance(self.dt, float)

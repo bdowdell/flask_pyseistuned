@@ -27,7 +27,7 @@ class BokehWaveletTestCase(unittest.TestCase):
         self.duration = 0.200
         self.dt = 0.001
 
-    def test_00_plot_wavelet(self):
+    def test_plot_wavelet(self):
         self.assertIsInstance(self.duration, float)
         self.assertIsInstance(self.dt, float)
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[25])
