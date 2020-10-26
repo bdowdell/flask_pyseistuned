@@ -11,6 +11,7 @@ email-validator = "*"
 Flask-Mail = "*"
 bokeh = "*"
 flask-weasyprint = "*"
+coverage = "*"
 
 [dev-packages]
 
