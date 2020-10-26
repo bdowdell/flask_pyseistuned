@@ -137,7 +137,11 @@ def get_central_frequency(w_type, f=None):
 
     """
     if f is None:
-        f = [25]
+        # set default values
+        if w_type:
+            f = [5, 10, 50, 100]
+        else:
+            f = [25]
     if w_type:
         return int((f[0] + f[3]) / 2)
     else:

@@ -98,11 +98,19 @@ class WedgeBuilderTestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             wb.get_central_frequency(w_type=0, f=30)
 
+    def test_get_central_frequency_ricker_no_input_freq(self):
+        wb_central_frequency = wb.get_central_frequency(w_type=0)
+        self.assertIsInstance(wb_central_frequency, int)
+
     def test_get_central_frequency_ormsby(self):
         wb_central_frequency = wb.get_central_frequency(w_type=1, f=[5, 10, 40, 50])
         self.assertEqual(wb_central_frequency, int((5 + 50) / 2))
         with self.assertRaises(IndexError):
             wb.get_central_frequency(w_type=1, f=[5, 10, 40])
+
+    def test_get_central_frequency_ormsby_no_input_freq(self):
+        wb_central_frequency = wb.get_central_frequency(w_type=1)
+        self.assertIsInstance(wb_central_frequency, int)
 
     def test_get_theoretical_onset_tuning_thickness(self):
         f_central = 30
