@@ -67,13 +67,26 @@ and then set the MAIL_PORT variable:
 
 At this point you are now ready to run the application!
 
-### 6) Run unit tests
+### 6) Run unit tests & check coverage
 This project uses the Python unittest package to run automated unit tests. To run the tests, run the command after 
 setting the environmental variables above:
 
 `$ flask test`
 
 If all the tests pass, each test should be followed by "... OK" with a final "OK" at the end.
+
+In addition to using unittest, this project also uses the Python Coverage module to report on test coverage. To generate 
+a coverage report, run the following commands at the command line:
+
+```
+$coverage run -m unittest discover
+$coverage html app/*.py app/main/*.py
+```
+
+The first command re-runs all the unit tests and the second generates a nicely formatted HTML report that is very useful 
+in visually seeing how much of the code is or isn't being tested. Once the second command completes running, a new 
+directory is created in the project called `htmlcov` and you can view the report by opening the file `index.html` in a 
+web browser.
 
 ### 7) Launch the flask web app
 To launch the web app, simply type the command:
