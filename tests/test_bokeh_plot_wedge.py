@@ -55,3 +55,21 @@ class BokehPlotWedgeTestCase(unittest.TestCase):
         self.assertIsInstance(self.onset_meas, int)
         synth_plot = bpw.plot_synth(self.synth, self.dt, self.tuning_meas, self.onset_meas)
         self.assertIsInstance(type(synth_plot), type(figure.__class__))
+
+    def test_plot_synth_low_freq(self):
+        f = [9]
+        wvlt = wb.wavelet(0.400, self.dt, w_type=0, f=f)
+        f_central = wb.get_central_frequency(w_type=0, f=f)
+        synth = wb.tuning_wedge(self.rc, wvlt)
+        true_wedge_thickness = wb.get_wedge_thickness(synth, self.dt)
+        apparent_wedge_thickness = wb.get_apparent_wedge_thickness(synth, self.dt, self.acoustic_impedance)
+        tuning_meas = wb.get_measured_tuning_thickness(synth, self.dt, self.acoustic_impedance)
+        onset_meas = wb.get_measured_onset_tuning_thickness(
+            true_wedge_thickness, apparent_wedge_thickness, f_central
+        )
+        self.assertIsInstance(synth, np.ndarray)
+        self.assertEqual(synth.shape, (len(wvlt), 101))
+        self.assertIsInstance(tuning_meas, float)
+        self.assertIsInstance(onset_meas, int)
+        synth_plot = bpw.plot_synth(synth, self.dt, tuning_meas, onset_meas)
+        self.assertIsInstance(type(synth_plot), type(figure.__class__))
