@@ -36,3 +36,13 @@ class BokehAmplitudeSpectrumTestCase(unittest.TestCase):
         spectrum, phase = bas.plot_amplitude_spectrum(wb_wavelet, self.dt)
         self.assertIsInstance(type(spectrum), type(figure.__class__))
         self.assertIsInstance(type(phase), type(figure.__class__))
+        
+    def test_plot_amplitude_spectrum_divide_by_zero_warning(self):
+        self.assertIsInstance(self.duration, float)
+        self.assertIsInstance(self.dt, float)
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
+        self.assertIsInstance(wb_wavelet, np.ndarray)
+        self.assertIsInstance(bas.plot_amplitude_spectrum(wb_wavelet, self.dt), tuple)
+        spectrum, phase = bas.plot_amplitude_spectrum(wb_wavelet, self.dt)
+        self.assertIsInstance(type(spectrum), type(figure.__class__))
+        self.assertIsInstance(type(phase), type(figure.__class__))
