@@ -186,11 +186,37 @@ class WedgeBuilderTestCase(unittest.TestCase):
             (apparent_wedge_thickness.shape[0] - 1) * self.dt * 1000
         )
 
+    def test_get_apparent_wedge_thickness_hard_wedge(self):
+        rock_props = [2700, 2.3, 3000, 2.5, 2700, 2.3]
+        acoustic_impedance = wb.impedance_model(rock_props)
+        rc, imp = wb.earth_model(rock_props)
+        wvlt = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
+        synth = wb.tuning_wedge(rc, wvlt)
+        apparent_wedge_thickness = wb.get_apparent_wedge_thickness(synth, self.dt, acoustic_impedance)
+        self.assertIsInstance(apparent_wedge_thickness, np.ndarray)
+        self.assertIsInstance(apparent_wedge_thickness.flat[0], np.int64)
+        self.assertEqual(apparent_wedge_thickness.shape, (101, ))
+        self.assertEqual(apparent_wedge_thickness[0], apparent_wedge_thickness[1])
+        self.assertEqual(
+            apparent_wedge_thickness[-1],
+            (apparent_wedge_thickness.shape[0] - 1) * self.dt * 1000
+        )
+
     def test_get_measured_tuning_thickness(self):
         wb_rc, _ = wb.earth_model(self.rock_props)
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
         wb_synth = wb.tuning_wedge(wb_rc, wb_wavelet)
         measured_tuning = wb.get_measured_tuning_thickness(wb_synth, self.dt, self.acoustic_impedance)
+        self.assertIsInstance(measured_tuning, float)
+        self.assertGreater(measured_tuning, 0)
+
+    def test_get_measured_tuning_thickness_hard_wedge(self):
+        rock_props = [2700, 2.3, 3000, 2.5, 2700, 2.3]
+        acoustic_impedance = wb.impedance_model(rock_props)
+        rc, _ = wb.earth_model(rock_props)
+        wvlt = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
+        synth = wb.tuning_wedge(rc, wvlt)
+        measured_tuning = wb.get_measured_tuning_thickness(synth, self.dt, acoustic_impedance)
         self.assertIsInstance(measured_tuning, float)
         self.assertGreater(measured_tuning, 0)
 
@@ -204,11 +230,33 @@ class WedgeBuilderTestCase(unittest.TestCase):
         self.assertIsInstance(measured_onset_tuning, int)
         self.assertGreater(measured_onset_tuning, 0)
         
+    def test_get_measured_onset_tuning_thickness_low_freq(self):
+        wb_rc, _ = wb.earth_model(self.rock_props)
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[10])
+        wb_synth = wb.tuning_wedge(wb_rc, wb_wavelet)
+        dz_true = wb.get_wedge_thickness(wb_synth, self.dt)
+        dz_apparent = wb.get_apparent_wedge_thickness(wb_synth, self.dt, self.acoustic_impedance)
+        measured_onset_tuning = wb.get_measured_onset_tuning_thickness(dz_true, dz_apparent, 10)
+        self.assertIsInstance(measured_onset_tuning, int)
+        self.assertGreater(measured_onset_tuning, 0)
+        self.assertEqual(measured_onset_tuning, wb.get_theoretical_onset_tuning_thickness(10))
+        
     def test_get_tuning_curve_amplitude(self):
         wb_rc, _ = wb.earth_model(self.rock_props)
         wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
         wb_synth = wb.tuning_wedge(wb_rc, wb_wavelet)
         tuning_curve_amp = wb.get_tuning_curve_amplitude(self.acoustic_impedance, wb_synth)
+        self.assertIsInstance(tuning_curve_amp, np.ndarray)
+        self.assertEqual(tuning_curve_amp.shape, (101, ))
+        self.assertGreaterEqual(np.min(tuning_curve_amp), 0)
+
+    def test_get_tuning_curve_hard_wedge(self):
+        rock_props = [2700, 2.3, 3000, 2.5, 2700, 2.3]
+        acoustic_impedance = wb.impedance_model(rock_props)
+        wb_rc, _ = wb.earth_model(rock_props)
+        wb_wavelet = wb.wavelet(self.duration, self.dt, w_type=0, f=[30])
+        wb_synth = wb.tuning_wedge(wb_rc, wb_wavelet)
+        tuning_curve_amp = wb.get_tuning_curve_amplitude(acoustic_impedance, wb_synth)
         self.assertIsInstance(tuning_curve_amp, np.ndarray)
         self.assertEqual(tuning_curve_amp.shape, (101, ))
         self.assertGreaterEqual(np.min(tuning_curve_amp), 0)
