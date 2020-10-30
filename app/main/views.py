@@ -33,11 +33,11 @@ from bokeh.models import Panel, Tabs
 @main.route('/index', methods=['GET', 'POST'])
 def index():
     form = TuningWedgeForm(
-        layer_1_vp=session.get('vp_1', 0)/1000, layer_1_dens=session.get('rho_1', 0)/1000,
-        layer_2_vp=session.get('vp_2', 0)/1000, layer_2_dens=session.get('rho_2', 0)/1000,
-        layer_3_vp=session.get('vp_3', 0)/1000, layer_3_dens=session.get('rho_3', 0)/1000,
-        vp_units=session.get('vp_units', 0), wv_type=session.get('wv_type', 0.100),
-        frequency=session.get('freq', 0), wv_length=session.get('wv_len', 100)/1000,
+        layer_1_vp=session.get('vp_1', 3000)/1000, layer_1_dens=session.get('rho_1', 2.5)/1000,
+        layer_2_vp=session.get('vp_2', 2500)/1000, layer_2_dens=session.get('rho_2', 2.3)/1000,
+        layer_3_vp=session.get('vp_3', 3000)/1000, layer_3_dens=session.get('rho_3', 2.5)/1000,
+        vp_units=session.get('vp_units', 0), wv_type=session.get('wv_type', 0),
+        frequency=session.get('freq', 30), wv_length=session.get('wv_len', 100)/1000,
         wv_dt=session.get('wv_dt', 1)/1000
     )
     if form.validate_on_submit():
@@ -57,7 +57,7 @@ def index():
     return render_template('index.html', form=form)
 
 
-@main.route('/results', methods=['GET', 'POST'])
+@main.route('/results')
 def results():
     # assign values from TuningWedgeForm, dividing decimal values by 1000 to recover input value
     layer_1_vp = session.get('vp_1') / 1000
