@@ -23,6 +23,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
