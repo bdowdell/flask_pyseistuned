@@ -52,9 +52,8 @@
     <p class="text-justify">
         Flask is a powerful and easy to use Python-based web app framework that connects the Python code in the
         background with the HTML5 user-interface.  Styling is made simple by utilizing Bootstrap pre-built CSS style
-        sheets. Additionally, some custom JavaScript is required to enable features such as a reset button, displaying
-        Acoustic Impedance of input layer properties, and displaying the apparent frequency of the specified Ricker
-        wavelet. One more enhancement is that all plotting is now done using Bokeh instead of Matplotlib. Using Bokeh
+        sheets. Additionally, some custom JavaScript is required to enable several interactive features.
+        One more enhancement is that all plotting is now done using Bokeh instead of Matplotlib. Using Bokeh
         enables embedding feature-rich, interactive plots that are more appropriate in a web app.
     </p>
     <div class="container">
@@ -99,7 +98,7 @@
         <strong>PySeisTuned<sup>2.0</sup></strong> and please let me know if there are ways I can make it even better:
     </p>
     <p class="text-justify">
-        Follow the links below to view the source code, clone the repository, or submit issues and enhancement requests:
+        Follow the links below to view the respective project repositories:
     </p>
     <ul class="no_bullet">
         <li class="wiggle">
@@ -119,7 +118,7 @@
     <p class="text-justify">
         Seismic Tuning as a concept is a basic geophysical tenet and is crucial in understanding the seismic
         response. The seismic tuning phenomenon arises from constructive interference of reflected waves at layer
-        interfaces as the bed thickness between the layer begins to thin. As the bed begins to thin, the reflection from
+        interfaces as the bed thickness between layers begins to thin. As bed thickness decreases, the reflection from
         the top interface and the bottom interface begin to align and constructively interfere. At a certain point, the
         constructive interference between the two layers will reach a maximum and this is known as the
         <strong>Seismic Tuning Thickness</strong> and is the layer thickness below which the top and base reflections
@@ -157,7 +156,7 @@
     </p>
     <p class="text-justify">
         because we typically have an idea about what the velocity and frequency of our zone of interest is and instead
-        want to know wavelength. Once we know the dominant frequency wavelength we can then estimate the tuning
+        want to know wavelength. Having estimated the wavelength, we can then estimate the tuning
         parameters using Widess's definitions above. For example, the tuning thickness is given by:
     </p>
     <p>
@@ -234,10 +233,10 @@
         The Ricker wavelet amplitude response as a function of time is defined as:
     </p>
     <p>
-        $$A(t) = (1 - 2\pi^2f_{peak}^2t^2)e^{-\pi^2f_{peak}^2t^2}\;,\;where$$
+        $$A(t) = (1 - 2\pi^2f_{peak}^2t^2)e^{-\pi^2f_{peak}^2t^2}$$
     </p>
     <p class="text-justify">
-        \(f_{peak}\) is the peak frequency used to define the Ricker wavelet, \(t\) is the time duration of the
+        where \(f_{peak}\) is the peak frequency used to define the Ricker wavelet, \(t\) is the time duration of the
         wavelet, \(\pi\) is the constant Pi, and \(e\) is the constant Euler's number. The Ricker wavelet is a
         zero-phase wavelet meaning that the energy is centered about \(t=0\) and is mathematically the second
         derivative of the Gaussian function. An important distinction of the Ricker wavelet is that its amplitude
@@ -377,7 +376,7 @@
         </figcaption>
     </figure>
     <p class="text-justify">
-        Cool! So now we have synthetic wedge model, but now what? What does this tell us and why do we care about what
+        Cool! So we have a synthetic wedge model, but now what? What does this tell us and why do we care about what
         all we just went through? If we extract the amplitude across the top of the wedge, we can create a plot called
         the <em>Tuning Curve</em>, shown below:
     </p>
@@ -433,7 +432,7 @@
         cannot be trusted! If we look at the portion of the tuning curve where thickness is well above tuning, the
         amplitude response is the true amplitude response. At and approaching tuning thickness, amplitude is
         over-estimated as a result of constructive interference. If the layer becomes very thin, the amplitude rapidly
-        drops off and becomes significantly below the true amplitude response when the layer is well above tuning. This
+        drops off and is much less than the true amplitude response. This
         leads us to the topic of <em>Detuning</em> which refers to correcting amplitude maps for tuning thickness
         phenomenon. Detuning is a bit beyond the scope of this discussion so I would instead refer you to the works of
         <a href="https://doi.org/10.1190/1.2794386" target="_blank">Patrick Connolly</a>.
@@ -474,7 +473,7 @@
         frequencies while thicker layers have maximum energy at lower frequencies. We now know from the tuning wedge
         model that the maximum amplitude at a layer interface occurs at the tuning thickness of the wedge. So, for a
         set layer thickness, the iso-frequency trace with maximum magnitude for that layer is at tuning (hence "tuning
-        frequency"), and we can then use the equations above to relate tuning frequency to period and solve for the
+        frequency"), and we can then use the equations above to relate tuning frequency to period and estimate the
         layer's thickness. <em>Spectral Decomposition is really cool!</em>
     </p>
 {% endblock %}
