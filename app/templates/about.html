@@ -10,7 +10,27 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% block title %} About {% endblock %}</h1>
+    <h1 id="top">{% block title %} About {% endblock %}</h1>
+    <ol>
+        <li>
+            <a href="#about">About PySeisTuned<sup>2.0</sup></a>
+        </li>
+        <li>
+            <a href="#tuning_theory">Seismic tuning basics</a>
+        </li>
+        <li>
+            <a href="#wavelets">A note about wavelets</a>
+        </li>
+        <li>
+            <a href="#wedge">The seismic tuning wedge</a>
+        </li>
+        <li>
+            <a href="#specd">Spectral decomposition as a special case</a>
+        </li>
+    </ol>
+    <hr />
+    <h3 id="about">About PySeisTuned<sup>2.0</sup></h3>
+    <a href="#top">return to top</a>
     <p class="text-justify">
         <strong>PySeisTuned<sup>2.0</sup></strong> is a tool for calculating seismic tuning wedges. Input the velocity
         and density properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and
@@ -126,7 +146,8 @@
     </blockquote>
     <!-- Introduce a horizontal break to begin a cursory background theory section -->
     <hr />
-    <h1>Seismic Tuning Theory Basics</h1>
+    <h3 id="tuning_theory">Seismic Tuning Theory Basics</h3>
+    <a href="#top">return to top</a>
     <p class="text-justify">
         Seismic Tuning as a concept is a basic geophysical tenet and is crucial in understanding the seismic
         response. The seismic tuning phenomenon arises from constructive interference of reflected waves at layer
@@ -233,7 +254,8 @@
         \end{align}
     </p>
     <hr />
-    <h1>A note about wavelets</h1>
+    <h3 id="wavelets">A note about wavelets</h3>
+    <a href="#top">return to top</a>
     <p class="text-justify">
         Much has been written and discussed about wavelets, reflecting their central importance to understanding the
         seismic response. In theory, a seismic wavelet is a stationary filter which is convolved with the earth's
@@ -287,7 +309,8 @@
         I do not think they are ideal for tuning wedge models. Nonetheless, the option is there.
     </p>
     <hr />
-    <h1>Seismic Tuning Wedge Model</h1>
+    <h3 id="wedge">Seismic Tuning Wedge Model</h3>
+    <a href="#top">return to top</a>
     <p class="text-justify">
         Now that the foundational concepts behind seismic tuning are laid out, we can now understand the utility of
         the <strong>Seismic Tuning Wedge Model</strong>. The seismic tuning wedge model is a simple three-layer forward
@@ -450,7 +473,8 @@
         <a href="https://doi.org/10.1190/1.2794386" target="_blank">Patrick Connolly</a>.
     </p>
     <hr />
-    <h1>Seismic Tuning & Spectral Decomposition</h1>
+    <h3 id="specd">Seismic Tuning & Spectral Decomposition</h3>
+    <a href="#top">return to top</a>
     <p class="text-justify">
         Spectral decomposition in many ways is a very special case of seismic tuning. While there are many different
         ways to implement spectral decomposition, the basic idea is to decompose a seismic trace into narrow frequency
@@ -488,4 +512,5 @@
         frequency"), and we can then use the equations above to relate tuning frequency to period and estimate the
         layer's thickness. <em>Spectral Decomposition is really cool!</em>
     </p>
+    <a href="#top">return to top</a>
 {% endblock %}
