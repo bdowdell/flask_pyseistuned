@@ -253,3 +253,40 @@ class APITestCase(unittest.TestCase):
     def test_404(self):
         response = self.client.get('/bad-url')
         self.assertEqual(response.status_code, 404)
+        
+    def test_forms_NotEqualTo_bad_field(self):
+        form = self.soft_ricker_wedge_form
+        form.layer_2_dens.data = form.layer_1_dens.data
+        from app.main.forms import NotEqualTo
+        self.assertFalse(form.layer_2_dens.validate(form=form, extra_validators=[NotEqualTo('dens1')]))
+
+    def test_forms_NotEqualTo_no_message(self):
+        form = self.soft_ricker_wedge_form
+        form.layer_2_dens.data = form.layer_1_dens.data
+        from app.main.forms import NotEqualTo
+        self.assertFalse(form.layer_2_dens.validate(
+            form=form,
+            extra_validators=[NotEqualTo('layer_1_dens')]
+        ))
+
+    def test_forms_ValidateFrequency_bad_field(self):
+        form = self.soft_ricker_wedge_form
+        from app.main.forms import ValidateFrequency
+        self.assertFalse(form.frequency.validate(
+            form=form,
+            extra_validators=[ValidateFrequency('wv')]
+        ))
+
+    def test_forms_ValidateFrequency_ormsby_no_message(self):
+        form = self.soft_ormsby_wedge_form
+        form.frequency.data = 10
+        from app.main.forms import ValidateFrequency
+        with self.assertRaises(AttributeError):
+            form.frequency.validate(form=form, extra_validators=[ValidateFrequency('wv_type')])
+
+    def test_forms_ValidateFrequency_ricker_no_message(self):
+        form = self.soft_ricker_wedge_form
+        form.frequency.data = 10
+        from app.main.forms import ValidateFrequency
+        with self.assertRaises(AttributeError):
+            form.frequency.validate(form=form, extra_validators=[ValidateFrequency('wv_type')])
