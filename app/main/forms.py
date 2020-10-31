@@ -95,9 +95,11 @@ class ValidateFrequency(object):
                     message = "Frequencies should increase in value: F1 < F2 < F3 < F4."
                     raise ValidationError
             except ValidationError:
-                if message is None:
-                    message = "Incorrect specification for desired wavelet.  Please refer to hover tooltip."
                 raise ValidationError(message)
+            except AttributeError:
+                if message is None:
+                    message = "Incorrect type passed"
+                raise AttributeError(message)
         else:
             # Ricker wavelet type has value of 0, so check that case second.
             try:
@@ -111,9 +113,11 @@ class ValidateFrequency(object):
                     message = "Negative frequency entered. Only positive values accepted."
                     raise ValidationError
             except ValidationError:
-                if message is None:
-                    message = "Incorrect specification for desired wavelet.  Please refer to hover tooltip."
                 raise ValidationError(message)
+            except AttributeError:
+                if message is None:
+                    message = "Incorrect type passed"
+                raise AttributeError(message)
 
 
 class ContactForm(FlaskForm):
