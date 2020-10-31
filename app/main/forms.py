@@ -18,7 +18,7 @@ limitations under the License.
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, Length, NumberRange, Optional
+from wtforms.validators import ValidationError, DataRequired, Email, Length, NumberRange
 
 
 class NotEqualTo(object):
@@ -141,7 +141,7 @@ class TuningWedgeForm(FlaskForm):
     # layer_3 properties will be the same as layer_1
     layer_2_vp = IntegerField('vp_2', validators=[DataRequired(), NumberRange(min=0, max=20000)])
     layer_2_dens = DecimalField('rho_2', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)])
-    layer_2_impedance = IntegerField('imp_2', validators=[Optional(), NotEqualTo(
+    layer_2_impedance = IntegerField('imp_2', validators=[NotEqualTo(
         'layer_1_impedance',
         message='Impedances are the '
                 'same and will not '
