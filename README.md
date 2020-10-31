@@ -3,6 +3,13 @@ A Flask / Python-based web app version of PySeisTuned<sup>1.0</sup>.
 
 The original version, PySeisTuned<sup>1.0</sup>, is a Python / PyQT5 GUI application that runs locally in a desktop environment. The new version, PySeisTuned<sup>2.0</sup>, is a web app that makes it even easier for users to explore seismic tuning from the comfort of the world-wide-web!
 
+## Citing PySeisTuned<sup>2.0</sup>
+If you use PySeisTuned<sup>2.0</sup> as part of a publication, please include a citation in the references section:
+
+Dowdell, B.L., 2020, PySeisTuned2.0, [https://www.pyseistuned.com/](https://www.pyseistuned.com/), accessed MM DD, YYYY.
+
+Publications which use PySeisTuned<sup>2.0</sup> will be featured on the page.
+
 ## Getting started
 If you want to run PySeisTuned<sup>2.0</sup> locally, there are a few things you need to do first. I'll walk you through the steps now!
 
