@@ -91,9 +91,7 @@ class ValidateFrequency(object):
                         message = "Negative frequency entered.  All frequencies need to be positive."
                         raise ValidationError
                 # check that frequencies increase in size
-                if freqs[0] < freqs[1] < freqs[2] < freqs[3]:
-                    pass
-                else:
+                if not freqs[0] < freqs[1] < freqs[2] < freqs[3]:
                     message = "Frequencies should increase in value: F1 < F2 < F3 < F4."
                     raise ValidationError
             except ValidationError:
