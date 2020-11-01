@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// Defines a timeout so that page content will not load until after Bokeh plots do
 $(function () {
             setTimeout(function() {
                 // Show the div after 0.5s

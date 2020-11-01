@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
     {{ super() }}
+    <!-- load js script that uses a timeout so page content doesn't load until after bokeh plots -->
     <script type="text/javascript" src="/static/js/results_scripts.js"></script>
     <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
