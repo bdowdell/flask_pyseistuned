@@ -15,10 +15,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// enables Bootstrap tooltip on frequency input field using Popper.js
 $(function () {
             $('[data-toggle="tooltip"]').tooltip({html: true})
         })
 
+// enables updates based on user input
 window.onload = function(){
             //check what the selected wavelet type is on load for displaying Ricker apparent frequency
             var state = document.getElementById('wvType');
