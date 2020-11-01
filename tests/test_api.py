@@ -250,9 +250,21 @@ class APITestCase(unittest.TestCase):
         response = self.client.get('/success')
         self.assertEqual(response.status_code, 200)
 
-    def test_404(self):
+    def test_404_page_not_found_error(self):
         response = self.client.get('/bad-url')
         self.assertEqual(response.status_code, 404)
+        self.assertTrue(b'404 error' in response.data)
+
+    def test_500_internal_server_error(self):
+        # https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-three
+        # first example I could find that shows how to actually test that 500 routes correctly
+        @self.app.route('/500')
+        def internal_server_error():
+            from flask import abort
+            abort(500)
+        response = self.client.get('/500')
+        self.assertEqual(response.status_code, 500)
+        self.assertTrue(b'500 error' in response.data)
         
     def test_forms_NotEqualTo_bad_field(self):
         form = self.soft_ricker_wedge_form
