@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
     {{ super() }}
-    <script>
-        $(function () {
-            setTimeout(function() {
-                // Show the div after 0.5s
-                $("#divDelay").show();
-            }, 500);
-        });
-    </script>
+    <script type="text/javascript" src="/static/js/results_scripts.js"></script>
     <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
 {% endblock %}
