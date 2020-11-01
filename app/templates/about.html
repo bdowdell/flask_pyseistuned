@@ -13,24 +13,24 @@
     <h1 id="top">{% block title %} About {% endblock %}</h1>
     <ol>
         <li>
-            <a href="#about">About PySeisTuned<sup>2.0</sup></a>
+            <a href="#about" class="text-decoration-none">About PySeisTuned<sup>2.0</sup></a>
         </li>
         <li>
-            <a href="#tuning_theory">Seismic tuning basics</a>
+            <a href="#tuning_theory" class="text-decoration-none">Seismic tuning basics</a>
         </li>
         <li>
-            <a href="#wavelets">A note about wavelets</a>
+            <a href="#wavelets" class="text-decoration-none">A note about wavelets</a>
         </li>
         <li>
-            <a href="#wedge">The seismic tuning wedge</a>
+            <a href="#wedge" class="text-decoration-none">The seismic tuning wedge</a>
         </li>
         <li>
-            <a href="#specd">Spectral decomposition as a special case</a>
+            <a href="#specd" class="text-decoration-none">Spectral decomposition as a special case</a>
         </li>
     </ol>
     <hr />
     <h3 id="about">About PySeisTuned<sup>2.0</sup></h3>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
     <p class="text-justify">
         <strong>PySeisTuned<sup>2.0</sup></strong> is a tool for calculating seismic tuning wedges. Input the velocity
         and density properties of the wedge layers, specify the wavelet parameters, and a synthetic tuning wedge and
@@ -39,7 +39,8 @@
     <p class="text-justify">
         The initial release, <strong>PySeisTuned<sup>1.0</sup></strong>, was inspired by Agile Scientific's
         <a href="https://github.com/agile-geoscience/xlines/blob/master/notebooks/00_Synthetic_wedge_model.ipynb"
-           target="_blank">"X Lines of Code"</a> Jupyter Notebook series and was written as a standalone GUI using
+           class="text-no-decoration" target="_blank">"X Lines of Code"</a> Jupyter Notebook series and was written as
+        a standalone GUI using
         Python 3 and PyQT5. In this iteration, a user needs to create a virtual conda environment using the provided
         environment.yml file and then launch the app from a command line prompt. While this works, it probably isn't
         the most user-friendly deployment. PySeisTuned<sup>1.0</sup> is open source and licensed under GPL-3.0 for
@@ -122,10 +123,12 @@
     </p>
     <ul class="no_bullet">
         <li class="wiggle">
-            <a href="https://github.com/bdowdell/flask_pyseistuned" target="_blank">PySeisTuned<sup>2.0</sup></a>
+            <a href="https://github.com/bdowdell/flask_pyseistuned"
+               class="text-decoration-none" target="_blank">PySeisTuned<sup>2.0</sup></a>
         </li>
         <li class="wiggle">
-            <a href="https://github.com/bdowdell/PySeisTuned" target="_blank">PySeisTuned<sup>1.0</sup></a>
+            <a href="https://github.com/bdowdell/PySeisTuned"
+               class="text-decoration-none" target="_blank">PySeisTuned<sup>1.0</sup></a>
         </li>
     </ul>
     <br />
@@ -140,14 +143,15 @@
     </p>
     <blockquote class="blockquote">
         <p class="mb-0">
-            Dowdell, B.L., 2020, PySeisTuned2.0, <a href="https://www.pyseistuned.com/">https://www.pyseistuned.com/</a>,
+            Dowdell, B.L., 2020, PySeisTuned2.0, <a href="https://www.pyseistuned.com/"
+                                                    class="text-decoration-none">https://www.pyseistuned.com/</a>,
             accessed MM DD, YYYY.
         </p>
     </blockquote>
     <!-- Introduce a horizontal break to begin a cursory background theory section -->
     <hr />
     <h3 id="tuning_theory">Seismic Tuning Theory Basics</h3>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
     <p class="text-justify">
         Seismic Tuning as a concept is a basic geophysical tenet and is crucial in understanding the seismic
         response. The seismic tuning phenomenon arises from constructive interference of reflected waves at layer
@@ -158,7 +162,7 @@
         are no longer indistinguishable from one another.
     </p>
     <p class="text-justify">
-        <a href="https://doi.org/10.1190/1.1440403" target="_blank">Widess (1973)</a>
+        <a href="https://doi.org/10.1190/1.1440403" class="text-decoration-none" target="_blank">Widess (1973)</a>
         published the seminal work on the topic titled <em>"How thin is a thin bed?"</em>, which sought to
         dispel common misconceptions about thin bed resolvability. In the paper, Widess considers two identical wavelets
         offset by a time delay. The two wavelets effectively represent the reflections from the top and base of a layer
@@ -255,13 +259,14 @@
     </p>
     <hr />
     <h3 id="wavelets">A note about wavelets</h3>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
     <p class="text-justify">
         Much has been written and discussed about wavelets, reflecting their central importance to understanding the
         seismic response. In theory, a seismic wavelet is a stationary filter which is convolved with the earth's
         reflectivity series, producing reflections that are recorded as seismic data. One of the most commonly used
         wavelets in seismic forward modelling is the <a href="https://wiki.seg.org/wiki/Dictionary:Ricker_wavelet"
-                                                        target="_blank">Ricker wavelet</a>, named after Norman Ricker.
+                                                        class="text-decoration-none" target="_blank">Ricker wavelet</a>
+        , named after Norman Ricker.
     </p>
     <p class="text-justify">
         The Ricker wavelet amplitude response as a function of time is defined as:
@@ -310,7 +315,7 @@
     </p>
     <hr />
     <h3 id="wedge">Seismic Tuning Wedge Model</h3>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
     <p class="text-justify">
         Now that the foundational concepts behind seismic tuning are laid out, we can now understand the utility of
         the <strong>Seismic Tuning Wedge Model</strong>. The seismic tuning wedge model is a simple three-layer forward
@@ -470,11 +475,11 @@
         drops off and is much less than the true amplitude response. This
         leads us to the topic of <em>Detuning</em> which refers to correcting amplitude maps for tuning thickness
         phenomenon. Detuning is a bit beyond the scope of this discussion so I would instead refer you to the works of
-        <a href="https://doi.org/10.1190/1.2794386" target="_blank">Patrick Connolly</a>.
+        <a href="https://doi.org/10.1190/1.2794386" class="text-decoration-none" target="_blank">Patrick Connolly</a>.
     </p>
     <hr />
     <h3 id="specd">Seismic Tuning & Spectral Decomposition</h3>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
     <p class="text-justify">
         Spectral decomposition in many ways is a very special case of seismic tuning. While there are many different
         ways to implement spectral decomposition, the basic idea is to decompose a seismic trace into narrow frequency
@@ -512,5 +517,5 @@
         frequency"), and we can then use the equations above to relate tuning frequency to period and estimate the
         layer's thickness. <em>Spectral Decomposition is really cool!</em>
     </p>
-    <a href="#top">return to top</a>
+    <a href="#top" class="text-decoration-none">return to top</a>
 {% endblock %}
