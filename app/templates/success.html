@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Success! {% endblock %}</h1>
-    <a class="btn btn-primary" href="{{ url_for('main.index')}}" role="button">Return Home</a>
+    <h1 class="text-center" style="padding-top: 100px;">{% block title %} Success! {% endblock %}</h1>
+    <h5 class="text-center">thank you for your comments, your email has been sent.</h5>
+    <p class="text-center">
+        <a href="{{ url_for('main.index')}}" class="text-decoration-none">Return Home</a>
+    </p>
 {% endblock %}
