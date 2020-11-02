@@ -1,218 +1,226 @@
 {% extends 'base.html' %}
 {% block head %}
     {{ super() }}
-    <!-- load js script that uses a timeout so page content doesn't load until after bokeh plots -->
-    <script type="text/javascript" src="/static/js/results_scripts.js"></script>
     <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
+    <!-- load js script that uses a timeout so page content doesn't load until after bokeh plots -->
+    <script type="text/javascript" src="/static/js/results_scripts.js"></script>
 {% endblock %}
 
 {% block content %}
-    <h1>{% block title %} Results {% endblock %}</h1>
-    <!-- plot the wavelet, the amplitude spectrum, and phase -->
-    <div class="row">
-        <div class="col-sm">
-            {{ wv_div|safe }}
-            {{ wv_script|safe }}
-        </div>
-        <div class="col-sm">
-            {{ ampspec_div|safe }}
-            {{ ampspec_script|safe }}
-        </div>
-        <div class="col-sm">
-            {{ phase_div|safe }}
-            {{ phase_script|safe }}
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" id="spinner" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <!-- plot the synthetic & earth models, and the tuning curve -->
-    <div class="row align-items-end" style="padding-top:20px;">
-        <div class="col-sm">
-            {{ wedge_div|safe }}
-            {{ wedge_script|safe }}
-        </div>
-        <div class="col-sm">
-            {{ tc_div|safe }}
-            {{ tc_script|safe }}
-        </div>
-    </div>
-    <!-- Read outs -->
-    <p></p>
-    <div id="divDelay" style="display:none">
-        <!-- Inputs -->
-        <h4>Inputs</h4>
-        <div class="row row-cols-4">
-            <!-- Rock Properties -->
+    <div id="divDelay" style="display: none;">
+        <h1>{% block title %} Results {% endblock %}</h1>
+        <!-- plot the wavelet, the amplitude spectrum, and phase -->
+        <div class="row">
             <div class="col-sm">
-                <h5>Rock Properties</h5>
+                {{ wv_div|safe }}
+                {{ wv_script|safe }}
             </div>
             <div class="col-sm">
-                <h5>Vp</h5>
+                {{ ampspec_div|safe }}
+                {{ ampspec_script|safe }}
             </div>
             <div class="col-sm">
-                <h5>Rho</h5>
-            </div>
-            <div class="col-sm">
-                <h5>AI</h5>
+                {{ phase_div|safe }}
+                {{ phase_script|safe }}
             </div>
         </div>
-        <div class="row row-cols-4">
+        <!-- plot the synthetic & earth models, and the tuning curve -->
+        <div class="row align-items-end" style="padding-top:20px;">
             <div class="col-sm">
-                <h6>Top & Base Layer</h6>
+                {{ wedge_div|safe }}
+                {{ wedge_script|safe }}
             </div>
             <div class="col-sm">
-                {{ vp_1 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
-            </div>
-            <div class="col-sm">
-                {{ rho_1 }} g/cm<sup>3</sup>
-            </div>
-            <div class="col-sm">
-                {{ (vp_1 * rho_1)|round }} {% if vp_units == 0 %} (m/s)(g/cm<sup>3</sup>) {% else %} (ft/s)(g/cm<sup>3</sup>) {% endif %}
+                {{ tc_div|safe }}
+                {{ tc_script|safe }}
             </div>
         </div>
-        <div class="row row-cols-4">
-            <div class="col-sm">
-                <h6>Wedge Layer</h6>
-            </div>
-            <div class="col-sm">
-                {{ vp_2 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
-            </div>
-            <div class="col-sm">
-                {{ rho_2 }} g/cm<sup>3</sup>
-            </div>
-            <div class="col-sm">
-                {{ (vp_2 * rho_2)|round }} {% if vp_units == 0 %} (m/s)(g/cm<sup>3</sup>) {% else %} (ft/s)(g/cm<sup>3</sup>) {% endif %}
-            </div>
-        </div>
-        <!-- Wavelet Parameter Inputs -->
+        <!-- Read outs -->
         <p></p>
-        <h5>Wavelet Parameters</h5>
-        <div class="row row-cols-4">
-            <div class="col-sm">
-                <h6>Wavelet Type</h6>
+        <div>
+            <!-- Inputs -->
+            <h4>Inputs</h4>
+            <div class="row row-cols-4">
+                <!-- Rock Properties -->
+                <div class="col-sm">
+                    <h5>Rock Properties</h5>
+                </div>
+                <div class="col-sm">
+                    <h5>Vp</h5>
+                </div>
+                <div class="col-sm">
+                    <h5>Rho</h5>
+                </div>
+                <div class="col-sm">
+                    <h5>AI</h5>
+                </div>
             </div>
-            <div class="col-sm">
-                <h6>Frequency</h6>
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    <h6>Top & Base Layer</h6>
+                </div>
+                <div class="col-sm">
+                    {{ vp_1 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
+                </div>
+                <div class="col-sm">
+                    {{ rho_1 }} g/cm<sup>3</sup>
+                </div>
+                <div class="col-sm">
+                    {{ (vp_1 * rho_1)|round }} {% if vp_units == 0 %} (m/s)(g/cm<sup>3</sup>) {% else %} (ft/s)(g/cm<sup>3</sup>) {% endif %}
+                </div>
             </div>
-            <div class="col-sm">
-                <h6>Wavelet Length</h6>
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    <h6>Wedge Layer</h6>
+                </div>
+                <div class="col-sm">
+                    {{ vp_2 }} {% if vp_units == 0 %} m/s {% else %} ft/s {% endif %}
+                </div>
+                <div class="col-sm">
+                    {{ rho_2 }} g/cm<sup>3</sup>
+                </div>
+                <div class="col-sm">
+                    {{ (vp_2 * rho_2)|round }} {% if vp_units == 0 %} (m/s)(g/cm<sup>3</sup>) {% else %} (ft/s)(g/cm<sup>3</sup>) {% endif %}
+                </div>
             </div>
-            <div class="col-sm">
-                <h6>Sample Increment</h6>
+            <!-- Wavelet Parameter Inputs -->
+            <p></p>
+            <h5>Wavelet Parameters</h5>
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    <h6>Wavelet Type</h6>
+                </div>
+                <div class="col-sm">
+                    <h6>Frequency</h6>
+                </div>
+                <div class="col-sm">
+                    <h6>Wavelet Length</h6>
+                </div>
+                <div class="col-sm">
+                    <h6>Sample Increment</h6>
+                </div>
             </div>
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    {% if wv_type == 0 %} Ricker {% else %} Ormsby {% endif %}
+                </div>
+                <div class="col-sm">
+                    {% if wv_type == 0 %}
+                        {{ freq[0] }} Hz
+                    {% else %}
+                        {% for f in freq %}
+                            {{ f }} -
+                        {% endfor %} Hz
+                    {% endif %}
+                </div>
+                <div class="col-sm">
+                    {{ wv_len }} sec
+                </div>
+                <div class="col-sm">
+                    {{ wv_dt }} sec
+                </div>
+            </div>
+            <!-- Outputs -->
+            <p></p>
+            <hr />
+            <h4>Outputs</h4>
+            <div class="row row-cols-4">
+                <div class="col-sm"><h5>Domain</h5></div>
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col-sm"><h5>Tuning Thickness</h5></div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-sm">Theoretical</div>
+                        <div class="col-sm">Measured</div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col-sm"><h5>Tuning Onset</h5></div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-sm">Theoretical</div>
+                        <div class="col-sm">Measured</div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <h5>Limit of Resolution</h5>
+                </div>
+            </div>
+            <!-- Tuning parameters in TWT -->
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    <h6>TWT (ms)</h6>
+                </div>
+                <!-- Tuning Thickness -->
+                <div class="col-sm">
+                    <div class="row row-cols-2">
+                        <div class="col-sm">
+                            {{ tuning_twt|round(2) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ tuning_twt_meas|round(2) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Tuning Onset -->
+                <div class="col-sm">
+                    <div class="row row-cols-2">
+                        <div class="col-sm">
+                            {{ tuning_twt_onset|round(2) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ tuning_twt_onset_meas|round(2) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Limit of Resolution -->
+                <div class="col-sm">
+                    {{ res_lim|round(2) }}
+                </div>
+            </div>
+            <!-- Tuning parameters in depth units -->
+            <div class="row row-cols-4">
+                <div class="col-sm">
+                    <h6>Z {% if vp_units == 0 %} (m) {% else %} (ft) {% endif %}</h6>
+                </div>
+                <!-- Tuning Thickness -->
+                <div class="col-sm">
+                    <div class="row row-cols-2">
+                        <div class="col-sm">
+                            {{ (tuning_twt / 2 / 1000 * vp_2)|round(2) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ (tuning_twt_meas / 2 / 1000 * vp_2)|round(2) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Tuning Onset -->
+                <div class="col-sm">
+                    <div class="row row-cols-2">
+                        <div class="col-sm">
+                            {{ (tuning_twt_onset / 2 / 1000 * vp_2)|round(2) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ (tuning_twt_onset_meas / 2 / 1000 * vp_2)|round(2) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Limit of Resolution -->
+                <div class="col-sm">
+                    {{ (res_lim / 2 / 1000 * vp_2)|round(2) }}
+                </div>
+            </div>
+            <!-- Return Home button -->
+            <a class="btn btn-primary" href="{{ url_for('main.index')}}" role="button">Return Home</a>
         </div>
-        <div class="row row-cols-4">
-            <div class="col-sm">
-                {% if wv_type == 0 %} Ricker {% else %} Ormsby {% endif %}
-            </div>
-            <div class="col-sm">
-                {% if wv_type == 0 %}
-                    {{ freq[0] }} Hz
-                {% else %}
-                    {% for f in freq %}
-                        {{ f }} -
-                    {% endfor %} Hz
-                {% endif %}
-            </div>
-            <div class="col-sm">
-                {{ wv_len }} sec
-            </div>
-            <div class="col-sm">
-                {{ wv_dt }} sec
-            </div>
-        </div>
-        <!-- Outputs -->
-        <p></p>
-        <hr />
-        <h4>Outputs</h4>
-        <div class="row row-cols-4">
-            <div class="col-sm"><h5>Domain</h5></div>
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col-sm"><h5>Tuning Thickness</h5></div>
-                </div>
-                <div class="row row-cols-2">
-                    <div class="col-sm">Theoretical</div>
-                    <div class="col-sm">Measured</div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="row">
-                    <div class="col-sm"><h5>Tuning Onset</h5></div>
-                </div>
-                <div class="row row-cols-2">
-                    <div class="col-sm">Theoretical</div>
-                    <div class="col-sm">Measured</div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <h5>Limit of Resolution</h5>
-            </div>
-        </div>
-        <!-- Tuning parameters in TWT -->
-        <div class="row row-cols-4">
-            <div class="col-sm">
-                <h6>TWT (ms)</h6>
-            </div>
-            <!-- Tuning Thickness -->
-            <div class="col-sm">
-                <div class="row row-cols-2">
-                    <div class="col-sm">
-                        {{ tuning_twt|round(2) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ tuning_twt_meas|round(2) }}
-                    </div>
-                </div>
-            </div>
-            <!-- Tuning Onset -->
-            <div class="col-sm">
-                <div class="row row-cols-2">
-                    <div class="col-sm">
-                        {{ tuning_twt_onset|round(2) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ tuning_twt_onset_meas|round(2) }}
-                    </div>
-                </div>
-            </div>
-            <!-- Limit of Resolution -->
-            <div class="col-sm">
-                {{ res_lim|round(2) }}
-            </div>
-        </div>
-        <!-- Tuning parameters in depth units -->
-        <div class="row row-cols-4">
-            <div class="col-sm">
-                <h6>Z {% if vp_units == 0 %} (m) {% else %} (ft) {% endif %}</h6>
-            </div>
-            <!-- Tuning Thickness -->
-            <div class="col-sm">
-                <div class="row row-cols-2">
-                    <div class="col-sm">
-                        {{ (tuning_twt / 2 / 1000 * vp_2)|round(2) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ (tuning_twt_meas / 2 / 1000 * vp_2)|round(2) }}
-                    </div>
-                </div>
-            </div>
-            <!-- Tuning Onset -->
-            <div class="col-sm">
-                <div class="row row-cols-2">
-                    <div class="col-sm">
-                        {{ (tuning_twt_onset / 2 / 1000 * vp_2)|round(2) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ (tuning_twt_onset_meas / 2 / 1000 * vp_2)|round(2) }}
-                    </div>
-                </div>
-            </div>
-            <!-- Limit of Resolution -->
-            <div class="col-sm">
-                {{ (res_lim / 2 / 1000 * vp_2)|round(2) }}
-            </div>
-        </div>
-        <!-- Return Home button -->
-        <a class="btn btn-primary" href="{{ url_for('main.index')}}" role="button">Return Home</a>
     </div>
+
 {% endblock %}
