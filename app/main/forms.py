@@ -152,7 +152,7 @@ class TuningWedgeForm(FlaskForm):
     vp_units = RadioField(label='Vp Units', choices=[('0', 'm/s'), ('1', 'ft/s')], coerce=int)
     wv_type = SelectField(label='Wavelet', choices=[('0', 'Ricker'), ('1', 'Ormsby')], coerce=int)
     frequency = StringField('Frequency (Hz)', validators=[DataRequired(), ValidateFrequency('wv_type')])
-    wv_length = DecimalField('Length (s)', places=3, validators=[DataRequired(), NumberRange(min=0.01, max=1.0)])
+    wv_length = DecimalField('Duration (s)', places=3, validators=[DataRequired(), NumberRange(min=0.01, max=1.0)])
     wv_dt = DecimalField('dt (s)',
                          places=3,
                          validators=[
