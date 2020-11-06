@@ -138,11 +138,11 @@ class ContactForm(FlaskForm):
 class TuningWedgeForm(FlaskForm):
     """Inputs for calculating tuning wedge"""
     layer_1_vp = IntegerField('vp_1', validators=[DataRequired(), NumberRange(min=0, max=20000)])
-    layer_1_dens = DecimalField('rho_1', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)])
+    layer_1_dens = DecimalField('rho_1', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)], places=3)
     layer_1_impedance = IntegerField('imp_1')
     # layer_3 properties will be the same as layer_1
     layer_2_vp = IntegerField('vp_2', validators=[DataRequired(), NumberRange(min=0, max=20000)])
-    layer_2_dens = DecimalField('rho_2', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)])
+    layer_2_dens = DecimalField('rho_2', validators=[DataRequired(), NumberRange(min=1.0, max=5.0)], places=3)
     layer_2_impedance = IntegerField('imp_2', validators=[NotEqualTo(
         'layer_1_impedance',
         message='Impedances are the '
