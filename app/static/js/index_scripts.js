@@ -44,7 +44,7 @@ window.onload = function(){
             var rho1 = document.getElementById('rho1');
             var imp1 = document.getElementById('imp1');
             if( vp1.value != '' && rho1.value != ''){
-                imp1.value = Math.round(vp1.value * rho1.value * 100) / 100;
+                imp1.value = parseInt(Math.round(vp1.value * rho1.value * 100) / 100);
             }
             else{
                 imp1.value = '';
@@ -53,7 +53,7 @@ window.onload = function(){
             var rho2 = document.getElementById('rho2');
             var imp2 = document.getElementById('imp2');
             if( vp2.value != '' && rho2.value != ''){
-                imp2.value = Math.round(vp2.value * rho2.value * 100) / 100;
+                imp2.value = parseInt(Math.round(vp2.value * rho2.value * 100) / 100);
             }
             else{
                 imp2.value = '';
@@ -89,7 +89,7 @@ window.onload = function(){
             var rho1 = document.getElementById('rho1');
             var imp1 = document.getElementById('imp1');
             if( vp1.value != '' && rho1.value != ''){
-                imp1.value = Math.round(vp1.value * rho1.value * 100) / 100;
+                imp1.value = parseInt(Math.round(vp1.value * rho1.value * 100) / 100);
             }
             else{
                 imp1.value = '';
@@ -98,7 +98,7 @@ window.onload = function(){
             var rho2 = document.getElementById('rho2');
             var imp2 = document.getElementById('imp2');
             if( vp2.value != '' && rho2.value != ''){
-                imp2.value = Math.round(vp2.value * rho2.value * 100) / 100;
+                imp2.value = parseInt(Math.round(vp2.value * rho2.value * 100) / 100);
             }
             else{
                 imp2.value = '';
