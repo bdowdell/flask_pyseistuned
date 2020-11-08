@@ -86,8 +86,8 @@ In addition to using unittest, this project also uses the Python Coverage module
 a coverage report, run the following commands at the command line:
 
 ```
-$coverage run -m unittest discover
-$coverage html app/*.py app/main/*.py
+$ coverage run -m unittest discover
+$ coverage html app/*.py app/main/*.py
 ```
 
 The first command re-runs all the unit tests and the second generates a nicely formatted HTML report that is very useful 
