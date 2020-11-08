@@ -12,6 +12,7 @@ Flask-Mail = "*"
 bokeh = "*"
 flask-weasyprint = "*"
 coverage = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
