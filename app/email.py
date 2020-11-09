@@ -31,7 +31,7 @@ def send_email(subject, sender_email, sender_name, recipients, text_body):
     msg = Message(
         subject,
         sender=sender_email,
-        recipients=recipients,
+        recipients=[recipients],
         extra_headers={'name': sender_name}
     )
     msg.body = text_body

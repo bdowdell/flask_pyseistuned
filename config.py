@@ -27,7 +27,7 @@ class Config:
     PST_MAIL_SENDER = 'PySeisTuned Admin <ben@pyseistuned.com>'
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMINS = ['ben@test.com']
+    ADMINS = 'ben@test.com'
 
     @staticmethod
     def init_app(app):
@@ -45,7 +45,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
-    ADMINS = [os.environ.get('PST_ADMIN')]
+    ADMINS = os.environ.get('PST_ADMIN')
 
     @classmethod
     def init_app(cls, app):
@@ -63,7 +63,7 @@ class ProductionConfig(Config):
         mail_handler = SMTPHandler(
             mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
             fromaddr=cls.PST_MAIL_SENDER,
-            toaddrs=cls.ADMINS,
+            toaddrs=[cls.ADMINS],
             subject='PySeisTuned APPLICATION ERROR',
             credentials=credentials,
             secure=secure

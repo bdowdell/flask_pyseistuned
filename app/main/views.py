@@ -141,7 +141,7 @@ def contact():
         email = request.form.get('email')
         subject = request.form.get('subject')
         body = request.form.get('body')
-        send_email(subject, email, name, [current_app.config['ADMINS'][0]], body)
+        send_email(subject, email, name, current_app.config['ADMINS'], body)
         return redirect(url_for('.success'))
     return render_template('contact.html', form=form)
 
