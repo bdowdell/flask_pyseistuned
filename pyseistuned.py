@@ -20,6 +20,8 @@ import os
 from dotenv import load_dotenv
 from app import create_app
 
+# before creating the app, check to see if a .env file exists containing necessary
+# environmental variables and load if so
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
