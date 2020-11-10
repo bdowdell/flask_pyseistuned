@@ -72,7 +72,7 @@ class ValidateFrequency(object):
         self.message = message
 
     def __call__(self, form, field):
-        message = self.message
+        msg = self.message
         try:
             wavelet_type = form[self.fieldname]
         except KeyError:
@@ -83,41 +83,41 @@ class ValidateFrequency(object):
                 freqs = [int(x) for x in field.data.split(',')]  # Ormsby filter should be entered as F1, F2, F3, F4
                 # check that four frequencies are entered
                 if len(freqs) != 4:
-                    message = "Wrong number of frequency corner points supplied or not properly formatted."
+                    msg = "Wrong number of frequency corner points supplied or not properly formatted."
                     raise ValidationError
                 # check that all frequencies are positive
                 for x in freqs:
                     if x < 0:
-                        message = "Negative frequency entered.  All frequencies need to be positive."
+                        msg = "Negative frequency entered.  All frequencies need to be positive."
                         raise ValidationError
                 # check that frequencies increase in size
                 if not freqs[0] < freqs[1] < freqs[2] < freqs[3]:
-                    message = "Frequencies should increase in value: F1 < F2 < F3 < F4."
+                    msg = "Frequencies should increase in value: F1 < F2 < F3 < F4."
                     raise ValidationError
             except ValidationError:
-                raise ValidationError(message)
+                raise ValidationError(msg)
             except AttributeError:
-                if message is None:
-                    message = "Incorrect type passed"
-                raise AttributeError(message)
+                if msg is None:
+                    msg = "Incorrect type passed"
+                raise AttributeError(msg)
         else:
             # Ricker wavelet type has value of 0, so check that case second.
             try:
                 freqs = [int(x) for x in field.data.split(',')]  # Ricker filter should only have one frequency Fc
                 # check that only one frequency is entered
                 if len(freqs) != 1:
-                    message = "Too many frequencies entered. Ricker wavelet only takes one frequency."
+                    msg = "Too many frequencies entered. Ricker wavelet only takes one frequency."
                     raise ValidationError
                 # check that all frequencies are positive
                 if freqs[0] < 0:
-                    message = "Negative frequency entered. Only positive values accepted."
+                    msg = "Negative frequency entered. Only positive values accepted."
                     raise ValidationError
             except ValidationError:
-                raise ValidationError(message)
+                raise ValidationError(msg)
             except AttributeError:
-                if message is None:
-                    message = "Incorrect type passed"
-                raise AttributeError(message)
+                if msg is None:
+                    msg = "Incorrect type passed"
+                raise AttributeError(msg)
 
 
 class ContactForm(FlaskForm):

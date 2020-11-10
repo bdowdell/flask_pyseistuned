@@ -296,9 +296,25 @@ class AppTestCase(unittest.TestCase):
         with self.assertRaises(AttributeError):
             form.frequency.validate(form=form, extra_validators=[ValidateFrequency('wv_type')])
 
+    def test_forms_ValidateFrequency_ormsby_with_message(self):
+        form = self.soft_ormsby_wedge_form
+        form.frequency.data = 10
+        from app.main.forms import ValidateFrequency
+        with self.assertRaises(AttributeError):
+            v = ValidateFrequency('wv_type', message='Test')
+            v(form, form.frequency)
+
     def test_forms_ValidateFrequency_ricker_no_message(self):
         form = self.soft_ricker_wedge_form
         form.frequency.data = 10
         from app.main.forms import ValidateFrequency
         with self.assertRaises(AttributeError):
             form.frequency.validate(form=form, extra_validators=[ValidateFrequency('wv_type')])
+
+    def test_forms_ValidateFrequency_ricker_with_message(self):
+        form = self.soft_ricker_wedge_form
+        form.frequency.data = 10
+        from app.main.forms import ValidateFrequency
+        with self.assertRaises(AttributeError):
+            v = ValidateFrequency('wv_type', message='Test')
+            v(form, form.frequency)
