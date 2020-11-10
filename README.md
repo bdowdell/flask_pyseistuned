@@ -82,8 +82,15 @@ setting the environmental variables above:
 
 If all the tests pass, each test should be followed by "... OK" with a final "OK" at the end.
 
-In addition to using unittest, this project also uses the Python Coverage module to report on test coverage. To generate 
-a coverage report, run the following commands at the command line:
+In addition to using unittest, this project also uses the Python Coverage module to report code coverage. To generate 
+a coverage report at the same time as running the unit tests, add the `--coverage` flag:
+
+`$ flask test --coverage`
+
+Passing the `--coverage` option to `flask test` will result in both a coverage report in the terminal as 
+well as the creation of an html version of the report in the directory `htmlcov` created after the initial coverage run.
+
+Alternatively, coverage can also be ran independently of running the unit tests by running:
 
 ```
 $ coverage run -m unittest discover
