@@ -34,7 +34,6 @@ def send_email(subject, sender_email, sender_name, recipients, text_body, templa
         recipients=[recipients],
         extra_headers={'name': sender_name}
     )
-    #msg.body = text_body
     msg.body = render_template(
         template + '.txt',
         sender_name=sender_name,
