@@ -29,7 +29,7 @@ if os.path.exists(dotenv_path):
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
     import coverage
-    COV = coverage.coverage(branch=True, include='app/*')
+    COV = coverage.coverage(branch=True, include='app/*.py')
     COV.start()
 
 # the order of the imports matters, or else app/__init__.py will not have full coverage

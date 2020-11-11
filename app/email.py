@@ -17,7 +17,7 @@ limitations under the License.
 """
 
 from app import mail
-from flask import current_app
+from flask import current_app, render_template
 from flask_mail import Message
 from threading import Thread
 
@@ -27,13 +27,27 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 
-def send_email(subject, sender_email, sender_name, recipients, text_body):
+def send_email(subject, sender_email, sender_name, recipients, text_body, template=None):
     msg = Message(
         subject,
         sender=sender_email,
         recipients=[recipients],
         extra_headers={'name': sender_name}
     )
-    msg.body = text_body
+    #msg.body = text_body
+    msg.body = render_template(
+        template + '.txt',
+        sender_name=sender_name,
+        sender_email=sender_email,
+        subject=subject,
+        text_body=text_body
+    )
+    msg.html = render_template(
+        template + '.html',
+        sender_name=sender_name,
+        sender_email=sender_email,
+        subject=subject,
+        text_body=text_body
+    )
     Thread(target=send_async_email,
            args=(current_app._get_current_object(), msg)).start()
