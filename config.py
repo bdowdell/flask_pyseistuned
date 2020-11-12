@@ -27,7 +27,7 @@ class Config:
     PST_MAIL_SENDER = 'PySeisTuned Admin <ben@pyseistuned.com>'
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMINS = 'ben@test.com'
+    ADMINS = os.environ.get('ADMINS', 'ben@test.com')
 
     @staticmethod
     def init_app(app):
