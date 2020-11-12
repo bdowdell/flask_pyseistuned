@@ -1,4 +1,4 @@
 From: {{ sender_name }}
 Email: {{ sender_email }}
-
+Message:
 {{ text_body }}
