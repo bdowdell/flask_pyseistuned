@@ -38,14 +38,12 @@ def send_email(subject, sender_email, sender_name, recipients, text_body, templa
         template + '.txt',
         sender_name=sender_name,
         sender_email=sender_email,
-        subject=subject,
         text_body=text_body
     )
     msg.html = render_template(
         template + '.html',
         sender_name=sender_name,
         sender_email=sender_email,
-        subject=subject,
         text_body=text_body
     )
     Thread(target=send_async_email,
