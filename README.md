@@ -74,7 +74,8 @@ and then set the MAIL_PORT variable:
 
 At this point you are now ready to run the application!
 
-####*Note:*
+#### *Note:*
+
 All environmental variables can be placed inside a `.env` file instead of exporting them; however, `FLASK_APP` 
 needs to either be set by the user or placed inside a file such as `~/.bashrc` or `~/.profile`. The reason for this is 
 that flask needs to know what application it should be pointed at prior to invoking `flask run` after which point the 
