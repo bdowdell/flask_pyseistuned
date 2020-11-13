@@ -28,9 +28,8 @@ because it just seemed a little more straightforward. I think I prefer conda for
 for application development, but I digress ...
 
 ### 2) Clone this repository
-Next, you need to clone this repository on your local machine. If you want to make contributions, then you will also 
-want to create your own branch. To clone the repository, simply use the green button above labelled "Code" to copy the 
-repository URL to the clipboard. Then in the terminal:
+Next, you need to clone this repository on your local machine. To clone the repository, simply use the green button 
+above labelled "Code" to copy the repository URL to the clipboard. Then in the terminal:
 
 `$ git clone https://github.com/bdowdell/flask_pyseistuned.git`
 
