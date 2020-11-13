@@ -167,7 +167,7 @@ You should see a message that states:
 ```
 This means that the web app is running! Click the link and it will open in your default web browser.
 
-### 8) Resources
+## Resources
 Miguel Grinberg's book 
 [Flask Web Development (2e)](https://www.oreilly.com/library/view/flask-web-development/9781491991725/) 
 was an invaluable resource in designing PySeisTuned<sup>2.0</sup>. He also has a great blog with even more resources. 
