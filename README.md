@@ -1,7 +1,9 @@
 # PySeisTuned<sup>2.0</sup>
 A Flask / Python-based web app version of PySeisTuned<sup>1.0</sup>.
 
-The original version, PySeisTuned<sup>1.0</sup>, is a Python / PyQT5 GUI application that runs locally in a desktop environment. The new version, PySeisTuned<sup>2.0</sup>, is a web app that makes it even easier for users to explore seismic tuning from the comfort of the world-wide-web!
+The original version, PySeisTuned<sup>1.0</sup>, is a Python / PyQT5 GUI application that runs locally in a desktop 
+environment. The new version, PySeisTuned<sup>2.0</sup>, is a web app that makes it even easier for users to explore 
+seismic tuning from the comfort of the world-wide-web!
 
 ## Citing PySeisTuned<sup>2.0</sup>
 If you use PySeisTuned<sup>2.0</sup> as part of a publication, please include a citation in the references section:
@@ -11,26 +13,35 @@ Dowdell, B.L., 2020, PySeisTuned2.0, [https://www.pyseistuned.com/](https://www.
 Publications which use PySeisTuned<sup>2.0</sup> will be featured on the page.
 
 ## Getting started
-If you want to run PySeisTuned<sup>2.0</sup> locally, there are a few things you need to do first. I'll walk you through the steps now!
+If you want to run PySeisTuned<sup>2.0</sup> locally, there are a few things you need to do first. I'll walk you through 
+the steps now!
 
 ### 1) Install pipenv
-For this project, I chose to use pipenv to create a virtual environment. If you don't already have pipenv installed, here's what you do:
+For this project, I chose to use pipenv to create a virtual environment. If you don't already have pipenv installed, 
+here's what you do:
 
 `$ pip install pipenv`
 
-pipenv is a really cool tool that basically combines pip and virtualenv into one streamlined utility that makes managing virtual environments and packages really straightforward. I opted to go with pipenv instead of conda for this project because it just seemed a little more straightforward. I think I prefer conda for data science type projects and pipenv for application development, but I digress ...
+pipenv is a really cool tool that basically combines pip and virtualenv into one streamlined utility that makes managing 
+virtual environments and packages really straightforward. I opted to go with pipenv instead of conda for this project 
+because it just seemed a little more straightforward. I think I prefer conda for data science type projects and pipenv 
+for application development, but I digress ...
 
 ### 2) Clone this repository
-Next, you need to clone this repository on your local machine. If you want to make contributions, then you will also want to create your own branch. To clone the repository, simply use the green button above labelled "Code" to copy the repository URL to the clipboard. Then in the terminal:
+Next, you need to clone this repository on your local machine. If you want to make contributions, then you will also 
+want to create your own branch. To clone the repository, simply use the green button above labelled "Code" to copy the 
+repository URL to the clipboard. Then in the terminal:
 
 `$ git clone https://github.com/bdowdell/flask_pyseistuned.git`
 
 ### 3) Set up the flask_pyseistuned virtual environment
-Now that you have the repository cloned on your local machine, you need to install the flask_pyseistuned virtual environment:
+Now that you have the repository cloned on your local machine, you need to install the flask_pyseistuned virtual 
+environment:
 
 `$ pipenv install`
 
-pipenv will use the Pipfile and Pipfile.lock to set up the virtual environment. Once it is set up, launch the environment:
+pipenv will use the Pipfile and Pipfile.lock to set up the virtual environment. Once it is set up, launch the 
+environment:
 
 `$ pipenv shell`
 
@@ -39,9 +50,11 @@ And when you are done, you can exit the environment by:
 `$ exit`
 
 ### 4) Set flask-specific environment variables
-Before you can run the flask_pyseistuned web app, you need to set several flask-specific environment variables from inside the repository directory. 
+Before you can run the flask_pyseistuned web app, you need to set several flask-specific environment variables from 
+inside the repository directory. 
 
-*Note: If you are working from within an IDE such as VS Code or PyCharm, I suggest you set these environment variables using the IDE's integrated terminal.*
+*Note: If you are working from within an IDE such as VS Code or PyCharm, I suggest you set these environment variables 
+using the IDE's integrated terminal.*
 
 First, set the FLASK_APP environment variable:
 
@@ -55,14 +68,18 @@ and set the FLASK_CONFIG environment variable:
 
 `$ export FLASK_DEBUG=1`
 
-The FLASK_APP variable tells flask what application it is supposed to run and the FLASK_ENV variable specifies you will be running in a development mode so that the visual debugger is available in the web browers when things go wrong.
+The FLASK_APP variable tells flask what application it is supposed to run and the FLASK_ENV variable specifies you will 
+be running in a development mode so that the visual debugger is available in the web browser when things go wrong.
 
 ### 5) Launch a virtual email server
-To test email sending functionality on the contact page, a virtual email server needs to be launched. Open a new terminal or new tab in a terminal and:
+To test email sending functionality on the contact page, a virtual email server needs to be launched. Open a new 
+terminal or new tab in a terminal and:
 
 `$ python -m smtpd -c DebuggingServer -n localhost:8025`
 
-You won't see anything happen. The virtual email server has launched and is now listening for an email to be sent. Return to terminal where you previously set the flask environment variables. There are two more environment variables which need to be set for the virtual mail server.
+You won't see anything happen. The virtual email server has launched and is now listening for an email to be sent. 
+Return to terminal where you previously set the flask environment variables. There are two more environment variables 
+which need to be set for the virtual mail server.
 
 First, set the MAIL_SERVER variable:
 
@@ -91,6 +108,19 @@ $ source ~/.bashrc
 $ cd /path/to/flask_pyseistuned
 $ vim .env
 ```
+
+The `.env` file will look like this using the variables we have defined above:
+
+```
+FLASK_CONFIG=development
+FLASK_DEBUG=1
+MAIL_SERVER=localhost
+MAIL_PORT=8025
+```
+
+When the app is launched, `pyseistuned.py` uses the dotenv package to see if a `.env` file exits and loads any 
+environmental variables defined inside. There is no need to preface each variable with an `export` command inside 
+`.env`.
 
 ### 6) Run unit tests & check coverage
 This project uses the Python unittest package to run automated unit tests. To run the tests, run the command after 
@@ -137,3 +167,9 @@ You should see a message that states:
  * Debugger PIN: xxx-xxx-xxx
 ```
 This means that the web app is running! Click the link and it will open in your default web browser.
+
+### 8) Resources
+Miguel Grinberg's book 
+[Flask Web Development (2e)](https://www.oreilly.com/library/view/flask-web-development/9781491991725/) 
+was an invaluable resource in designing PySeisTuned<sup>2.0</sup>. He also has a great blog with even more resources. 
+Check it out [here](blog.miguelgrinberg.com).
