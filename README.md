@@ -74,6 +74,23 @@ and then set the MAIL_PORT variable:
 
 At this point you are now ready to run the application!
 
+####*Note:*
+All environmental variables can be placed inside a `.env` file instead of exporting them; however, `FLASK_APP` 
+needs to either be set by the user or placed inside a file such as `~/.bashrc` or `~/.profile`. The reason for this is 
+that flask needs to know what application it should be pointed at prior to invoking `flask run` after which point the 
+app will load all environmental variables from `.env` if the file exists. The `.env` file is not included in source 
+control because several variables are sensitive and should not be shared publicly, so it is up to the user to create 
+this file, if desired. The easiest way to do this is using your editor of choice inside the `flask_pyseistuned` root 
+directory:
+
+```
+$ cd
+$ echo "export FLASK_APP=pyseistuned.py" >> .bashrc
+$ source ~/.bashrc
+$ cd /path/to/flask_pyseistuned
+$ vim .env
+```
+
 ### 6) Run unit tests & check coverage
 This project uses the Python unittest package to run automated unit tests. To run the tests, run the command after 
 setting the environmental variables above:
