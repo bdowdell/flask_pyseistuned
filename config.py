@@ -28,6 +28,10 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = os.environ.get('ADMINS', 'ben@test.com')
+    RECAPTCHA_USE_SSL = os.environ.get('RECAPTCHA_USE_SSL')
+    RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+    RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+    RECAPTCHA_OPTIONS = os.environ.get('RECAPTCHA_OPTIONS')
 
     @staticmethod
     def init_app(app):

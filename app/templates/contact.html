@@ -32,6 +32,9 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        <p>
+            {{ form.recaptcha }}
+        </p>
         {{ form.submit(class_='btn btn-primary') }}
     </form>
 {% endblock %}

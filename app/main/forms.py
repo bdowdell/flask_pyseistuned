@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, TextAreaField, SubmitField, IntegerField, DecimalField, RadioField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, Length, NumberRange
 
@@ -132,6 +132,7 @@ class ContactForm(FlaskForm):
         DataRequired(),
         Length(min=4, message='Please enter a longer message.')
     ])
+    recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
 
 
